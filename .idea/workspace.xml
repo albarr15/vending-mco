@@ -4,15 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2a986716-d828-4749-96f3-b61fa5d60142" name="Changes" comment="Modified gitignore contents">
-      <change afterPath="$PROJECT_DIR$/src/main/java/regular_vm/Balance.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/regular_vm/Item.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/regular_vm/ItemSlot.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/regular_vm/RegularVM.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/regular_vm/TestMenu.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/regular_vm/Transaction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vending-mco.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vending-mco.iml" afterDir="false" />
+    <list default="true" id="2a986716-d828-4749-96f3-b61fa5d60142" name="Changes" comment="Created skeleton code for RegularVM class">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/regular_vm/Transaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/regular_vm/Transaction.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,12 +30,12 @@
     <option name="showMembers" value="true" />
     <option name="showVisibilityIcons" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -58,7 +52,21 @@
       <option name="project" value="LOCAL" />
       <updated>1686553583855</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Added empty class files">
+      <created>1686557097384</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1686557097384</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Created skeleton code for RegularVM class">
+      <created>1686557990039</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1686557990039</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -74,6 +82,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Modified gitignore contents" />
-    <option name="LAST_COMMIT_MESSAGE" value="Modified gitignore contents" />
+    <MESSAGE value="Added empty class files" />
+    <MESSAGE value="Created skeleton code for RegularVM class" />
+    <option name="LAST_COMMIT_MESSAGE" value="Created skeleton code for RegularVM class" />
   </component>
 </project>
