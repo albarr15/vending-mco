@@ -19,10 +19,9 @@ public class RegularVM {
     }
 
     public void makeTransaction() {
-
     }
 
     public void receivePayment(double payment) {
-
+        this.balance = new Balance(payment);
     }
 }

@@ -3,6 +3,10 @@ package regular_vm;
 public class Balance {
     private double currentBal;
 
+    public Balance (double newBal) {
+        this.currentBal = newBal;
+    }
+
     public void increaseBal(double incBal) {
         this.currentBal = currentBal + incBal;
     }
