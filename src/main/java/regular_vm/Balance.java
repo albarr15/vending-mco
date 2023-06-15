@@ -15,10 +15,6 @@ public class Balance {
         this.currentBal = currentBal - decBal;
     }
 
-    public void setCurrentBal(double newBal) {
-        this.currentBal = newBal;
-    }
-
     public double getCurrentBal() {
         return this.currentBal;
     }
