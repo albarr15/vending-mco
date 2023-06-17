@@ -29,7 +29,7 @@ public class ItemSlot {
 
     public boolean dispenseItem() {
         if(listItem.size() > 0) {
-            listItem.remove(listItem.size()-1); //must destroy
+            listItem.remove(listItem.size()-1);
             return true;
         } else return false;
     }
@@ -37,9 +37,13 @@ public class ItemSlot {
     public boolean stockItem() {
         if(listItem.size() < 10) {
             Item item = new Item(this.item.getName(), 
-                            this.item.getCaloriesAmt());
+                                 this.item.getCaloriesAmt());
             listItem.add(item);
             return true;
         } else return false;
+    }
+
+    public int getItemStock() {
+        return this.listItem.size();
     }
 }
