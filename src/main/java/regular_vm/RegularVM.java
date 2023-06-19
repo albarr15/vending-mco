@@ -34,6 +34,8 @@ public class RegularVM {
     }
 
     public void makeTransaction() {
+        Transaction transaction = new Transaction();
+        this.currentTransaction = transaction;
     }
 
     public void receivePayment(double payment) {
