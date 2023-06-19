@@ -26,14 +26,56 @@ public class Transaction {
     }
 
     public void receiveMoney(double amount) {
-        this.amtReceived = amount;
+        if (amount == 1000) {
+            this.amtReceived = this.amtReceived + amount;
+        }
+        else if (amount == 500) {
+            this.amtReceived = this.amtReceived + amount;
+        }
+        else if (amount == 200) {
+            this.amtReceived = this.amtReceived + amount;
+        }
+        else if (amount == 100) {
+            this.amtReceived = this.amtReceived + amount;
+        }
+        else if (amount == 50) {
+            this.amtReceived = this.amtReceived + amount;
+        }
+        else if (amount == 20) {
+            this.amtReceived = this.amtReceived + amount;
+        }
+        else if (amount == 10) {
+            this.amtReceived = this.amtReceived + amount;
+        }
+        else if (amount == 5) {
+            this.amtReceived = this.amtReceived + amount;
+        }
+        else if (amount == 1) {
+            this.amtReceived = this.amtReceived + amount;
+        }
+        else if (amount == 0.25) {
+            this.amtReceived = this.amtReceived + amount;
+        }
+        else if (amount == 0.05) {
+            this.amtReceived = this.amtReceived + amount;
+        }
+        else if (amount == 0.01) {
+            this.amtReceived = this.amtReceived + amount;
+        }
+        else {
+            System.out.println("Error : Invalid denomination");
+        }
     }
 
-    public double dispenseChange() {
+    public double dispenseChange(Balance bal) {
+        // use balance of regular vm for change
+
         if (amtReceived < orderTotal) {
+            bal.decreaseBal(amtReceived);
             return amtReceived;
         }
         else {
+            bal.decreaseBal(amtReceived - orderTotal);
             return amtReceived - orderTotal;
         }
     }
