@@ -16,19 +16,24 @@ public class Transaction {
     }
 
     public void addToCart(Item item) {
-
+        currentCart.add(item);
+        // calculate orderTotal here
     }
 
     public void removeFromCart(Item item) {
-
+        currentCart.remove(item);
     }
 
     public void receiveMoney(double amount) {
-
+        this.amtReceived = amount;
     }
 
     public double dispenseChange() {
-        // to be modified
-        return 0;
+        if (amtReceived < orderTotal) {
+            return amtReceived;
+        }
+        else {
+            return amtReceived - orderTotal;
+        }
     }
 }
