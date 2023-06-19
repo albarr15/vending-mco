@@ -15,13 +15,14 @@ public class Transaction {
         return status;
     }
 
-    public void addToCart(Item item) {
+    public void addToCart(Item item, ItemSlot itemSlot) {
         currentCart.add(item);
-        // calculate orderTotal here
+        orderTotal = orderTotal + itemSlot.price;
     }
 
-    public void removeFromCart(Item item) {
+    public void removeFromCart(Item item, ItemSlot itemSlot) {
         currentCart.remove(item);
+        orderTotal = orderTotal + itemSlot.price;
     }
 
     public void receiveMoney(double amount) {
