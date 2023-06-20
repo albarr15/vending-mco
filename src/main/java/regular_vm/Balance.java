@@ -1,10 +1,16 @@
 package regular_vm;
+import java.util.ArrayList;
 
 public class Balance {
     private double currentBal;
+    private ArrayList<Double> listDenominations = new ArrayList<Double>();
 
-    public Balance (double newBal) {
-        this.currentBal = newBal;
+    public Balance (ArrayList<Double> listDenominations1) {
+        this.listDenominations.addAll(listDenominations1);
+    }
+
+    public ArrayList<Double> getListDenominations() {
+        return this.listDenominations;
     }
 
     public void increaseBal(double incBal) {
