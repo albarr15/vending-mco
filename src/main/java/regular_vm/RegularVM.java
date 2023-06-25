@@ -37,8 +37,4 @@ public class RegularVM {
         Transaction transaction = new Transaction();
         this.currentTransaction = transaction;
     }
-
-    public void receivePayment(ArrayList<Double> listDenominations) {
-        this.balance = new Balance(listDenominations);
-    }
 }
