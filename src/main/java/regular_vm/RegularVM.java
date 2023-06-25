@@ -37,4 +37,8 @@ public class RegularVM {
         Transaction transaction = new Transaction();
         this.currentTransaction = transaction;
     }
+
+    public static void main(String[] args) {
+
+    }
 }
