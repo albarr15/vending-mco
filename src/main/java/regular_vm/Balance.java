@@ -4,8 +4,8 @@ import java.util.StringTokenizer;
 
 public class Balance {
     private double currentBal = 0;
-    private double[][] cashStock = { {0.01,0.05,0.1,0.25,0.5,1,5,10,20,50,100,200,500,1000},
-                                     {0,0,0,0,0,0,0,0,0,0,0,0,0,0} };
+    private double[][] cashStock = { {0.01,0.05,0.1,0.25,1,5,10,20,50,100,200,500,1000},
+                                     {0,0,0,0,0,0,0,0,0,0,0,0,0} };
 
     public Balance () {}
 
@@ -24,7 +24,7 @@ public class Balance {
 
         // Store in balance
         for(int i=0; i<cash.size(); i++)
-            for(int j=0; j<14; j++)
+            for(int j=0; j<13; j++)
                 if(cash.get(i) == this.cashStock[0][j]) {
                     this.cashStock[1][j]++;
                     this.currentBal += cash.get(i);
@@ -34,11 +34,11 @@ public class Balance {
 
     // Can be used for getting change or emptying machine stock
     public int[] withdrawCash(double amount) {
-        int[] cashWithdraw = {0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+        int[] cashWithdraw = {0,0,0,0,0,0,0,0,0,0,0,0,0};
         double origAmount = amount;
 
         // Removing cash from stock
-        int i=13;
+        int i=12;
         while(i >= 0)
             if(amount >= this.cashStock[0][i]) {
                 this.cashStock[1][i]--;
@@ -48,7 +48,7 @@ public class Balance {
 
         if(amount != 0) {
             // Returning extracted cash to stock if change is insufficient
-            for(i=0; i<14; i++)
+            for(i=0; i<13; i++)
                 this.cashStock[1][i] += cashWithdraw[i];
             return null;
         } else {
