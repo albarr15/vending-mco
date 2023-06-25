@@ -1,7 +1,6 @@
 package regular_vm;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.lang.Character;
 
 public class Transaction {
     private ArrayList<Item> currentCart = new ArrayList<Item>();
@@ -27,26 +26,38 @@ public class Transaction {
         orderTotal = orderTotal + itemSlot.price;
     }
 
-    // shows summary of total cart and prompts for order placement
-    // returns 0 if successful, 1 if user wants to go back to modifying currentCart items
-    public int checkOut(Balance bal){
+    // displays currentCart's items
+    public void previewCart() {
+        System.out.println("----- Current Cart -----");
         for(int i = 0; i < currentCart.size(); i++) {
             System.out.println("[i] " + currentCart.get(i));
         }
-        System.out.println("Place Order? (y/n)");
-        Scanner scanner = new Scanner(System.in);
-        char input = scanner.next().charAt(0);
-        if (input == 'y') {
-            // prompt for cash deposit
-            double initialBal = bal.getCurrentBal();
-            bal.depositCash(scanner.next());
+    }
 
-            // get newly added cash for this specific transaction
-            amtReceived = initialBal - bal.getCurrentBal();
-            return 0;
+    // returns 0 if successful, 1 if not
+    public int checkOut(Balance bal){
+        Scanner scanner = new Scanner(System.in);
+
+        // prompt for cash deposit
+        double initialBal = bal.getCurrentBal();
+        bal.depositCash(scanner.next());
+
+        // get newly added cash for this specific transaction
+        this.amtReceived = initialBal - bal.getCurrentBal();
+
+        if (this.amtReceived < this.orderTotal) {
+            System.out.println("TRANSACTION UNSUCCESSFUL (Not enough cash entered)");
+            System.out.println("Returning cash ...");
+            bal.withdrawCash(this.amtReceived);
+
+            return 1;
         }
         else {
-            return 1;
+            double changeAmt = this.amtReceived - orderTotal;
+            System.out.println("TRANSACTION SUCCESSFUL");
+            System.out.println("Withdrawing change ...");
+            bal.withdrawCash(changeAmt);
+            return 0;
         }
     }
 }
