@@ -10,13 +10,18 @@ public class ItemSlot {
         this.item = item;
         listItem.clear();
     }
+    
     public String getItem() {
         return this.item.getName();
     }
 
     public void setPrice(double price) {
         this.price = price;
+
+        for (int i=0; i<this.listItem.size(); i++)
+            this.listItem.get(i).setPrice(price);
     }
+    
     public double getPrice() {
         return this.price;
     }
@@ -37,7 +42,8 @@ public class ItemSlot {
     public boolean stockItem() {
         if(listItem.size() < 10) {
             Item item = new Item(this.item.getName(), 
-                                 this.item.getCaloriesAmt());
+                                 this.item.getCaloriesAmt()
+                                 this.item.getPrice());
             listItem.add(item);
             return true;
         } else return false;
