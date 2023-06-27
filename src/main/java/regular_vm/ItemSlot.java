@@ -42,7 +42,7 @@ public class ItemSlot {
     public boolean stockItem() {
         if(listItem.size() < 10) {
             Item item = new Item(this.item.getName(), 
-                                 this.item.getCaloriesAmt()
+                                 this.item.getCaloriesAmt(),
                                  this.item.getPrice());
             listItem.add(item);
             return true;

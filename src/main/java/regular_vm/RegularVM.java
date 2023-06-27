@@ -12,10 +12,10 @@ public class RegularVM {
 
     public void displaySlotAvailability(ItemSlot itemSlot) {
         if (itemSlot.checkSlotAvailability()) {
-            System.out.println("Slot with " + itemSlot.item.name + "items is NOT AVAILABLE.");
+            System.out.println("Slot with " + itemSlot.getItem() + "items is NOT AVAILABLE.");
         }
         else {
-            System.out.println("Slot with " + itemSlot.item.name + "items is AVAILABLE.");
+            System.out.println("Slot with " + itemSlot.getItem() + "items is AVAILABLE.");
         }
     }
 
@@ -28,7 +28,7 @@ public class RegularVM {
                 System.out.println("Slot " + i + " ( OUT OF STOCK )");
             }
             else {
-                System.out.println("Slot " + i + " (" + (listItemSlots.get(i)).item.name + ")");
+                System.out.println("Slot " + i + " (" + (listItemSlots.get(i)).getItem() + ")");
             }
         }
     }
