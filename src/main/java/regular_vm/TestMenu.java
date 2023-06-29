@@ -4,7 +4,7 @@ public class TestMenu {
 
     public void setItem(ItemSlot itemSlot, String itemName,
                         double caloriesAmt, double price) {
-        Item item = new Item(itemName, caloriesAmt);
+        Item item = new Item(itemName, caloriesAmt, price);
         itemSlot.setItem(item);
         itemSlot.setPrice(price);
     }
@@ -28,18 +28,18 @@ public class TestMenu {
     }
 
     public double collectMoney(Balance bal, double amount) {
-        bal.decreaseBal(amount);
+        // bal.decreaseBal(amount);
         return amount;
     }
     
     public double collectMoney(Balance bal) {
         double totalBalance = bal.getCurrentBal();
-        bal.decreaseBal(totalBalance);
+        // bal.decreaseBal(totalBalance);
         return totalBalance;
     }
 
     public double replenishMoney(Balance bal, double amount) {
-        bal.increaseBal(amount);
+        // bal.increaseBal(amount);
         return bal.getCurrentBal();
     }
 

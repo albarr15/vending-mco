@@ -2,7 +2,7 @@ package regular_vm;
 import java.util.ArrayList;
 
 public class RegularVM {
-    private ArrayList<ItemSlot> listItemSlots;
+    private ArrayList<ItemSlot> listItemSlots = new ArrayList<ItemSlot>();
     private Balance balance;
     private Transaction currentTransaction;
 
@@ -25,10 +25,11 @@ public class RegularVM {
         // prints each itemSlot with its corresponding stocked item
         for (int i = 0; i < size; i++) {
             if ((listItemSlots.get(i)).checkSlotAvailability()) {
-                System.out.println("Slot " + i + " ( OUT OF STOCK )");
+                System.out.println("Slot " + (i + 1) + " ( OUT OF STOCK )");
             }
             else {
-                System.out.println("Slot " + i + " (" + (listItemSlots.get(i)).getItem() + ")");
+                System.out.println("Slot " + (i + 1) + " (" + (listItemSlots.get(i)).getItem() + ")");
+                System.out.println("Price : " + listItemSlots.get(i).getPrice());
             }
         }
     }
@@ -36,6 +37,10 @@ public class RegularVM {
     public void makeTransaction() {
         Transaction transaction = new Transaction();
         this.currentTransaction = transaction;
+    }
+
+    public ArrayList<ItemSlot> getListItemSlots () {
+        return this.listItemSlots;
     }
 
     public static void main(String[] args) {
@@ -62,6 +67,16 @@ public class RegularVM {
         ItemSlot itemSlot7 = new ItemSlot();
         ItemSlot itemSlot8 = new ItemSlot();
 
+        // add itemSlots to regularVM
+        regularVM.addItemSlot(itemSlot1);
+        regularVM.addItemSlot(itemSlot2);
+        regularVM.addItemSlot(itemSlot3);
+        regularVM.addItemSlot(itemSlot4);
+        regularVM.addItemSlot(itemSlot5);
+        regularVM.addItemSlot(itemSlot6);
+        regularVM.addItemSlot(itemSlot7);
+        regularVM.addItemSlot(itemSlot8);
+
         // set Item for each itemSlot
         itemSlot1.setItem(chashuPork);
         itemSlot2.setItem(chickenSlices);
@@ -72,42 +87,11 @@ public class RegularVM {
         itemSlot7.setItem(corn);
         itemSlot8.setItem(butter);
 
-        // set Prices for each itemSlot
-        itemSlot1.setPrice(chashuPork.getPrice());
-        itemSlot2.setPrice(chickenSlices.getPrice());
-        itemSlot3.setPrice(fishCake.getPrice());
-        itemSlot4.setPrice(ajitamago.getPrice());
-        itemSlot5.setPrice(friedTofu.getPrice());
-        itemSlot6.setPrice(seaweed.getPrice());
-        itemSlot7.setPrice(corn.getPrice());
-        itemSlot8.setPrice(butter.getPrice());
-
         // fully restock all itemSlots
-        for (int i = 0; i < 10; i++) {
-            itemSlot1.stockItem();
-        }
-        for (int i = 0; i < 10; i++) {
-            itemSlot2.stockItem();
-        }
-        for (int i = 0; i < 10; i++) {
-            itemSlot3.stockItem();
-        }
-        for (int i = 0; i < 10; i++) {
-            itemSlot4.stockItem();
-        }
-        for (int i = 0; i < 10; i++) {
-            itemSlot5.stockItem();
-        }
-        for (int i = 0; i < 10; i++) {
-            itemSlot6.stockItem();
-        }
-        for (int i = 0; i < 10; i++) {
-            itemSlot7.stockItem();
-        }
-        for (int i = 0; i < 10; i++) {
-            itemSlot8.stockItem();
+        for (int i = 0; i < regularVM.getListItemSlots().size(); i++) {
+            regularVM.getListItemSlots().get(i).fullStockSlot();
         }
 
-
+        regularVM.displayAllSlots();
     }
 }

@@ -9,6 +9,7 @@ public class ItemSlot {
     public void setItem(Item item) {
         this.item = item;
         listItem.clear();
+        this.price = item.getPrice();
     }
     
     public String getItem() {
@@ -23,7 +24,7 @@ public class ItemSlot {
     }
     
     public double getPrice() {
-        return this.price;
+        return this.getPrice();
     }
 
     public boolean checkSlotAvailability() {
@@ -47,6 +48,19 @@ public class ItemSlot {
             listItem.add(item);
             return true;
         } else return false;
+    }
+
+    public boolean fullStockSlot() {
+        if (listItem.size() == 10)
+        {
+            return false;
+        }
+        else {
+            while (listItem.size() != 10) {
+                stockItem();
+            }
+            return true;
+        }
     }
 
     public int getItemStock() {
