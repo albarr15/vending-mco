@@ -23,28 +23,41 @@ public class TestMenu {
                                " " + itemSlot.getItem() + ".");
     }
 
+    public void stockItem(ItemSlot itemSlot) {
+        itemSlot.fullStockSlot();
+        System.out.println("Fully stocked " + itemSlot.getItem());
+    }
+
     public void setPrice(ItemSlot itemSlot, double price) {
         itemSlot.setPrice(price);
     }
 
     public double collectMoney(Balance bal, double amount) {
-        // bal.decreaseBal(amount);
-        return amount;
+        if(bal.withdrawCash(amount) != null)
+            return bal.getCurrentBal();
+        else return null;
     }
-    
     public double collectMoney(Balance bal) {
         double totalBalance = bal.getCurrentBal();
-        // bal.decreaseBal(totalBalance);
-        return totalBalance;
+        bal.withdrawCash(totalBalance);
+        return bal.getCurrentBal();
     }
 
-    public double replenishMoney(Balance bal, double amount) {
-        // bal.increaseBal(amount);
+    public double replenishMoney(Balance bal, String cashList) {
+        bal.depositCash(cashList);
         return bal.getCurrentBal();
     }
 
     public void printTransacSummary() {
-
+        // to add : starting & ending inventory since last restocking
+        double totalEarnings = 0;
+        System.out.println("Number of items sold: ");
+        for(int i=0; i<slots.size(); i++) {
+            System.out.println(slots.get(i).getItem() +
+                               ": " + slots.get(i).getNoSold());
+            totalEarnings += slots.get(i).getPrice();
+        }
+        System.out.println("Total earnings: " + totalEarnings);
     }
     
 }
