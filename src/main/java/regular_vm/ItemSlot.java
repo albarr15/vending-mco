@@ -2,9 +2,12 @@ package regular_vm;
 import java.util.ArrayList;
 
 public class ItemSlot {
-    Item item = null;
-    ArrayList<Item> listItem = new ArrayList<Item>();
-    double price;
+    private Item item = null;
+    private ArrayList<Item> listItem = new ArrayList<Item>();
+    private double price;
+    private int noSold =  0;
+
+    public ItemSlot() {}
 
     public void setItem(Item item) {
         this.item = item;
@@ -36,16 +39,19 @@ public class ItemSlot {
     public boolean dispenseItem() {
         if(listItem.size() > 0) {
             listItem.remove(listItem.size()-1);
+            this.noSold++;
             return true;
         } else return false;
     }
 
-    public boolean stockItem() {
+    public boolean stockItem(boolean isReturnedItem) {
         if(listItem.size() < 10) {
             Item item = new Item(this.item.getName(), 
                                  this.item.getCaloriesAmt(),
                                  this.item.getPrice());
             listItem.add(item);
+            if(isReturnedItem)
+                this.noSold--;
             return true;
         } else return false;
     }
@@ -65,5 +71,9 @@ public class ItemSlot {
 
     public int getItemStock() {
         return this.listItem.size();
+    }
+
+    public int getNoSold() {
+        return this.noSold;
     }
 }
