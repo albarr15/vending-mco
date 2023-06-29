@@ -12,7 +12,7 @@ public class TestMenu {
     public void stockItem(ItemSlot itemSlot, int noItems) {
         int i=0;
         for(i=0; i < noItems; i++)
-            if(!itemSlot.stockItem()) {
+            if(!itemSlot.stockItem(false)) {
                 System.out.println("Error: Could not stock " +
                 (noItems-i) + " " + itemSlot.getItem() + ".");
                 break;
