@@ -9,17 +9,17 @@ public class TestMenu {
         itemSlot.setItem(item);
     }
 
-    public void stockItem(ItemSlot itemSlot, int noItems) {
+    public void stockItem(ItemSlot itemSlot, int numItems) {
         int i=0;
-        for(i=0; i < noItems; i++)
+        for(i=0; i < numItems; i++)
             if(!itemSlot.stockItem(false)) {
                 System.out.println("Error: Could not stock " +
-                (noItems-i) + " " + itemSlot.getItem() + ".");
+                (numItems-i) + " " + itemSlot.getItem() + ".");
                 break;
             } 
 
         if(i!=0)
-            System.out.println("Successfully stocked " + noItems +
+            System.out.println("Successfully stocked " + numItems +
                                " " + itemSlot.getItem() + ".");
     }
 
@@ -35,7 +35,7 @@ public class TestMenu {
     public double collectMoney(Balance bal, double amount) {
         if(bal.withdrawCash(amount) != null)
             return bal.getCurrentBal();
-        else return null;
+        else return 0;
     }
     public double collectMoney(Balance bal) {
         bal.withdrawCash(bal.getCurrentBal());
@@ -47,11 +47,11 @@ public class TestMenu {
         return bal.getCurrentBal();
     }
 
-    public void printTransacSummary() {
+    public void printTransacSummary(ArrayList<ItemSlot> listItemSlots) {
         double totalEarnings = 0;
         System.out.println("Number of items sold: ");
-        for(int i=0; i<slots.size(); i++) {
-            ItemSlot itemSlot = slots.get(i);
+        for(int i=0; i<listItemSlots.size(); i++) {
+            ItemSlot itemSlot = listItemSlots.get(i);
             System.out.println(itemSlot.getItem() + ": " +
                                itemSlot.getNoSold() + " (" +
                                (itemSlot.getNoSold()+itemSlot.getItemStock())
