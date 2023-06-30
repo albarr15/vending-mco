@@ -27,7 +27,7 @@ public class ItemSlot {
     }
     
     public double getPrice() {
-        return this.getPrice();
+        return this.price;
     }
 
     public boolean checkSlotAvailability() {
