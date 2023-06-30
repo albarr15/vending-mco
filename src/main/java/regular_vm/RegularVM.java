@@ -6,9 +6,23 @@ public class RegularVM {
     private ArrayList<ItemSlot> listItemSlots = new ArrayList<ItemSlot>();
     private Balance balance;
     private Transaction currentTransaction;
+    private TestMenu testMenu;
+
+    public void setTestMenu(TestMenu testMenu) {
+        this.testMenu = testMenu;
+    }
 
     public void addItemSlot(ItemSlot itemSlot) {
         listItemSlots.add(itemSlot);
+    }
+
+    public ItemSlot findItemSlot(ItemSlot itemSlot) {
+        for (int i = 0; i < listItemSlots.size(); i++) {
+            if (getListItemSlots().get(i) == itemSlot) {
+                return getListItemSlots().get(i);
+            }
+        }
+        return null;
     }
 
     public void displaySlotAvailability(ItemSlot itemSlot) {
@@ -104,17 +118,19 @@ public class RegularVM {
 
     public static void main(String[] args) {
         boolean isExit = false;
+        RegularVM currentVM = null;
 
         do {
             int input = displayHomeMenu();
 
             if (input == 1) {
-
                 // user opted for Vending Machine Creation
 
                 int input1 = displayCreateVMMenu();
                 if (input1 == 1) {
                     RegularVM regularVM = new RegularVM();
+                    currentVM = regularVM;
+                    currentVM.setTestMenu(new TestMenu(currentVM));
 
                     // Instantiate items
                     Item chashuPork = new Item("Chashu Pork", 99, 95);
@@ -189,6 +205,14 @@ public class RegularVM {
                         int MFinput;
                         do {
                             MFinput = displayTestMaintenance();
+                            if (MFinput == 1) {
+                                if (currentVM == null) {
+                                    System.out.println("!!! There are no existing vending machines yet.");
+                                }
+                                else {
+                                    // proceed with feature here
+                                }
+                            }
                         } while (MFinput != 3); // suppose that the key to be entered for exit is 3
                         isExitVMTest = true;
                     }
