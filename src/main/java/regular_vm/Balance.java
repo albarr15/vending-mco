@@ -33,8 +33,8 @@ public class Balance {
     }
 
     // Can be used for getting change or emptying machine stock
-    public int[] withdrawCash(double amount) {
-        int[] cashWithdraw = {0,0,0,0,0,0,0,0,0,0,0,0,0};
+    public String withdrawCash(double amount) {
+        String cashWithdraw = "";
         double origAmount = amount;
 
         // Removing cash from stock
@@ -42,14 +42,13 @@ public class Balance {
         while(i >= 0)
             if(amount >= this.cashStock[0][i] && this.cashStock[1][i] > 0) {
                 this.cashStock[1][i]--;
-                cashWithdraw[i]++;
+                cashWithdraw += cashStock[0][i] + " ";
                 amount -= cashStock[0][i];
             } else i--;
 
-        if(amount != 0) {
+        if(amount > 0) {
             // Returning extracted cash to stock if change is insufficient
-            for(i=0; i<13; i++)
-                this.cashStock[1][i] += cashWithdraw[i];
+            depositCash(cashWithdraw);
             return null;
         } else {
             this.currentBal -= origAmount;
