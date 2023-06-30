@@ -10,8 +10,6 @@ public class TestMenu {
 
     public void setItem(ItemSlot itemSlot, String itemName,
                         double caloriesAmt, double price) {
-        // find itemSlot within listItemSlots of currentVM
-        itemSlot = currentVM.findItemSlot(itemSlot);
         Item item = new Item(itemName, caloriesAmt, price);
         itemSlot.setItem(item);
     }

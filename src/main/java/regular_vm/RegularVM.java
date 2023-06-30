@@ -16,15 +16,6 @@ public class RegularVM {
         listItemSlots.add(itemSlot);
     }
 
-    public ItemSlot findItemSlot(ItemSlot itemSlot) {
-        for (int i = 0; i < listItemSlots.size(); i++) {
-            if (getListItemSlots().get(i) == itemSlot) {
-                return getListItemSlots().get(i);
-            }
-        }
-        return null;
-    }
-
     public void displaySlotAvailability(ItemSlot itemSlot) {
         if (itemSlot.checkSlotAvailability()) {
             System.out.println("Slot with " + itemSlot.getItem() + "items is NOT AVAILABLE.");
@@ -99,8 +90,10 @@ public class RegularVM {
     public static int displayTestVending() {
         System.out.println();
         System.out.println("- TEST VENDING FEATURES -");
-
-        // insert vending machine features here
+        System.out.println("[1] Receive Payment");
+        System.out.println("[2] Dispense Item");
+        System.out.println("[3] Produce Change");
+        System.out.println("[4] Exit");
 
         Scanner sc1 = new Scanner(System.in);
         return sc1.nextInt();
@@ -109,8 +102,12 @@ public class RegularVM {
     public static int displayTestMaintenance() {
         System.out.println();
         System.out.println("- TEST MAINTENANCE FEATURES -");
-
-        // insert vending machine maintenance features here
+        System.out.println("[1] Restock / Stock Item");
+        System.out.println("[2] Set Price of Item");
+        System.out.println("[3] Collect Payment");
+        System.out.println("[4] Replenish Money");
+        System.out.println("[5] Print Summary of Transactions");
+        System.out.println("[6] Exit");
 
         Scanner sc1 = new Scanner(System.in);
         return sc1.nextInt();
