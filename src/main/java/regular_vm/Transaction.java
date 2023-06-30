@@ -16,14 +16,16 @@ public class Transaction {
         return status;
     }
 
-    public void addToCart(Item item, ItemSlot itemSlot) {
+    public void addToCart(ItemSlot itemSlot) {
+        Item item = itemSlot.dispenseItem();
         currentCart.add(item);
         orderTotal = orderTotal + itemSlot.price;
     }
 
     public void removeFromCart(Item item, ItemSlot itemSlot) {
         currentCart.remove(item);
-        orderTotal = orderTotal + itemSlot.price;
+        itemSlot.stockItem(true);
+        orderTotal = orderTotal - itemSlot.price;
     }
 
     // displays currentCart's items
