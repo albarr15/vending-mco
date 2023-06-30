@@ -77,16 +77,17 @@ public class RegularVM {
     public static void main(String[] args) {
         boolean isExit = false;
 
-        while (!isExit) {
+        do {
             int input = displayHomeMenu();
 
             if (input == 3) {
                 // exit
+                isExit = true;
             }
             else if (input == 1) {
                 // user opted for Vending Machine Creation
-                /*
-                // assume that user chooses to create a Regular Vending Machine
+                int input1 = displayCreateVMMenu();
+                if (input1 == 1) {
                     RegularVM regularVM = new RegularVM();
 
                     // Instantiate items
@@ -135,7 +136,11 @@ public class RegularVM {
                     }
 
                     regularVM.displayAllSlots();
-                 */
+                }
+                else {
+                    System.out.println("- Rejected Vending Machine Creation -");
+                    System.out.println("Going back to Home Menu ...");
+                }
             }
             else if (input == 2) {
                 // user opted for Vending Machine Testing
@@ -143,7 +148,7 @@ public class RegularVM {
             else {
                 System.out.println("Invalid input. Please choose from 1, 2, or 3 only.");
             }
-        }
+        } while (!isExit);
     }
 
 }
