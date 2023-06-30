@@ -40,7 +40,7 @@ public class Balance {
         // Removing cash from stock
         int i=12;
         while(i >= 0)
-            if(amount >= this.cashStock[0][i]) {
+            if(amount >= this.cashStock[0][i] && this.cashStock[1][i] > 0) {
                 this.cashStock[1][i]--;
                 cashWithdraw[i]++;
                 amount -= cashStock[0][i];
