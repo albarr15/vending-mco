@@ -189,32 +189,66 @@ public class RegularVM {
                 // loop Test Menu until selected to exit
                 do {
                     int input2 = displayTestVM();
-                    if (input2 == 1) {
-                        // user opted to test Vending Features
-                        int VFinput;
-                        do {
-                            VFinput = displayTestVending();
-                        } while (VFinput != 3); // suppose that the key to be entered for exit is 3
-                        isExitVMTest = true;
-                    }
-                    else if (input2 == 2) {
-                        // user opted to test Maintenance Features
-                        int MFinput;
-                        do {
-                            MFinput = displayTestMaintenance();
-                            if (MFinput == 1) {
-                                if (currentVM == null) {
-                                    System.out.println("!!! There are no existing vending machines yet.");
-                                }
-                                else {
-                                    // proceed with feature here
-                                }
-                            }
-                        } while (MFinput != 3); // suppose that the key to be entered for exit is 3
-                        isExitVMTest = true;
+                    if (currentVM == null) {
+                        System.out.println("!!! There are no existing vending machines yet.");
                     }
                     else {
-                        System.out.println("Invalid input. Please choose from 1 or 2 only.");
+                        if (input2 == 1) {
+                            // user opted to test Vending Features
+                            int VFinput;
+                            boolean isVFExit = false;
+                            do {
+                                VFinput = displayTestVending();
+                                switch (VFinput) {
+                                    case 1:
+                                        // Receive Payment
+                                        break;
+                                    case 2:
+                                        // Dispense Item
+                                        break;
+                                    case 3:
+                                        // Produce Change
+                                        break;
+                                    case 4:
+                                        // Exit
+
+                                }
+                            } while (!isVFExit); // suppose that the key to be entered for exit is 3
+                            isExitVMTest = true;
+                        }
+                        else if (input2 == 2) {
+                            // user opted to test Maintenance Features
+                            int MFinput;
+                            boolean isMFExit = false;
+                            do {
+                                MFinput = displayTestMaintenance();
+                                switch (MFinput) {
+                                    case 1:
+                                        // Restock / Stock Item
+                                        break;
+                                    case 2:
+                                        // Set Price of Item
+                                        break;
+                                    case 3:
+                                        // Collect Payment
+                                        break;
+                                    case 4:
+                                        // Replenish Money
+                                        break;
+                                    case 5:
+                                        // Print Summary of Transactions
+                                        break;
+                                    case 6:
+                                        // Exit
+                                        isMFExit = true;
+                                        break;
+                                }
+                            } while (!isMFExit); // suppose that the key to be entered for exit is 3
+                            isExitVMTest = true;
+                        }
+                        else {
+                            System.out.println("Invalid input. Please choose from 1 or 2 only.");
+                        }
                     }
                 } while (!isExitVMTest);
 
