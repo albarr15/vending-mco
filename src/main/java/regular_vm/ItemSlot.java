@@ -36,12 +36,13 @@ public class ItemSlot {
         else return false;
     }
 
-    public boolean dispenseItem() {
+    public Item dispenseItem() {
         if(listItem.size() > 0) {
-            listItem.remove(listItem.size()-1);
+            Item item = this.listItem.get(this.listItem.size()-1);
+            this.listItem.remove(item);
             this.noSold++;
-            return true;
-        } else return false;
+            return item;
+        } else return null;
     }
 
     public boolean stockItem(boolean isReturnedItem) {
