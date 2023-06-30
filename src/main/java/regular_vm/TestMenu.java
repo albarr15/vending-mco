@@ -1,4 +1,5 @@
 package regular_vm;
+import java.util.ArrayList;
 
 public class TestMenu {
 
@@ -6,7 +7,6 @@ public class TestMenu {
                         double caloriesAmt, double price) {
         Item item = new Item(itemName, caloriesAmt, price);
         itemSlot.setItem(item);
-        itemSlot.setPrice(price);
     }
 
     public void stockItem(ItemSlot itemSlot, int noItems) {
@@ -25,7 +25,7 @@ public class TestMenu {
 
     public void stockItem(ItemSlot itemSlot) {
         itemSlot.fullStockSlot();
-        System.out.println("Fully stocked " + itemSlot.getItem());
+        System.out.println("Fully stocked " + itemSlot.getItem() + ".");
     }
 
     public void setPrice(ItemSlot itemSlot, double price) {
@@ -38,8 +38,7 @@ public class TestMenu {
         else return null;
     }
     public double collectMoney(Balance bal) {
-        double totalBalance = bal.getCurrentBal();
-        bal.withdrawCash(totalBalance);
+        bal.withdrawCash(bal.getCurrentBal());
         return bal.getCurrentBal();
     }
 
@@ -49,15 +48,18 @@ public class TestMenu {
     }
 
     public void printTransacSummary() {
-        // to add : starting & ending inventory since last restocking
         double totalEarnings = 0;
         System.out.println("Number of items sold: ");
         for(int i=0; i<slots.size(); i++) {
-            System.out.println(slots.get(i).getItem() +
-                               ": " + slots.get(i).getNoSold());
-            totalEarnings += slots.get(i).getPrice();
+            ItemSlot itemSlot = slots.get(i);
+            System.out.println(itemSlot.getItem() + ": " +
+                               itemSlot.getNoSold() + " (" +
+                               (itemSlot.getNoSold()+itemSlot.getItemStock())
+                               + " -> " + itemSlot.getItemStock() + ")");
+            // <item name>: <num sold> (<previous stock> -> <current stock>)
+            totalEarnings += itemSlot.getPrice() * itemSlot.getNoSold();
         }
-        System.out.println("Total earnings: " + totalEarnings);
+        System.out.println("Total earnings since last summary: " + totalEarnings);
     }
     
 }
