@@ -64,7 +64,7 @@ public class ItemSlot {
         }
         else {
             while (listItem.size() != 10) {
-                stockItem();
+                stockItem(false);
             }
             return true;
         }
