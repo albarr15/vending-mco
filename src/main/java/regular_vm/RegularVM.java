@@ -222,9 +222,22 @@ public class RegularVM {
                             boolean isMFExit = false;
                             do {
                                 MFinput = displayTestMaintenance();
+                                Scanner MFscan = new Scanner(System.in);
+
                                 switch (MFinput) {
                                     case 1:
                                         // Restock / Stock Item
+                                        System.out.print("Enter itemSlot #: ");
+                                        int itemSlotNum = MFscan.nextInt();
+                                        System.out.print("Enter Item Name : ");
+                                        String itemName = MFscan.next();
+                                        System.out.print("Enter Item Calories Amount : ");
+                                        double caloriesAmt = MFscan.nextDouble();
+                                        System.out.print("Enter Item Price : ");
+                                        double price = MFscan.nextDouble();
+                                        currentVM.testMenu.setItem(currentVM.getListItemSlots().get(itemSlotNum - 1),
+                                                itemName, caloriesAmt, price);
+                                        currentVM.displayAllSlots();
                                         break;
                                     case 2:
                                         // Set Price of Item
