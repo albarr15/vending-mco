@@ -19,13 +19,13 @@ public class Transaction {
     public void addToCart(ItemSlot itemSlot) {
         Item item = itemSlot.dispenseItem();
         currentCart.add(item);
-        orderTotal = orderTotal + itemSlot.price;
+        orderTotal = orderTotal + itemSlot.getPrice();
     }
 
     public void removeFromCart(Item item, ItemSlot itemSlot) {
         currentCart.remove(item);
         itemSlot.stockItem(true);
-        orderTotal = orderTotal - itemSlot.price;
+        orderTotal = orderTotal - itemSlot.getPrice();
     }
 
     // displays currentCart's items
