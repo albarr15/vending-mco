@@ -45,7 +45,7 @@ public class RegularVM {
     }
 
     public static int displayHomeMenu() {
-        int input = 0;
+        int input;
         do {
             System.out.println("VENDING MACHINE FACTORY PROGRAM");
             System.out.println();
@@ -62,16 +62,40 @@ public class RegularVM {
     }
 
     public static int displayCreateVMMenu(){
+        System.out.println();
+        System.out.println("- VENDING MACHINE CREATION -");
         System.out.println("! Special Vending Machines are not yet available.");
-        System.out.println("Proceed with creating Regular Vending Machine? (y/n)");
+        System.out.println("Proceed with creating Regular Vending Machine?");
+        System.out.println("[1] Yes");
+        System.out.println("[2] No");
         Scanner sc1 = new Scanner(System.in);
-        String input1 = sc1.next();
-        if (sc1.equals('y')) {
-            return 1;
-        }
-        else {
-            return 0;
-        }
+        return sc1.nextInt();
+    }
+
+    public static int displayTestVM(){
+        System.out.println();
+        System.out.println("- VENDING MACHINE TESTING -");
+        System.out.println("[1] Vending Features");
+        System.out.println("[2] Maintenance Features");
+
+        Scanner sc1 = new Scanner(System.in);
+        return sc1.nextInt();
+    }
+
+    public static int displayTestVending() {
+        System.out.println();
+        System.out.println("- TEST VENDING FEATURES -");
+
+        Scanner sc1 = new Scanner(System.in);
+        return sc1.nextInt();
+    }
+
+    public static int displayTestMaintenance() {
+        System.out.println();
+        System.out.println("- TEST MAINTENANCE FEATURES -");
+
+        Scanner sc1 = new Scanner(System.in);
+        return sc1.nextInt();
     }
 
     public static void main(String[] args) {
@@ -80,12 +104,10 @@ public class RegularVM {
         do {
             int input = displayHomeMenu();
 
-            if (input == 3) {
-                // exit
-                isExit = true;
-            }
-            else if (input == 1) {
+            if (input == 1) {
+
                 // user opted for Vending Machine Creation
+
                 int input1 = displayCreateVMMenu();
                 if (input1 == 1) {
                     RegularVM regularVM = new RegularVM();
@@ -143,12 +165,42 @@ public class RegularVM {
                 }
             }
             else if (input == 2) {
+
                 // user opted for Vending Machine Testing
+                boolean isExitVMTest = false;
+
+                // loop Test Menu until selected to exit
+                do {
+                    int input2 = displayTestVM();
+                    if (input2 == 1) {
+                        // user opted to test Vending Features
+                        int VFinput;
+                        do {
+                            VFinput = displayTestVending();
+                        } while (VFinput != 3); // suppose that the key to be entered for exit is 3
+                        isExitVMTest = true;
+                    }
+                    else if (input2 == 2) {
+                        // user opted to test Maintenance Features
+                        int MFinput;
+                        do {
+                            MFinput = displayTestMaintenance();
+                        } while (MFinput != 3); // suppose that the key to be entered for exit is 3
+                        isExitVMTest = true;
+                    }
+                    else {
+                        System.out.println("Invalid input. Please choose from 1 or 2 only.");
+                    }
+                } while (!isExitVMTest);
+
+            }
+            else if (input == 3) {
+                // exit
+                isExit = true;
             }
             else {
                 System.out.println("Invalid input. Please choose from 1, 2, or 3 only.");
             }
         } while (!isExit);
     }
-
 }
