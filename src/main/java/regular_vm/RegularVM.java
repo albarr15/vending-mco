@@ -86,6 +86,8 @@ public class RegularVM {
         System.out.println();
         System.out.println("- TEST VENDING FEATURES -");
 
+        // insert vending machine features here
+
         Scanner sc1 = new Scanner(System.in);
         return sc1.nextInt();
     }
@@ -93,6 +95,8 @@ public class RegularVM {
     public static int displayTestMaintenance() {
         System.out.println();
         System.out.println("- TEST MAINTENANCE FEATURES -");
+
+        // insert vending machine maintenance features here
 
         Scanner sc1 = new Scanner(System.in);
         return sc1.nextInt();
