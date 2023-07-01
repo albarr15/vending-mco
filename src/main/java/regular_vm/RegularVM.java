@@ -273,14 +273,15 @@ public class RegularVM {
                                         break;
                                     case 3:
                                         // Checkout Current Cart
+                                        boolean coSuccess = false;
                                         System.out.println("Proceeding to check out order ...");
                                         currentVM.currentTransaction.previewCart();
                                         try {
-                                            currentVM.currentTransaction.checkOut(currentVM.getBalance());
+                                            coSuccess = currentVM.currentTransaction.checkOut(currentVM.getBalance());
                                         } catch(IndexOutOfBoundsException e) {
                                             System.out.println("Your cart was empty.");
                                         }
-                                        isVFExit = true;
+                                        if(coSuccess) isVFExit = true;
                                         break;
                                     case 4:
                                         // Cancel Order
