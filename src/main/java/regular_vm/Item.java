@@ -1,10 +1,10 @@
+package regular_vm;
+
 /**
  * Represents an Item to be stored in ItemSlots or carts of Transactions.
  * <p>
  * Includes the name, calories, and price of the Item.
  */
-package regular_vm;
-
 public class Item {
     private String name;
     private int caloriesAmt;

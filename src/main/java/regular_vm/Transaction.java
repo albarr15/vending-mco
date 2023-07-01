@@ -2,6 +2,9 @@ package regular_vm;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents a transaction
+ */
 public class Transaction {
     private ArrayList<Item> currentCart = new ArrayList<Item>();
     private int orderTotal;

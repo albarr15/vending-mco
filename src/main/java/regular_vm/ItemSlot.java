@@ -7,6 +7,9 @@
 package regular_vm;
 import java.util.ArrayList;
 
+/**
+ * Represents one itemSlot where items of the vending machine are stored in
+ */
 public class ItemSlot {
     private Item item = null;
     private ArrayList<Item> listItem = new ArrayList<Item>();

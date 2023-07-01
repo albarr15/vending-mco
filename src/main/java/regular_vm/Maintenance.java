@@ -1,11 +1,11 @@
+package regular_vm;
+import java.util.ArrayList;
+
 /** Contains the maintenance features of the vending machine.
  * <p>
  * Features include setting Items of ItemSlots, stocking/restocking Items, setting
  * prices, collecting money from the Balance, and printing the summary of transactions.
  */
-package regular_vm;
-import java.util.ArrayList;
-
 public class Maintenance {
 
     /**

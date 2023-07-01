@@ -1,3 +1,7 @@
+package regular_vm;
+import java.util.ArrayList;
+import java.util.Scanner;
+
 /**
  * Represents one Regular vending machine.
  * <p>
@@ -5,10 +9,6 @@
  * Features include adding an item slot, making a transaction, making its maintenance,
  * displaying slot availability, displaying all slots, and displaying its menus.
  */
-package regular_vm;
-import java.util.ArrayList;
-import java.util.Scanner;
-
 public class RegularVM {
     private ArrayList<ItemSlot> listItemSlots = new ArrayList<ItemSlot>();
     private Balance balance = new Balance();

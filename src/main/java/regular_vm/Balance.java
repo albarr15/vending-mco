@@ -2,6 +2,9 @@ package regular_vm;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
+/**
+ * Represents the total balances of the machine
+ */
 public class Balance {
     private int currentBal = 0;
     private int[][] cashStock = { {1,5,10,20,50,100,200,500,1000},
