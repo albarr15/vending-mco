@@ -251,6 +251,17 @@ public class RegularVM {
                                         break;
                                     case 2:
                                         // Set Price of Item
+                                        System.out.print("Enter item to stock: ");
+                                        String itemName2 = MFscan.next();
+
+                                        // find itemSlot with given item name
+                                        ItemSlot itemSlot2 = currentVM.findItemSlot(itemName2);
+
+                                        System.out.print("Enter price: ");
+                                        double price2 = MFscan.nextDouble();
+
+                                        currentVM.testMenu.setPrice(itemSlot2, price2);
+                                        currentVM.displayAllSlots();
                                         break;
                                     case 3:
                                         // Collect Payment
