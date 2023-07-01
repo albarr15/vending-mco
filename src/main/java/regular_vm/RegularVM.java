@@ -15,12 +15,22 @@ public class RegularVM {
     private Transaction currentTransaction;
     private Maintenance maintenance;
 
+    /**
+     * Adds an itemSlot in the vending machine's list of itemSlots
+     * @param itemSlot is the slot to be added in the list of item slots
+     */
     public void addItemSlot(ItemSlot itemSlot) {
         listItemSlots.add(itemSlot);
     }
 
+    /**
+     * Creates a new instance of Transaction and assigns it to this
+     */
     public void makeTransaction() {this.currentTransaction = new Transaction();}
 
+    /**
+     * Creates a new instance of Maintenance and assigns it to this
+     */
     public void makeMaintenance() {
         this.maintenance = new Maintenance();
     }
@@ -32,6 +42,13 @@ public class RegularVM {
     public ArrayList<ItemSlot> getListItemSlots () {
         return this.listItemSlots;
     }
+
+    /**
+     * Finds the itemSlot in which itemName is stored in
+     * @param itemName is the name of the item to be searched
+     * @return itemSlot if itemName is found in a slot
+     *         null if itemName is not found in any existing slots
+     */
     public ItemSlot findItemSlot(String itemName) {
         for (int i = 0; i < listItemSlots.size(); i++) {
             if (listItemSlots.get(i).getItemName().equals(itemName)) {
@@ -40,6 +57,11 @@ public class RegularVM {
         }
         return null;
     }
+
+    /**
+     * Displays a slot's availability with the format : "Slot with (item name) is (available or not)."
+     * @param itemSlot is the slot whose availability will be checked
+     */
 
     public void displaySlotAvailability(ItemSlot itemSlot) {
         if (itemSlot.checkSlotAvailability()) {
