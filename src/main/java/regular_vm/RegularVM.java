@@ -189,7 +189,6 @@ public class RegularVM {
                 }
             }
             else if (input == 2) {
-
                 // user opted for Vending Machine Testing
                 boolean isExitVMTest = false;
 
@@ -205,26 +204,11 @@ public class RegularVM {
                         currentVM.displayAllSlots();
                         if (input2 == 1) {
                             // user opted to test Vending Features
-                            int VFinput;
                             boolean isVFExit = false;
                             do {
-                                VFinput = displayTestVending();
-                                switch (VFinput) {
-                                    case 1:
-                                        // Receive Payment
-                                        break;
-                                    case 2:
-                                        // Dispense Item
-                                        break;
-                                    case 3:
-                                        // Produce Change
-                                        break;
-                                    case 4:
-                                        // Exit
-                                        isVFExit = true;
-                                }
-                            } while (!isVFExit); // suppose that the key to be entered for exit is 3
-                            isExitVMTest = true;
+                                // insert vending features here
+                                isVFExit = true;
+                            } while (!isVFExit);
                         }
                         else if (input2 == 2) {
                             // user opted to test Maintenance Features
