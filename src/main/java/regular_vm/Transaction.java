@@ -39,17 +39,18 @@ public class Transaction {
         }
     }
 
-    // returns 0 if successful, 1 if not
-    public int checkOut(Balance bal){
+    public void checkOut(Balance bal){
         Scanner scanner = new Scanner(System.in);
         String change;
+        double initialBal = bal.getCurrentBal();
 
         // prompt for cash deposit
-        double initialBal = bal.getCurrentBal();
-        bal.depositCash(scanner.next());
+        System.out.println("Enter Cash Payment : (Please separate each denomination with spaces)");
+        String amount = scanner.nextLine();
+        bal.depositCash(amount);
 
         // get newly added cash for this specific transaction
-        this.amtReceived = initialBal - bal.getCurrentBal();
+        this.amtReceived = bal.getCurrentBal() - initialBal;
         double changeAmt = this.amtReceived - this.orderTotal;
 
         if (this.amtReceived < this.orderTotal) {
@@ -58,7 +59,6 @@ public class Transaction {
             bal.withdrawCash(this.amtReceived);
             this.amtReceived = 0;
             this.setStatus(false);
-            return 1;
         }
         else if((change = bal.withdrawCash(changeAmt)) == null) {
             System.out.println("TRANSACTION UNSUCCESSFUL (Not enough change in machine)");
@@ -66,7 +66,6 @@ public class Transaction {
             bal.withdrawCash(this.amtReceived);
             this.amtReceived = 0;
             this.setStatus(false);
-            return 1;
         } else {
             System.out.println("TRANSACTION SUCCESSFUL");
             System.out.println("Withdrawing change ...");
@@ -77,7 +76,6 @@ public class Transaction {
             }
             System.out.println(". . .");
             this.setStatus(false);
-            return 0;
         }
     }
 }

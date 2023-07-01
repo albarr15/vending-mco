@@ -239,6 +239,8 @@ public class RegularVM {
                                         break;
                                     case 3:
                                         // Checkout Current Cart
+                                        System.out.println("Proceeding to check out order ...");
+                                        currentVM.currentTransaction.checkOut(currentVM.balance);
                                         break;
                                     case 4:
                                         // Cancel Order
