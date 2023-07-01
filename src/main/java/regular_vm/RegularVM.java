@@ -8,15 +8,30 @@ public class RegularVM {
     private Transaction currentTransaction;
     private Maintenance maintenance;
 
+    public void addItemSlot(ItemSlot itemSlot) {
+        listItemSlots.add(itemSlot);
+    }
+
+    public void makeTransaction() {this.currentTransaction = new Transaction();}
+
+    public void makeMaintenance() {
+        this.maintenance = new Maintenance();
+    }
+
     public Balance getBalance() {
         return this.balance;
     }
-    public void setMaintenance(Maintenance maintenance) {
-        this.maintenance = maintenance;
-    }
 
-    public void addItemSlot(ItemSlot itemSlot) {
-        listItemSlots.add(itemSlot);
+    public ArrayList<ItemSlot> getListItemSlots () {
+        return this.listItemSlots;
+    }
+    public ItemSlot findItemSlot(String itemName) {
+        for (int i = 0; i < listItemSlots.size(); i++) {
+            if (listItemSlots.get(i).getItemName().equals(itemName)) {
+                return listItemSlots.get(i);
+            }
+        }
+        return null;
     }
 
     public void displaySlotAvailability(ItemSlot itemSlot) {
@@ -42,23 +57,6 @@ public class RegularVM {
                 System.out.println("Number of Items : " + listItemSlots.get(i).getItemStock());
             }
         }
-    }
-
-    public void makeTransaction() {
-        Transaction transaction = new Transaction();
-        this.currentTransaction = transaction;
-    }
-
-    public ArrayList<ItemSlot> getListItemSlots () {
-        return this.listItemSlots;
-    }
-    public ItemSlot findItemSlot(String itemName) {
-        for (int i = 0; i < listItemSlots.size(); i++) {
-            if (listItemSlots.get(i).getItemName().equals(itemName)) {
-                return listItemSlots.get(i);
-            }
-        }
-        return null;
     }
 
     public static int displayHomeMenu() {
@@ -141,7 +139,7 @@ public class RegularVM {
                 if (input1 == 1) {
                     RegularVM regularVM = new RegularVM();
                     currentVM = regularVM;
-                    currentVM.setMaintenance(new Maintenance(currentVM));
+                    currentVM.makeMaintenance();
 
                     // Instantiate items
                     Item chashuPork = new Item("Chashu Pork", 99, 95);
@@ -330,7 +328,7 @@ public class RegularVM {
                                         isMFExit = true;
                                         break;
                                 }
-                            } while (!isMFExit); // suppose that the key to be entered for exit is 3
+                            } while (!isMFExit);
                             isExitVMTest = true;
                         }
                         else {

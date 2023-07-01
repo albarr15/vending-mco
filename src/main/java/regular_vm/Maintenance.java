@@ -7,11 +7,6 @@ package regular_vm;
 import java.util.ArrayList;
 
 public class Maintenance {
-    private RegularVM currentVM;
-
-    public Maintenance(RegularVM currentVM) {
-        this.currentVM = currentVM;
-    }
 
     /**
      * Creates a new Item to be set as the Item of an ItemSlot
@@ -107,7 +102,7 @@ public class Maintenance {
     /**
      * Prints the summary of transactions since the last summary printed
      * 
-     * @param slots  the list of ItemSlots in the machine
+     * @param listItemSlots  the list of ItemSlots in the machine
      */
     public void printTransacSummary(ArrayList<ItemSlot> listItemSlots) {
         double totalEarnings = 0;
