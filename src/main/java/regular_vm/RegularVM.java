@@ -1,4 +1,5 @@
 package regular_vm;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -18,10 +19,10 @@ public class RegularVM {
 
     public void displaySlotAvailability(ItemSlot itemSlot) {
         if (itemSlot.checkSlotAvailability()) {
-            System.out.println("Slot with " + itemSlot.getItem() + "items is NOT AVAILABLE.");
+            System.out.println("Slot with " + itemSlot.getItemName() + "items is NOT AVAILABLE.");
         }
         else {
-            System.out.println("Slot with " + itemSlot.getItem() + "items is AVAILABLE.");
+            System.out.println("Slot with " + itemSlot.getItemName() + "items is AVAILABLE.");
         }
     }
 
@@ -34,8 +35,9 @@ public class RegularVM {
                 System.out.println("Slot " + (i + 1) + " ( OUT OF STOCK )");
             }
             else {
-                System.out.println("Slot " + (i + 1) + " (" + (listItemSlots.get(i)).getItem() + ")");
+                System.out.println("Slot " + (i + 1) + " (" + (listItemSlots.get(i)).getItemName() + ")");
                 System.out.println("Price : " + listItemSlots.get(i).getPrice());
+                System.out.println("Number of Items : " + listItemSlots.get(i).getItemStock());
             }
         }
     }
@@ -48,10 +50,19 @@ public class RegularVM {
     public ArrayList<ItemSlot> getListItemSlots () {
         return this.listItemSlots;
     }
+    public ItemSlot findItemSlot(String itemName) {
+        for (int i = 0; i < listItemSlots.size(); i++) {
+            if (listItemSlots.get(i).getItemName().equals(itemName)) {
+                return listItemSlots.get(i);
+            }
+        }
+        return null;
+    }
 
     public static int displayHomeMenu() {
         int input;
         do {
+            System.out.println();
             System.out.println("VENDING MACHINE FACTORY PROGRAM");
             System.out.println();
             System.out.println("[1] Create a Vending Machine");
@@ -116,6 +127,7 @@ public class RegularVM {
     public static void main(String[] args) {
         boolean isExit = false;
         RegularVM currentVM = null;
+        RegularVM regularVM = null;
 
         do {
             int input = displayHomeMenu();
@@ -125,7 +137,7 @@ public class RegularVM {
 
                 int input1 = displayCreateVMMenu();
                 if (input1 == 1) {
-                    RegularVM regularVM = new RegularVM();
+                    regularVM = new RegularVM();
                     currentVM = regularVM;
                     currentVM.setTestMenu(new TestMenu(currentVM));
 
@@ -169,11 +181,6 @@ public class RegularVM {
                     itemSlot7.setItem(corn);
                     itemSlot8.setItem(butter);
 
-                    // fully restock all itemSlots
-                    for (int i = 0; i < regularVM.getListItemSlots().size(); i++) {
-                        regularVM.getListItemSlots().get(i).fullStockSlot();
-                    }
-
                     regularVM.displayAllSlots();
                 }
                 else {
@@ -191,8 +198,11 @@ public class RegularVM {
                     int input2 = displayTestVM();
                     if (currentVM == null) {
                         System.out.println("!!! There are no existing vending machines yet.");
+                        System.out.println("- Please create a vending machine first - ");
+                        isExitVMTest = true;
                     }
                     else {
+                        currentVM.displayAllSlots();
                         if (input2 == 1) {
                             // user opted to test Vending Features
                             int VFinput;
@@ -211,7 +221,7 @@ public class RegularVM {
                                         break;
                                     case 4:
                                         // Exit
-
+                                        isVFExit = true;
                                 }
                             } while (!isVFExit); // suppose that the key to be entered for exit is 3
                             isExitVMTest = true;
@@ -227,16 +237,16 @@ public class RegularVM {
                                 switch (MFinput) {
                                     case 1:
                                         // Restock / Stock Item
-                                        System.out.print("Enter itemSlot #: ");
-                                        int itemSlotNum = MFscan.nextInt();
-                                        System.out.print("Enter Item Name : ");
-                                        String itemName = MFscan.next();
-                                        System.out.print("Enter Item Calories Amount : ");
-                                        double caloriesAmt = MFscan.nextDouble();
-                                        System.out.print("Enter Item Price : ");
-                                        double price = MFscan.nextDouble();
-                                        currentVM.testMenu.setItem(currentVM.getListItemSlots().get(itemSlotNum - 1),
-                                                itemName, caloriesAmt, price);
+                                        System.out.print("Enter item to stock: ");
+                                        String itemName1 = MFscan.next();
+
+                                        // find itemSlot with given item name
+                                        ItemSlot itemSlot1 = currentVM.findItemSlot(itemName1);
+
+                                        System.out.print("Enter number of items to stock: ");
+                                        int numItems1 = MFscan.nextInt();
+
+                                        currentVM.testMenu.stockItem(itemSlot1, numItems1);
                                         currentVM.displayAllSlots();
                                         break;
                                     case 2:

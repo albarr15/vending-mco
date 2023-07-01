@@ -19,18 +19,18 @@ public class TestMenu {
         for(i=0; i < numItems; i++)
             if(!itemSlot.stockItem(false)) {
                 System.out.println("Error: Could not stock " +
-                (numItems-i) + " " + itemSlot.getItem() + ".");
+                (numItems-i) + " " + itemSlot.getItemName() + ".");
                 break;
             } 
 
         if(i!=0)
             System.out.println("Successfully stocked " + numItems +
-                               " " + itemSlot.getItem() + ".");
+                               " " + itemSlot.getItemName() + ".");
     }
 
     public void stockItem(ItemSlot itemSlot) {
         itemSlot.fullStockSlot();
-        System.out.println("Fully stocked " + itemSlot.getItem() + ".");
+        System.out.println("Fully stocked " + itemSlot.getItemName() + ".");
     }
 
     public void setPrice(ItemSlot itemSlot, double price) {
@@ -57,7 +57,7 @@ public class TestMenu {
         System.out.println("Number of items sold: ");
         for(int i=0; i<listItemSlots.size(); i++) {
             ItemSlot itemSlot = listItemSlots.get(i);
-            System.out.println(itemSlot.getItem() + ": " +
+            System.out.println(itemSlot.getItemName() + ": " +
                                itemSlot.getNoSold() + " (" +
                                (itemSlot.getNoSold()+itemSlot.getItemStock())
                                + " -> " + itemSlot.getItemStock() + ")");

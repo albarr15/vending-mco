@@ -15,7 +15,7 @@ public class ItemSlot {
         this.price = item.getPrice();
     }
     
-    public String getItem() {
+    public String getItemName() {
         return this.item.getName();
     }
 
