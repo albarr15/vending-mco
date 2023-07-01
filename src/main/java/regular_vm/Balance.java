@@ -24,7 +24,7 @@ public class Balance {
 
         // Store in balance
         for(int i=0; i<cash.size(); i++)
-            for(int j=0; j<13; j++)
+            for(int j=0; j<9; j++)
                 if(cash.get(i) == this.cashStock[0][j]) {
                     this.cashStock[1][j]++;
                     this.currentBal += cash.get(i);
@@ -38,7 +38,7 @@ public class Balance {
         int origAmount = amount;
 
         // Removing cash from stock
-        int i=12;
+        int i=8;
         while(i >= 0)
             if(amount >= this.cashStock[0][i] && this.cashStock[1][i] > 0) {
                 this.cashStock[1][i]--;
