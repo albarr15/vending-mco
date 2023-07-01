@@ -1,3 +1,10 @@
+/**
+ * Represents one Regular vending machine.
+ * <p>
+ * Includes the list of item slots, its balance, the current transaction, and its maintenance.
+ * Features include adding an item slot, making a transaction, making its maintenance,
+ * displaying slot availability, displaying all slots, and displaying its menus.
+ */
 package regular_vm;
 import java.util.ArrayList;
 import java.util.Scanner;
