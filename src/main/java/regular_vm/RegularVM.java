@@ -52,9 +52,11 @@ public class RegularVM {
                 System.out.println("Slot " + (i + 1) + " ( OUT OF STOCK )");
             }
             else {
-                System.out.println("Slot " + (i + 1) + " (" + (listItemSlots.get(i)).getItemName() + ")");
-                System.out.println("Price : " + listItemSlots.get(i).getPrice());
-                System.out.println("Number of Items : " + listItemSlots.get(i).getItemStock());
+                System.out.printf("%-5s", "[" + listItemSlots.get(i).getItemStock() + "]");
+                System.out.printf("%-10s", "Slot " + (i + 1));
+                System.out.printf("%-20s", "(" + (listItemSlots.get(i)).getItemName() + ")");
+                System.out.printf("%-15s", "Price : " + listItemSlots.get(i).getPrice());
+                System.out.println();
             }
         }
     }
