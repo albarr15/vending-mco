@@ -1,3 +1,8 @@
+/**
+ * Represents an Item to be stored in ItemSlots or carts of Transactions.
+ * <p>
+ * Includes the name, calories, and price of the Item.
+ */
 package regular_vm;
 
 public class Item {
@@ -14,7 +19,7 @@ public class Item {
     public void setName(String name) {
         this.name = name;
     }
-    
+
     public void setCaloriesAmt(double caloriesAmt) {
         this.caloriesAmt = caloriesAmt;
     }
