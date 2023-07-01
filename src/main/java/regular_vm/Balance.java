@@ -19,8 +19,7 @@ public class Balance {
         ArrayList<Integer> cash = new ArrayList<Integer>();
         StringTokenizer st = new StringTokenizer(cashList," ");
         while(st.hasMoreTokens()) {
-            // TODO : turn to integer
-            cash.add(Double.parseint(st.nextToken()));
+            cash.add(Integer.parseInt(st.nextToken()));
         }
 
         // Store in balance
