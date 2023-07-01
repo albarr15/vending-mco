@@ -227,7 +227,11 @@ public class RegularVM {
 
                                         // find itemSlot with given item name
                                         ItemSlot itemSlot1 = currentVM.findItemSlot(itemName1);
-                                        currentVM.currentTransaction.addToCart(itemSlot1);
+                                        try {
+                                            currentVM.currentTransaction.addToCart(itemSlot1); //here
+                                        } catch(NullPointerException e) {
+                                            System.out.println("Error: Item not found");
+                                        }
                                         currentVM.currentTransaction.previewCart();
                                         break;
                                     case 2:
@@ -239,12 +243,21 @@ public class RegularVM {
 
                                         // find itemSlot with given item name
                                         ItemSlot itemSlot2 = currentVM.findItemSlot(itemName2);
-                                        currentVM.currentTransaction.removeFromCart(itemSlot2);
+                                        try {
+                                            currentVM.currentTransaction.removeFromCart(itemSlot2);
+                                        } catch(NullPointerException e) {
+                                            System.out.println("Error: Item not found");
+                                        }
                                         break;
                                     case 3:
                                         // Checkout Current Cart
                                         System.out.println("Proceeding to check out order ...");
-                                        currentVM.currentTransaction.checkOut(currentVM.getBalance());
+                                        currentVM.currentTransaction.previewCart();
+                                        try {
+                                            currentVM.currentTransaction.checkOut(currentVM.getBalance());
+                                        } catch(IndexOutOfBoundsException e) {
+                                            System.out.println("Your cart was empty.");
+                                        }
                                         break;
                                     case 4:
                                         // Cancel Order
