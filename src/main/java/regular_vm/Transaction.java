@@ -6,7 +6,7 @@ public class Transaction {
     private ArrayList<Item> currentCart = new ArrayList<Item>();
     private double orderTotal;
     private double amtReceived;
-    private boolean status;
+    private boolean status = true;
 
     public void setStatus(boolean status) {
         this.status = status;
@@ -33,7 +33,7 @@ public class Transaction {
         System.out.println("----- Current Cart -----");
         if (currentCart != null) {
             for(int i = 0; i < this.currentCart.size(); i++) {
-                System.out.println("[" + i + "] " + this.currentCart.get(i).getName());
+                System.out.println("[" + (i + 1) + "] " + this.currentCart.get(i).getName());
             }
             System.out.println("Current total: " + orderTotal);
         }
@@ -57,6 +57,7 @@ public class Transaction {
             System.out.println("Returning cash ...");
             bal.withdrawCash(this.amtReceived);
             this.amtReceived = 0;
+            this.setStatus(false);
             return 1;
         }
         else if((change = bal.withdrawCash(changeAmt)) == null) {
@@ -64,6 +65,7 @@ public class Transaction {
             System.out.println("Returning cash ...");
             bal.withdrawCash(this.amtReceived);
             this.amtReceived = 0;
+            this.setStatus(false);
             return 1;
         } else {
             System.out.println("TRANSACTION SUCCESSFUL");
@@ -74,6 +76,7 @@ public class Transaction {
                 System.out.println(", " + currentCart.get(i).getName());
             }
             System.out.println(". . .");
+            this.setStatus(false);
             return 0;
         }
     }

@@ -130,7 +130,6 @@ public class RegularVM {
     public static void main(String[] args) {
         boolean isExit = false;
         RegularVM currentVM = null;
-        RegularVM regularVM = null;
 
         do {
             int input = displayHomeMenu();
@@ -140,7 +139,7 @@ public class RegularVM {
 
                 int input1 = displayCreateVMMenu();
                 if (input1 == 1) {
-                    regularVM = new RegularVM();
+                    RegularVM regularVM = new RegularVM();
                     currentVM = regularVM;
                     currentVM.setMaintenance(new Maintenance(currentVM));
 
@@ -204,15 +203,15 @@ public class RegularVM {
                         isExitVMTest = true;
                     }
                     else {
-                        currentVM.displayAllSlots();
                         if (input2 == 1) {
                             // user opted to test Vending Features
                             int VFinput;
                             boolean isVFExit = false;
+                            currentVM.currentTransaction = new Transaction();
+
                             do {
                                 VFinput = displayTestVending();
                                 Scanner VFscan = new Scanner(System.in);
-                                currentVM.currentTransaction = new Transaction();
 
                                 switch (VFinput) {
                                     case 1:
@@ -220,7 +219,7 @@ public class RegularVM {
                                         currentVM.displayAllSlots();
 
                                         System.out.print("Enter item to add to cart: ");
-                                        String itemName1 = VFscan.next();
+                                        String itemName1 = VFscan.nextLine();
 
                                         // find itemSlot with given item name
                                         ItemSlot itemSlot1 = currentVM.findItemSlot(itemName1);
@@ -235,12 +234,10 @@ public class RegularVM {
                                         break;
                                     case 4:
                                         // Cancel Order
-                                        break;
-                                    case 5:
-                                        // Exit
+                                        currentVM.currentTransaction.checkOut(currentVM.balance);
+                                        isVFExit = true;
                                         break;
                                 }
-                                isVFExit = true;
                             } while (!isVFExit);
                         }
                         else if (input2 == 2) {
