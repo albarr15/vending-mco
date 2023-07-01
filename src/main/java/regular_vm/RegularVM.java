@@ -271,6 +271,7 @@ public class RegularVM {
                                         break;
                                     case 5:
                                         // Print Summary of Transactions
+                                        currentVM.testMenu.printTransacSummary(currentVM.listItemSlots);
                                         break;
                                     case 6:
                                         // Exit
