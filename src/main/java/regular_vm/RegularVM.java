@@ -85,6 +85,7 @@ public class RegularVM {
                 System.out.printf("%-10s", "Slot " + (i + 1));
                 System.out.printf("%-20s", "(" + (listItemSlots.get(i)).getItemName() + ")");
                 System.out.printf("%-15s", "Price : " + listItemSlots.get(i).getPrice());
+                System.out.printf("%-12s", "Calories : " + listItemSlots.get(i).getItem().getCaloriesAmt());
                 System.out.println();
             }
         }
