@@ -1,14 +1,16 @@
 package regular_vm;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class RegularVM {
     private ArrayList<ItemSlot> listItemSlots = new ArrayList<ItemSlot>();
-    private Balance balance;
+    private Balance balance = new Balance();
     private Transaction currentTransaction;
     private Maintenance maintenance;
 
+    public Balance getBalance() {
+        return this.balance;
+    }
     public void setMaintenance(Maintenance maintenance) {
         this.maintenance = maintenance;
     }
@@ -249,9 +251,37 @@ public class RegularVM {
                                         break;
                                     case 3:
                                         // Collect Payment
+                                        System.out.println("[1] Collect all money");
+                                        System.out.println("[2] Collect specific amount of money");
+
+                                        int input3 = MFscan.nextInt();
+
+                                        switch (input3) {
+                                            case 1:
+                                                double collectedMoney1 =
+                                                        currentVM.maintenance.collectMoney(currentVM.getBalance());
+                                                System.out.println("Collected Money : " + collectedMoney1);
+                                                System.out.println("Remaining balance : " + currentVM.getBalance());
+                                                break;
+                                            case 2:
+                                                System.out.print("Enter specific amount to be collected: ");
+                                                double amount = MFscan.nextDouble();
+                                                double collectedMoney2 =
+                                                        currentVM.maintenance.collectMoney(currentVM.getBalance(), amount);
+                                                System.out.println("Collected Money : " + collectedMoney2);
+                                                System.out.println("Remaining balance : " + currentVM.getBalance().getCurrentBal());
+                                                break;
+                                        }
                                         break;
                                     case 4:
                                         // Replenish Money
+                                        System.out.println("Current Balance : " + currentVM.getBalance().getCurrentBal());
+                                        System.out.println("Enter money to be deposited: ");
+                                        System.out.println("Sample Format: '5 100 500 1000'");
+                                        String cashList = MFscan.nextLine();
+                                        currentVM.maintenance.replenishMoney(currentVM.getBalance(), cashList);
+
+                                        System.out.println("Current Balance : " + currentVM.getBalance().getCurrentBal());
                                         break;
                                     case 5:
                                         // Print Summary of Transactions
