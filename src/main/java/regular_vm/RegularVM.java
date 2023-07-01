@@ -238,11 +238,11 @@ public class RegularVM {
                                     case 3:
                                         // Checkout Current Cart
                                         System.out.println("Proceeding to check out order ...");
-                                        currentVM.currentTransaction.checkOut(currentVM.balance);
+                                        currentVM.currentTransaction.checkOut(currentVM.getBalance());
                                         break;
                                     case 4:
                                         // Cancel Order
-                                        currentVM.currentTransaction.checkOut(currentVM.balance);
+                                        currentVM.currentTransaction.cancelOrder(currentVM.getBalance());
                                         isVFExit = true;
                                         break;
                                 }

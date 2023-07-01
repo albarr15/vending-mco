@@ -56,16 +56,12 @@ public class Transaction {
         if (this.amtReceived < this.orderTotal) {
             System.out.println("TRANSACTION UNSUCCESSFUL (Not enough cash entered)");
             System.out.println("Returning cash ...");
-            bal.withdrawCash(this.amtReceived);
-            this.amtReceived = 0;
-            this.setStatus(false);
+            this.cancelOrder(bal, this.amtReceived);
         }
         else if((change = bal.withdrawCash(changeAmt)) == null) {
             System.out.println("TRANSACTION UNSUCCESSFUL (Not enough change in machine)");
             System.out.println("Returning cash ...");
-            bal.withdrawCash(this.amtReceived);
-            this.amtReceived = 0;
-            this.setStatus(false);
+            this.cancelOrder(bal, this.amtReceived);
         } else {
             System.out.println("TRANSACTION SUCCESSFUL");
             System.out.println("Withdrawing change ...");
@@ -77,5 +73,14 @@ public class Transaction {
             System.out.println(". . .");
             this.setStatus(false);
         }
+    }
+    public void cancelOrder(Balance bal) {
+        this.setStatus(false);
+    }
+
+    public void cancelOrder(Balance bal, double amtReceived) {
+        bal.withdrawCash(this.amtReceived);
+        this.amtReceived = 0;
+        this.setStatus(false);
     }
 }
