@@ -12,6 +12,7 @@ public class ItemSlot {
     public void setItem(Item item) {
         this.item = item;
         listItem.clear();
+        listItem.add(item);
         this.price = item.getPrice();
     }
     
