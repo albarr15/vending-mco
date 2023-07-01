@@ -55,7 +55,7 @@ public class Transaction {
      * and determines whether the transaction is successful or not
      * @param bal is the current balance
      */
-    public void checkOut(Balance bal){
+    public boolean checkOut(Balance bal){
         Scanner scanner = new Scanner(System.in);
         String change;
         int initialBal = bal.getCurrentBal();
@@ -73,11 +73,13 @@ public class Transaction {
             System.out.println("TRANSACTION UNSUCCESSFUL (Not enough cash entered)");
             System.out.println("Returning cash ...");
             this.cancelOrder(bal, this.amtReceived);
+            return false;
         }
         else if((change = bal.withdrawCash(changeAmt)) == null) {
             System.out.println("TRANSACTION UNSUCCESSFUL (Not enough change in machine)");
             System.out.println("Returning cash ...");
             this.cancelOrder(bal, this.amtReceived);
+            return false;
         } else {
             System.out.println("TRANSACTION SUCCESSFUL");
             System.out.println("Withdrawing change ...");
@@ -88,6 +90,7 @@ public class Transaction {
             }
             System.out.println(". . .");
             this.setStatus(false);
+            return true;
         }
     }
 
