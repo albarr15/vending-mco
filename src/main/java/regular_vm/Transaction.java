@@ -67,8 +67,8 @@ public class Transaction {
             System.out.println("Withdrawing change ...");
             System.out.println("Your change is: " + change);
             System.out.println("Dispensing " + this.currentCart.get(0).getName());
-            for(int i=0; i<currentCart.size(); i++) {
-                System.out.println(", " + currentCart.get(i).getName());
+            for(int i=1; i<currentCart.size(); i++) {
+                System.out.print(", " + currentCart.get(i).getName());
             }
             System.out.println(". . .");
             this.setStatus(false);
