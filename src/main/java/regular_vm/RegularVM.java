@@ -103,10 +103,11 @@ public class RegularVM {
     public static int displayTestVending() {
         System.out.println();
         System.out.println("- TEST VENDING FEATURES -");
-        System.out.println("[1] Receive Payment");
-        System.out.println("[2] Dispense Item");
-        System.out.println("[3] Produce Change");
-        System.out.println("[4] Exit");
+        System.out.println("[1] Add Item to Cart");
+        System.out.println("[2] Remove Item from Cart");
+        System.out.println("[3] Checkout Current Cart");
+        System.out.println("[4] Cancel Order");
+        System.out.println("[5] Exit");
 
         Scanner sc1 = new Scanner(System.in);
         return sc1.nextInt();
@@ -206,9 +207,29 @@ public class RegularVM {
                         currentVM.displayAllSlots();
                         if (input2 == 1) {
                             // user opted to test Vending Features
+                            int VFinput;
                             boolean isVFExit = false;
                             do {
-                                // insert vending features here
+                                VFinput = displayTestVending();
+                                Scanner VFscan = new Scanner(System.in);
+
+                                switch (VFinput) {
+                                    case 1:
+                                        // Add Item to Cart
+                                        break;
+                                    case 2:
+                                        // Remove Item from Cart
+                                        break;
+                                    case 3:
+                                        // Checkout Current Cart
+                                        break;
+                                    case 4:
+                                        // Cancel Order
+                                        break;
+                                    case 5:
+                                        // Exit
+                                        break;
+                                }
                                 isVFExit = true;
                             } while (!isVFExit);
                         }
