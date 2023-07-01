@@ -43,8 +43,9 @@ public class Maintenance {
         else return 0;
     }
     public double collectMoney(Balance bal) {
+        double origBal = bal.getCurrentBal();
         bal.withdrawCash(bal.getCurrentBal());
-        return bal.getCurrentBal();
+        return origBal;
     }
 
     public double replenishMoney(Balance bal, String cashList) {

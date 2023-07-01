@@ -261,7 +261,7 @@ public class RegularVM {
                                                 double collectedMoney1 =
                                                         currentVM.maintenance.collectMoney(currentVM.getBalance());
                                                 System.out.println("Collected Money : " + collectedMoney1);
-                                                System.out.println("Remaining balance : " + currentVM.getBalance());
+                                                System.out.println("Remaining balance : " + currentVM.getBalance().getCurrentBal());
                                                 break;
                                             case 2:
                                                 System.out.print("Enter specific amount to be collected: ");
