@@ -18,14 +18,17 @@ public class Transaction {
 
     public void addToCart(ItemSlot itemSlot) {
         Item item = itemSlot.dispenseItem();
-        this.currentCart.add(item);
-        orderTotal = orderTotal + itemSlot.getPrice();
+        if(item != null) {
+            this.currentCart.add(item);
+            orderTotal = orderTotal + itemSlot.getPrice();
+        }
     }
 
     public void removeFromCart(ItemSlot itemSlot) {
-        currentCart.remove(itemSlot.getItem());
-        itemSlot.stockItem(true);
-        orderTotal = orderTotal - itemSlot.getPrice();
+        if(currentCart.remove(itemSlot.getItem())) {
+            itemSlot.stockItem(true);
+            orderTotal = orderTotal - itemSlot.getPrice();
+        }
     }
 
     // displays currentCart's items
