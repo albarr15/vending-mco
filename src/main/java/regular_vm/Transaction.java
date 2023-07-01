@@ -16,6 +16,10 @@ public class Transaction {
         return status;
     }
 
+    /**
+     * Adds the given item from the itemSlot to the current cart and updates the orderTotal
+     * @param itemSlot is where the given item to be added to cart is stored
+     */
     public void addToCart(ItemSlot itemSlot) {
         Item item = itemSlot.dispenseItem();
         if(item != null) {
@@ -24,6 +28,10 @@ public class Transaction {
         }
     }
 
+    /**
+     * Removes the given item from the itemSlot to the current cart and updates the orderTotal
+     * @param itemSlot is where the given item to be added to cart is stored
+     */
     public void removeFromCart(ItemSlot itemSlot) {
         if(currentCart.remove(itemSlot.getItem())) {
             itemSlot.stockItem(true);
@@ -42,6 +50,11 @@ public class Transaction {
         }
     }
 
+    /**
+     * Checks out the current cart where it prompts for cash deposit
+     * and determines whether the transaction is successful or not
+     * @param bal is the current balance
+     */
     public void checkOut(Balance bal){
         Scanner scanner = new Scanner(System.in);
         String change;
@@ -77,10 +90,22 @@ public class Transaction {
             this.setStatus(false);
         }
     }
+
+    /**
+     * Cancels an order that has not gone through check out yet
+     * This sets the transaction as inactive
+     * @param bal is the current balance
+     */
     public void cancelOrder(Balance bal) {
         this.setStatus(false);
     }
 
+    /**
+     * Cancels an order that has proceeded with checkout
+     * This sets the transaction as inactive as well as withdraw previously deposited money
+     * @param bal is the current balance
+     * @param amtReceived is the total amount of entered money by the user
+     */
     public void cancelOrder(Balance bal, int amtReceived) {
         bal.withdrawCash(this.amtReceived);
         this.amtReceived = 0;
