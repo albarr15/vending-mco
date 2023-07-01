@@ -17,19 +17,30 @@ public class Balance {
     public void depositCash(String cashList) {
         // Extract cash values from string input
         ArrayList<Integer> cash = new ArrayList<Integer>();
+        int numInvalid = 0;
         StringTokenizer st = new StringTokenizer(cashList," ");
         while(st.hasMoreTokens()) {
-            cash.add(Integer.parseInt(st.nextToken()));
+            try {
+                cash.add(Integer.parseInt(st.nextToken()));
+            } catch(NumberFormatException e) {
+                numInvalid++;
+            }
         }
 
         // Store in balance
-        for(int i=0; i<cash.size(); i++)
-            for(int j=0; j<9; j++)
+        for(int i=0; i<cash.size(); i++) {
+            int j=0;
+            for(j=0; j<9; j++)
                 if(cash.get(i) == this.cashStock[0][j]) {
                     this.cashStock[1][j]++;
                     this.currentBal += cash.get(i);
                     break;
                 }
+            if(j==9) numInvalid++;
+        } 
+
+        if(numInvalid > 0)
+            System.out.println(numInvalid + " invalid entries were found. Skipped entries.");
     }
 
     // Can be used for getting change or emptying machine stock
