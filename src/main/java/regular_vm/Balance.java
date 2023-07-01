@@ -13,7 +13,10 @@ public class Balance {
         return this.cashStock;
     }
 
-    // Receives string input containing the different denominations
+    /**
+     * Deposits cash from an input of string containing the different denominations with spaces in between each
+     * @param cashList is the string input of denominations with each one space apart
+     */
     public void depositCash(String cashList) {
         // Extract cash values from string input
         ArrayList<Integer> cash = new ArrayList<Integer>();
@@ -43,6 +46,12 @@ public class Balance {
             System.out.println(numInvalid + " invalid entries were found. Skipped entries.");
     }
 
+    /**
+     * Withdraws cash of an amount given based on the current cashStock
+     * @param amount is the amount of cash to be withdrawn
+     * @return cashWithdraw when withdrawal is successful
+     *         null when withdrawal is not successful (change is insufficient)
+     */
     // Can be used for getting change or emptying machine stock
     public String withdrawCash(int amount) {
         String cashWithdraw = "";
