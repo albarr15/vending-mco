@@ -18,7 +18,7 @@ public class Transaction {
 
     public void addToCart(ItemSlot itemSlot) {
         Item item = itemSlot.dispenseItem();
-        currentCart.add(item);
+        this.currentCart.add(item);
         orderTotal = orderTotal + itemSlot.getPrice();
     }
 
@@ -31,10 +31,12 @@ public class Transaction {
     // displays currentCart's items
     public void previewCart() {
         System.out.println("----- Current Cart -----");
-        for(int i = 0; i < currentCart.size(); i++) {
-            System.out.println("[i] " + currentCart.get(i));
+        if (currentCart != null) {
+            for(int i = 0; i < this.currentCart.size(); i++) {
+                System.out.println("[" + i + "] " + this.currentCart.get(i).getName());
+            }
+            System.out.println("Current total: " + orderTotal);
         }
-        System.out.println("Current total: " + orderTotal);
     }
 
     // returns 0 if successful, 1 if not

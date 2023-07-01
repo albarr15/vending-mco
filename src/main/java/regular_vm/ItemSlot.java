@@ -31,7 +31,7 @@ public class ItemSlot {
     }
 
     public boolean checkSlotAvailability() {
-        if(this.item == null)
+        if(this.item == null || this.listItem.size() == 0)
             return true;
         else return false;
     }

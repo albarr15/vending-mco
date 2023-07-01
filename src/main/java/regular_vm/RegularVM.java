@@ -212,10 +212,20 @@ public class RegularVM {
                             do {
                                 VFinput = displayTestVending();
                                 Scanner VFscan = new Scanner(System.in);
+                                currentVM.currentTransaction = new Transaction();
 
                                 switch (VFinput) {
                                     case 1:
                                         // Add Item to Cart
+                                        currentVM.displayAllSlots();
+
+                                        System.out.print("Enter item to add to cart: ");
+                                        String itemName1 = VFscan.next();
+
+                                        // find itemSlot with given item name
+                                        ItemSlot itemSlot1 = currentVM.findItemSlot(itemName1);
+                                        currentVM.currentTransaction.addToCart(itemSlot1);
+                                        currentVM.currentTransaction.previewCart();
                                         break;
                                     case 2:
                                         // Remove Item from Cart
