@@ -15,11 +15,6 @@ public class ItemSlot {
 
     public ItemSlot() {}
 
-    /**
-     * Sets the Item that this ItemSlot will contain.
-     * 
-     * @param item  the Item that will be set
-     */
     public void setItem(Item item) {
         this.item = item;
         listItem.clear();
@@ -27,29 +22,14 @@ public class ItemSlot {
         this.price = item.getPrice();
     }
 
-    /** 
-     * Returns the Item in this ItemSlot
-     * 
-     * @return  the Item in this ItemSlot
-     */
     public Item getItem() {
         return this.item;
     }
 
-    /** 
-     * Returns the name of the Item in this ItemSlot
-     * 
-     * @return  the name of Item in this ItemSlot
-     */
     public String getItemName() {
         return this.item.getName();
     }
 
-    /**
-     * Sets the price of the Items in this ItemSlot
-     * 
-     * @param price  the price that the Items will be set to
-     */
     public void setPrice(double price) {
         this.price = price;
 
@@ -57,11 +37,6 @@ public class ItemSlot {
             this.listItem.get(i).setPrice(price);
     }
 
-    /**
-     * Returns the price of the Items in this ItemSlot
-     * 
-     * @return  the price of the Items in this ItemSlot
-     */
     public double getPrice() {
         return this.price;
     }
@@ -127,20 +102,10 @@ public class ItemSlot {
         }
     }
 
-    /**
-     * Returns the number of Items currently stocked
-     * 
-     * @return  integer number of Items currently stocked in this ItemSlot
-     */
     public int getItemStock() {
         return this.listItem.size();
     }
 
-    /**
-     * Returns the number of Items that have been sold since the last restock
-     * 
-     * @return  integer number of sold items
-     */
     public int getNoSold() {
         return this.noSold;
     }
