@@ -280,6 +280,7 @@ public class RegularVM {
                                         } catch(IndexOutOfBoundsException e) {
                                             System.out.println("Your cart was empty.");
                                         }
+                                        isVFExit = true;
                                         break;
                                     case 4:
                                         // Cancel Order
