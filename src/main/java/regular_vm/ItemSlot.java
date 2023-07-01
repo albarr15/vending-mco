@@ -15,35 +15,9 @@ public class ItemSlot {
 
     public ItemSlot() {}
 
-    public void setItem(Item item) {
-        this.item = item;
-        listItem.clear();
-        listItem.add(item);
-        this.price = item.getPrice();
-    }
-
-    public Item getItem() {
-        return this.item;
-    }
-
-    public String getItemName() {
-        return this.item.getName();
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-
-        for (int i=0; i<this.listItem.size(); i++)
-            this.listItem.get(i).setPrice(price);
-    }
-
-    public int getPrice() {
-        return this.price;
-    }
-
     /**
      * Checks if there has been any Item set to this ItemSlot or if it is empty
-     * 
+     *
      * @return  a boolean value of whether or not this slot is occupied
      */
     public boolean checkSlotAvailability() {
@@ -52,9 +26,10 @@ public class ItemSlot {
         else return false;
     }
 
+
     /**
      * Removes an Item from the list of Items stored in this ItemSlot
-     * 
+     *
      * @return  the Item removed from this list
      */
     public Item dispenseItem() {
@@ -68,15 +43,15 @@ public class ItemSlot {
 
     /**
      * Creates Item stock for this list of Items in this ItemSlot
-     * 
+     *
      * @param isReturnedItem  tells if the item was returned from a buyer's cart rather than restocked
      * @return  a boolean value of whether or not the stocking was successful
      */
     public boolean stockItem(boolean isReturnedItem) {
         if(listItem.size() < 10) {
-            Item item = new Item(this.item.getName(), 
-                                 this.item.getCaloriesAmt(),
-                                 this.item.getPrice());
+            Item item = new Item(this.item.getName(),
+                    this.item.getCaloriesAmt(),
+                    this.item.getPrice());
             listItem.add(item);
             if(isReturnedItem)
                 this.noSold--;
@@ -86,7 +61,7 @@ public class ItemSlot {
 
     /**
      * Fully stocks an ItemSlot's list of Items
-     * 
+     *
      * @return  a boolean value of whether or not there is room for restocking
      */
     public boolean fullStockSlot() {
@@ -102,8 +77,34 @@ public class ItemSlot {
         }
     }
 
+    public void setItem(Item item) {
+        this.item = item;
+        listItem.clear();
+        listItem.add(item);
+        this.price = item.getPrice();
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+
+        for (int i=0; i<this.listItem.size(); i++)
+            this.listItem.get(i).setPrice(price);
+    }
+
+    public Item getItem() {
+        return this.item;
+    }
+
+    public String getItemName() {
+        return this.item.getName();
+    }
+
     public int getItemStock() {
         return this.listItem.size();
+    }
+
+    public int getPrice() {
+        return this.price;
     }
 
     public int getNoSold() {
