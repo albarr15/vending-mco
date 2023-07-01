@@ -15,7 +15,11 @@ public class ItemSlot {
         listItem.add(item);
         this.price = item.getPrice();
     }
-    
+
+    public Item getItem() {
+        return this.item;
+    }
+
     public String getItemName() {
         return this.item.getName();
     }

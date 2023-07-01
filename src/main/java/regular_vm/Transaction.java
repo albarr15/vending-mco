@@ -22,8 +22,8 @@ public class Transaction {
         orderTotal = orderTotal + itemSlot.getPrice();
     }
 
-    public void removeFromCart(Item item, ItemSlot itemSlot) {
-        currentCart.remove(item);
+    public void removeFromCart(ItemSlot itemSlot) {
+        currentCart.remove(itemSlot.getItem());
         itemSlot.stockItem(true);
         orderTotal = orderTotal - itemSlot.getPrice();
     }

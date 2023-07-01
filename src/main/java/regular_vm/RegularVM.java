@@ -228,6 +228,14 @@ public class RegularVM {
                                         break;
                                     case 2:
                                         // Remove Item from Cart
+                                        currentVM.currentTransaction.previewCart();
+
+                                        System.out.print("Enter item to remove from cart: ");
+                                        String itemName2 = VFscan.nextLine();
+
+                                        // find itemSlot with given item name
+                                        ItemSlot itemSlot2 = currentVM.findItemSlot(itemName2);
+                                        currentVM.currentTransaction.removeFromCart(itemSlot2);
                                         break;
                                     case 3:
                                         // Checkout Current Cart
