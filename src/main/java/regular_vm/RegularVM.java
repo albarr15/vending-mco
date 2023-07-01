@@ -7,10 +7,10 @@ public class RegularVM {
     private ArrayList<ItemSlot> listItemSlots = new ArrayList<ItemSlot>();
     private Balance balance;
     private Transaction currentTransaction;
-    private TestMenu testMenu;
+    private Maintenance maintenance;
 
-    public void setTestMenu(TestMenu testMenu) {
-        this.testMenu = testMenu;
+    public void setMaintenance(Maintenance maintenance) {
+        this.maintenance = maintenance;
     }
 
     public void addItemSlot(ItemSlot itemSlot) {
@@ -139,7 +139,7 @@ public class RegularVM {
                 if (input1 == 1) {
                     regularVM = new RegularVM();
                     currentVM = regularVM;
-                    currentVM.setTestMenu(new TestMenu(currentVM));
+                    currentVM.setMaintenance(new Maintenance(currentVM));
 
                     // Instantiate items
                     Item chashuPork = new Item("Chashu Pork", 99, 95);
@@ -230,7 +230,7 @@ public class RegularVM {
                                         System.out.print("Enter number of items to stock: ");
                                         int numItems1 = MFscan.nextInt();
 
-                                        currentVM.testMenu.stockItem(itemSlot1, numItems1);
+                                        currentVM.maintenance.stockItem(itemSlot1, numItems1);
                                         currentVM.displayAllSlots();
                                         break;
                                     case 2:
@@ -244,7 +244,7 @@ public class RegularVM {
                                         System.out.print("Enter price: ");
                                         double price2 = MFscan.nextDouble();
 
-                                        currentVM.testMenu.setPrice(itemSlot2, price2);
+                                        currentVM.maintenance.setPrice(itemSlot2, price2);
                                         currentVM.displayAllSlots();
                                         break;
                                     case 3:
@@ -255,7 +255,7 @@ public class RegularVM {
                                         break;
                                     case 5:
                                         // Print Summary of Transactions
-                                        currentVM.testMenu.printTransacSummary(currentVM.listItemSlots);
+                                        currentVM.maintenance.printTransacSummary(currentVM.listItemSlots);
                                         break;
                                     case 6:
                                         // Exit

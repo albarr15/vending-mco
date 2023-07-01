@@ -1,10 +1,10 @@
 package regular_vm;
 import java.util.ArrayList;
 
-public class TestMenu {
+public class Maintenance {
     private RegularVM currentVM;
 
-    public TestMenu(RegularVM currentVM) {
+    public Maintenance(RegularVM currentVM) {
         this.currentVM = currentVM;
     }
 
