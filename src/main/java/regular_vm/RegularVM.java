@@ -142,13 +142,13 @@ public class RegularVM {
 
                     // Instantiate items
                     Item chashuPork = new Item("Chashu Pork", 99, 95);
-                    Item chickenSlices = new Item("Chicken Slices", 95, 153.5);
+                    Item chickenSlices = new Item("Chicken Slices", 95, 153);
                     Item fishCake = new Item("Fish Cake", 63, 40);
                     Item ajitamago = new Item("Ajitamago", 72, 35);
-                    Item friedTofu = new Item("Fried Tofu", 77, 14.9);
-                    Item seaweed = new Item("Seaweed", 8.5, 16.5);
-                    Item corn = new Item("Corn", 76, 40.89);
-                    Item butter = new Item("Butter", 81, 1.799);
+                    Item friedTofu = new Item("Fried Tofu", 77, 14);
+                    Item seaweed = new Item("Seaweed", 8, 16);
+                    Item corn = new Item("Corn", 76, 40);
+                    Item butter = new Item("Butter", 81, 1);
 
                     // Instantiate itemSlots
                     ItemSlot itemSlot1 = new ItemSlot();
@@ -279,7 +279,7 @@ public class RegularVM {
                                         ItemSlot itemSlot2 = currentVM.findItemSlot(itemName2);
 
                                         System.out.print("Enter price: ");
-                                        double price2 = MFscan.nextDouble();
+                                        int price2 = MFscan.nextInt();
 
                                         currentVM.maintenance.setPrice(itemSlot2, price2);
                                         currentVM.displayAllSlots();
@@ -293,15 +293,15 @@ public class RegularVM {
 
                                         switch (input3) {
                                             case 1:
-                                                double collectedMoney1 =
+                                                int collectedMoney1 =
                                                         currentVM.maintenance.collectMoney(currentVM.getBalance());
                                                 System.out.println("Collected Money : " + collectedMoney1);
                                                 System.out.println("Remaining balance : " + currentVM.getBalance().getCurrentBal());
                                                 break;
                                             case 2:
                                                 System.out.print("Enter specific amount to be collected: ");
-                                                double amount = MFscan.nextDouble();
-                                                double collectedMoney2 =
+                                                int amount = MFscan.nextInt();
+                                                int collectedMoney2 =
                                                         currentVM.maintenance.collectMoney(currentVM.getBalance(), amount);
                                                 System.out.println("Collected Money : " + collectedMoney2);
                                                 System.out.println("Remaining balance : " + currentVM.getBalance().getCurrentBal());

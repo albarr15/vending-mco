@@ -3,23 +3,24 @@ import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 public class Balance {
-    private double currentBal = 0;
-    private double[][] cashStock = { {0.01,0.05,0.1,0.25,1,5,10,20,50,100,200,500,1000},
-                                     {0,0,0,0,0,0,0,0,0,0,0,0,0} };
+    private int currentBal = 0;
+    private int[][] cashStock = { {1,5,10,20,50,100,200,500,1000},
+                                     {0,0,0,0,0,0,0,0,0} };
 
     public Balance () {}
 
-    public double[][] getCashStock() {
+    public int[][] getCashStock() {
         return this.cashStock;
     }
 
     // Receives string input containing the different denominations
     public void depositCash(String cashList) {
         // Extract cash values from string input
-        ArrayList<Double> cash = new ArrayList<Double>();
+        ArrayList<Integer> cash = new ArrayList<Integer>();
         StringTokenizer st = new StringTokenizer(cashList," ");
         while(st.hasMoreTokens()) {
-            cash.add(Double.parseDouble(st.nextToken()));
+            // TODO : turn to integer
+            cash.add(Double.parseint(st.nextToken()));
         }
 
         // Store in balance
@@ -33,9 +34,9 @@ public class Balance {
     }
 
     // Can be used for getting change or emptying machine stock
-    public String withdrawCash(double amount) {
+    public String withdrawCash(int amount) {
         String cashWithdraw = "";
-        double origAmount = amount;
+        int origAmount = amount;
 
         // Removing cash from stock
         int i=12;
@@ -56,7 +57,7 @@ public class Balance {
         }
     }
 
-    public double getCurrentBal() {
+    public int getCurrentBal() {
         return this.currentBal;
     }
 }

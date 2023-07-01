@@ -4,8 +4,8 @@ import java.util.Scanner;
 
 public class Transaction {
     private ArrayList<Item> currentCart = new ArrayList<Item>();
-    private double orderTotal;
-    private double amtReceived;
+    private int orderTotal;
+    private int amtReceived;
     private boolean status = true;
 
     public void setStatus(boolean status) {
@@ -42,7 +42,7 @@ public class Transaction {
     public void checkOut(Balance bal){
         Scanner scanner = new Scanner(System.in);
         String change;
-        double initialBal = bal.getCurrentBal();
+        int initialBal = bal.getCurrentBal();
 
         // prompt for cash deposit
         System.out.println("Enter Cash Payment : (Please separate each denomination with spaces)");
@@ -51,7 +51,7 @@ public class Transaction {
 
         // get newly added cash for this specific transaction
         this.amtReceived = bal.getCurrentBal() - initialBal;
-        double changeAmt = this.amtReceived - this.orderTotal;
+        int changeAmt = this.amtReceived - this.orderTotal;
 
         if (this.amtReceived < this.orderTotal) {
             System.out.println("TRANSACTION UNSUCCESSFUL (Not enough cash entered)");
@@ -78,7 +78,7 @@ public class Transaction {
         this.setStatus(false);
     }
 
-    public void cancelOrder(Balance bal, double amtReceived) {
+    public void cancelOrder(Balance bal, int amtReceived) {
         bal.withdrawCash(this.amtReceived);
         this.amtReceived = 0;
         this.setStatus(false);

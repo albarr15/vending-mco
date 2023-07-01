@@ -7,10 +7,10 @@ package regular_vm;
 
 public class Item {
     private String name;
-    private double caloriesAmt;
-    private double price;
+    private int caloriesAmt;
+    private int price;
 
-    public Item(String name, double caloriesAmt, double price) {
+    public Item(String name, int caloriesAmt, int price) {
         this.name = name;
         this.caloriesAmt = caloriesAmt;
         this.price = price;
@@ -20,11 +20,11 @@ public class Item {
         this.name = name;
     }
 
-    public void setCaloriesAmt(double caloriesAmt) {
+    public void setCaloriesAmt(int caloriesAmt) {
         this.caloriesAmt = caloriesAmt;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 
@@ -32,11 +32,11 @@ public class Item {
         return this.name;
     }
     
-    public double getCaloriesAmt() {
+    public int getCaloriesAmt() {
         return this.caloriesAmt;
     }
 
-    public double getPrice() {
+    public int getPrice() {
         return this.price;
     }
 }

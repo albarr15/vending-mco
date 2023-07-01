@@ -17,7 +17,7 @@ public class Maintenance {
      * @param price  the price of the Item
      */
     public void setItem(ItemSlot itemSlot, String itemName,
-                        double caloriesAmt, double price) {
+                        int caloriesAmt, int price) {
         Item item = new Item(itemName, caloriesAmt, price);
         itemSlot.setItem(item);
     }
@@ -58,7 +58,7 @@ public class Maintenance {
      * @param itemSlot  the ItemSlot to be given a price
      * @param price  the price to be set
      */
-    public void setPrice(ItemSlot itemSlot, double price) {
+    public void setPrice(ItemSlot itemSlot, int price) {
         itemSlot.setPrice(price);
     }
 
@@ -69,7 +69,7 @@ public class Maintenance {
      * @param amount  the amount to be collected
      * @return  the remaining balance or null if unsuccessful
      */
-    public double collectMoney(Balance bal, double amount) {
+    public int collectMoney(Balance bal, int amount) {
         if(bal.withdrawCash(amount) != null)
             return bal.getCurrentBal();
         else return 0;
@@ -81,8 +81,8 @@ public class Maintenance {
      * @param bal  the Balance of the machine
      * @return  the remaining balance
      */
-    public double collectMoney(Balance bal) {
-        double origBal = bal.getCurrentBal();
+    public int collectMoney(Balance bal) {
+        int origBal = bal.getCurrentBal();
         bal.withdrawCash(bal.getCurrentBal());
         return origBal;
     }
@@ -94,7 +94,7 @@ public class Maintenance {
      * @param cashList  a String containing values of the money to be stocked
      * @return  the new balance after stocking
      */
-    public double replenishMoney(Balance bal, String cashList) {
+    public int replenishMoney(Balance bal, String cashList) {
         bal.depositCash(cashList);
         return bal.getCurrentBal();
     }
@@ -105,7 +105,7 @@ public class Maintenance {
      * @param listItemSlots  the list of ItemSlots in the machine
      */
     public void printTransacSummary(ArrayList<ItemSlot> listItemSlots) {
-        double totalEarnings = 0;
+        int totalEarnings = 0;
         System.out.println("Number of items sold: ");
         for(int i=0; i<listItemSlots.size(); i++) {
             ItemSlot itemSlot = listItemSlots.get(i);

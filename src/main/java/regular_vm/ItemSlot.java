@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class ItemSlot {
     private Item item = null;
     private ArrayList<Item> listItem = new ArrayList<Item>();
-    private double price;
+    private int price;
     private int noSold =  0;
 
     public ItemSlot() {}
@@ -30,14 +30,14 @@ public class ItemSlot {
         return this.item.getName();
     }
 
-    public void setPrice(double price) {
+    public void setPrice(int price) {
         this.price = price;
 
         for (int i=0; i<this.listItem.size(); i++)
             this.listItem.get(i).setPrice(price);
     }
 
-    public double getPrice() {
+    public int getPrice() {
         return this.price;
     }
 
