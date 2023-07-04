@@ -56,6 +56,7 @@ public class RegularVM {
                 return listItemSlots.get(i);
             }
         }
+        System.out.println("ERROR : Item Slot for item " + itemName + " not found.");
         return null;
     }
 
@@ -264,6 +265,8 @@ public class RegularVM {
                                             } catch (NullPointerException e) {
                                                 System.out.println("Error: Item not found");
                                             }
+
+                                            currentVM.currentTransaction.previewCart();
                                             break;
                                         case 3:
                                             // Checkout Current Cart
@@ -271,7 +274,8 @@ public class RegularVM {
                                             System.out.println("Proceeding to check out order ...");
                                             currentVM.currentTransaction.previewCart();
                                             try {
-                                                coSuccess = currentVM.currentTransaction.checkOut(currentVM.getBalance());
+                                                coSuccess = currentVM.currentTransaction.checkOut(currentVM.getBalance(),
+                                                        currentVM.listItemSlots);
                                             } catch (IndexOutOfBoundsException e) {
                                                 System.out.println("Your cart was empty.");
                                             }
@@ -279,7 +283,7 @@ public class RegularVM {
                                             break;
                                         case 4:
                                             // Cancel Order
-                                            currentVM.currentTransaction.cancelOrder(currentVM.getBalance());
+                                            currentVM.currentTransaction.cancelOrder(currentVM.getBalance(), currentVM.listItemSlots);
                                             isVFExit = true;
                                             break;
                                     }

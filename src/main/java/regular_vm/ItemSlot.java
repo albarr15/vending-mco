@@ -61,8 +61,9 @@ public class ItemSlot {
                     this.item.getCaloriesAmt(),
                     this.item.getPrice());
             listItem.add(item);
-            if(isReturnedItem)
+            if(isReturnedItem) {
                 this.noSold--;
+            }
             return true;
         } else return false;
     }
