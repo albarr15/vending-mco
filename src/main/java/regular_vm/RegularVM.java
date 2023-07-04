@@ -184,14 +184,14 @@ public class RegularVM {
                     Item butter = new Item("Butter", 81, 1);
 
                     // Instantiate itemSlots
-                    ItemSlot itemSlot1 = new ItemSlot();
-                    ItemSlot itemSlot2 = new ItemSlot();
-                    ItemSlot itemSlot3 = new ItemSlot();
-                    ItemSlot itemSlot4 = new ItemSlot();
-                    ItemSlot itemSlot5 = new ItemSlot();
-                    ItemSlot itemSlot6 = new ItemSlot();
-                    ItemSlot itemSlot7 = new ItemSlot();
-                    ItemSlot itemSlot8 = new ItemSlot();
+                    ItemSlot itemSlot1 = new ItemSlot(chashuPork);
+                    ItemSlot itemSlot2 = new ItemSlot(chickenSlices);
+                    ItemSlot itemSlot3 = new ItemSlot(fishCake);
+                    ItemSlot itemSlot4 = new ItemSlot(ajitamago);
+                    ItemSlot itemSlot5 = new ItemSlot(friedTofu);
+                    ItemSlot itemSlot6 = new ItemSlot(seaweed);
+                    ItemSlot itemSlot7 = new ItemSlot(corn);
+                    ItemSlot itemSlot8 = new ItemSlot(butter);
 
                     // add itemSlots to regularVM
                     regularVM.addItemSlot(itemSlot1);
@@ -202,16 +202,6 @@ public class RegularVM {
                     regularVM.addItemSlot(itemSlot6);
                     regularVM.addItemSlot(itemSlot7);
                     regularVM.addItemSlot(itemSlot8);
-
-                    // set Item for each itemSlot
-                    itemSlot1.setItem(chashuPork);
-                    itemSlot2.setItem(chickenSlices);
-                    itemSlot3.setItem(fishCake);
-                    itemSlot4.setItem(ajitamago);
-                    itemSlot5.setItem(friedTofu);
-                    itemSlot6.setItem(seaweed);
-                    itemSlot7.setItem(corn);
-                    itemSlot8.setItem(butter);
 
                     regularVM.displayAllSlots();
                 }

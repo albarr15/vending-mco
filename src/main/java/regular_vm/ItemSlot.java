@@ -16,7 +16,12 @@ public class ItemSlot {
     private int price;
     private int noSold =  0;
 
-    public ItemSlot() {}
+    public ItemSlot() {
+    }
+
+    public ItemSlot(Item item) {
+        this.setItem(item);
+    }
 
     /**
      * Checks if there has been any Item set to this ItemSlot or if it is empty
