@@ -88,7 +88,7 @@ public class Maintenance {
     }
 
     /**
-     * Replenishes the stock of bills and coins in the machine
+     * Replenishes the stock of bills and coins in the machine given a cashList
      * 
      * @param bal  the Balance of the machine
      * @param cashList  a String containing values of the money to be stocked
@@ -96,6 +96,19 @@ public class Maintenance {
      */
     public int replenishMoney(Balance bal, String cashList) {
         bal.depositCash(cashList);
+        return bal.getCurrentBal();
+    }
+
+    /**
+     * Replenishes the stock of bills and coins in the machine with the default stock of machine
+     *
+     * @param bal  the Balance of the machine
+     * @return  the new balance after stocking
+     */
+    public int replenishMoney(Balance bal) {
+        int[][] defaultStock = { {1,5,10,20,50,100,200,500,1000},
+                    {20,20,20,20,20,20,20,20,20} };
+        bal.setCashStock(defaultStock);
         return bal.getCurrentBal();
     }
 

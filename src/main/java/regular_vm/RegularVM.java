@@ -359,10 +359,25 @@ public class RegularVM {
                                     case 4:
                                         // Replenish Money
                                         System.out.println("Current Balance : " + currentVM.getBalance().getCurrentBal());
-                                        System.out.println("Enter money to be deposited: ");
-                                        System.out.println("Sample Format: '5 100 500 1000'");
-                                        String cashList = MFscan.nextLine();
-                                        currentVM.maintenance.replenishMoney(currentVM.getBalance(), cashList);
+                                        System.out.println("[1] Replenish with default stock");
+                                        System.out.println("[2] Replenish with entered cash");
+
+                                        int input4 = MFscan.nextInt();
+
+                                        if (input4 == 1) {
+                                            System.out.println("Replenishing money with default stock ...");
+                                            currentVM.maintenance.replenishMoney(currentVM.getBalance());
+                                        }
+                                        else if (input4 == 2) {
+                                            System.out.println("Enter money to be deposited: ");
+                                            System.out.println("Sample Format: '5 100 500 1000'");
+
+                                            String cashList = MFscan.nextLine();
+
+                                            currentVM.maintenance.replenishMoney(currentVM.getBalance());
+
+                                            System.out.println("Replenishing money with entered cash ...");
+                                        }
 
                                         System.out.println("Current Balance : " + currentVM.getBalance().getCurrentBal());
                                         break;

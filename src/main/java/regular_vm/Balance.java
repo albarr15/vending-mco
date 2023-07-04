@@ -50,6 +50,25 @@ public class Balance {
     }
 
     /**
+     * Sets cash stock according to new cash stock
+     * @param cashStock is a 2D array in which the first row is the values of denominations and the second row is its
+     *                  corresponding number of stocks
+     */
+    public void setCashStock(int[][] cashStock) {
+        this.cashStock = cashStock;
+
+        // adjust currentBal according to new cash stock
+        for(int i=0; i < 9; i++) {
+            int numStock = cashStock[1][i];
+
+            for(int j = numStock; j >= 0; j--) {
+                this.currentBal = currentBal + cashStock[0][i];
+            }
+            System.out.println("Added " + numStock + " pieces of " + cashStock[0][i] + " to balance.");
+        }
+    }
+
+    /**
      * Withdraws cash of an amount given based on the current cashStock
      * @param amount is the amount of cash to be withdrawn
      * @return cashWithdraw when withdrawal is successful
