@@ -2,6 +2,7 @@ package regular_vm;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+
 /**
  * Represents one Regular vending machine.
  * <p>
