@@ -1,6 +1,6 @@
 package regular_vm;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
+import java.util.ListIterator;
 import java.util.Scanner;
 
 /**
@@ -34,9 +34,8 @@ public class Transaction {
     }
 
 
-    // TODO : Fix error when second removal of the same item does not successfully remove
     /**
-     * Removes the given item from the itemSlot to the current cart and updates the orderTotal
+     * Removes the given item of the itemSlot from the current cart and updates the orderTotal
      * @param itemSlot is where the given item to be removed to cart is stored
      */
     public void removeFromCart(ItemSlot itemSlot) {
@@ -44,18 +43,17 @@ public class Transaction {
 
         System.out.println("Removing " + itemSlot.getItemName() + "...");
 
-        if (itemSlot != null) {
-            if(currentCart.remove(itemSlot.getItem())) {
+        ListIterator<Item> cartIterator = currentCart.listIterator();
+
+        while (cartIterator.hasNext()) {
+            if (cartIterator.next().getName().equals(itemSlot.getItemName())) {
+                cartIterator.remove();
                 itemSlot.stockItem(true);
                 orderTotal = orderTotal - itemSlot.getPrice();
 
                 System.out.println("Removed " + itemSlot.getItem().getName() + " from cart.");
             }
         }
-        else {
-            System.out.println("ERROR : Item slot is null.");
-        }
-
     }
 
     // displays currentCart's items
@@ -148,11 +146,9 @@ public class Transaction {
         ItemSlot foundItemSlot = null;
 
         // find itemSlot of item in currentCart
-        for (Item item : currentCart) {
-            for (ItemSlot listItemSlot : listItemSlots) {
-                if (listItemSlot.getItemName().equals(item1.getName())) {
-                    foundItemSlot = listItemSlot;
-                }
+        for (ItemSlot listItemSlot : listItemSlots) {
+            if (listItemSlot.getItemName().equals(item1.getName())) {
+                foundItemSlot = listItemSlot;
             }
         }
 
