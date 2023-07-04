@@ -33,6 +33,8 @@ public class Transaction {
         }
     }
 
+
+    // TODO : Fix error when second removal of the same item does not successfully remove
     /**
      * Removes the given item from the itemSlot to the current cart and updates the orderTotal
      * @param itemSlot is where the given item to be removed to cart is stored
