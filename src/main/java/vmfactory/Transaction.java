@@ -8,12 +8,20 @@ import java.util.Scanner;
  */
 public class Transaction {
     private ArrayList<Item> currentCart = new ArrayList<Item>();
+    private Item itemOrdered;
     private int orderTotal;
     private int amtReceived;
     private boolean status = true;
 
     public void setStatus(boolean status) {
-        this.status = status;
+        if (status == false) {
+            this.setItemOrdered(null);
+            this.amtReceived = 0;
+            this.orderTotal = 0;
+        }
+        else {
+            this.status = status;
+        }
     }
 
     public boolean getStatus() {
@@ -171,8 +179,78 @@ public class Transaction {
         System.out.println("Enter Cash Payment : (Please separate each denomination with spaces)");
         String amount = scanner.nextLine();
         bal.depositCash(amount);
+        this.setAmtReceived((bal.getCurrentBal() - initialBal));
 
-        System.out.println("Received : " +  (bal.getCurrentBal() - initialBal));
+        System.out.println("Received : " +  amtReceived);
+    }
+
+    public void setItemOrdered(Item itemOrdered) {
+        this.itemOrdered = itemOrdered;
+    }
+
+    /**
+     * Sets item order from the parameter itemOrdered1 and sets the order total accordingly
+     * @param itemOrdered1 is the item chosen by the user
+     */
+    public void selectItem(Item itemOrdered1){
+        this.itemOrdered = itemOrdered1;
+        this.orderTotal = itemOrdered1.getPrice();
+
+        System.out.println("You have selected : " + itemOrdered1.getName());
+    }
+
+    public Item getItemOrdered() {
+        return itemOrdered;
+    }
+
+    public void setAmtReceived(int amtReceived) {
+        this.amtReceived = amtReceived;
+    }
+
+    /**
+     * Produces change according to the case situated by the current balance, item ordered, and order total
+     * @param bal is the current balance of the machine
+     */
+    public void produceChange(Balance bal) {
+        int changeAmt = this.amtReceived - this.orderTotal;
+
+        if (this.itemOrdered == null) {
+            System.out.println("TRANSACTION UNSUCCESSFUL (Item not found)");
+            System.out.println("Returning amount received ...");
+            System.out.println("Returned : " + bal.withdrawCash(amtReceived));
+            this.setStatus(false);
+        }
+        else if (this.amtReceived < this.orderTotal) {
+            System.out.println("TRANSACTION UNSUCCESSFUL (Not enough cash entered)");
+            System.out.println("Returning amount received ...");
+            System.out.println("Returned : " + bal.withdrawCash(amtReceived));
+            this.setStatus(false);
+        }
+        else if((bal.withdrawCash(changeAmt)) == null) {
+            System.out.println("TRANSACTION UNSUCCESSFUL (Not enough change in machine)");
+            System.out.println("Returning amount received ...");
+            System.out.println("Returned : " + bal.withdrawCash(amtReceived));
+            this.setStatus(false);
+        }
+        else {
+            System.out.println("TRANSACTION SUCCESSFUL");
+            System.out.println("Withdrawing change ...");
+            System.out.println("Your change is: " + changeAmt);
+            System.out.print("Dispensing " + this.itemOrdered.getName() + "...");
+            System.out.println();
+            this.setStatus(false);
+        }
+    }
+
+    /**
+     * Dispenses item previously selected and produces corresponding change
+     * @param bal is the current balance of the machine
+     */
+    public void dispenseItem(Balance bal) {
+        String change;
+
+        int changeAmt = this.amtReceived - this.orderTotal;
+        this.produceChange(bal);
     }
 }
 
