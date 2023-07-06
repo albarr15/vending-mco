@@ -7,21 +7,6 @@ import java.util.ArrayList;
  * prices, collecting money from the Balance, and printing the summary of transactions.
  */
 public class Maintenance {
-
-    /**
-     * Creates a new Item to be set as the Item of an ItemSlot
-     * 
-     * @param itemSlot  the slot for the Item to be placed in
-     * @param itemName  the name of the Item
-     * @param caloriesAmt  the calorie count of the Item
-     * @param price  the price of the Item
-     */
-    public void setItem(ItemSlot itemSlot, String itemName,
-                        int caloriesAmt, int price) {
-        Item item = new Item(itemName, caloriesAmt, price);
-        itemSlot.setItem(item);
-    }
-
     /**
      * Stocks an ItemSlot of a certain amoutn of whatever Item is assigned to it
      * 
@@ -44,22 +29,11 @@ public class Maintenance {
 
     /**
      * Fully stocks an ItemSlot of whatever Item is assigned to it
-     * 
      * @param itemSlot  the ItemSlot to be stocked
      */
     public void stockItem(ItemSlot itemSlot) {
         itemSlot.fullStockSlot();
         System.out.println("Fully stocked " + itemSlot.getItemName() + ".");
-    }
-
-    /**
-     * Sets the price of Items in an ItemSlot
-     * 
-     * @param itemSlot  the ItemSlot to be given a price
-     * @param price  the price to be set
-     */
-    public void setPrice(ItemSlot itemSlot, int price) {
-        itemSlot.setPrice(price);
     }
 
     /**
@@ -130,5 +104,29 @@ public class Maintenance {
             totalEarnings += itemSlot.getPrice() * itemSlot.getNoSold();
         }
         System.out.println("Total earnings since last summary: " + totalEarnings);
+    }
+
+    /**
+     * Creates a new Item to be set as the Item of an ItemSlot
+     *
+     * @param itemSlot  the slot for the Item to be placed in
+     * @param itemName  the name of the Item
+     * @param caloriesAmt  the calorie count of the Item
+     * @param price  the price of the Item
+     */
+    public void setItem(ItemSlot itemSlot, String itemName,
+                        int caloriesAmt, int price) {
+        Item item = new Item(itemName, caloriesAmt, price);
+        itemSlot.setItem(item);
+    }
+
+    /**
+     * Sets the price of Items in an ItemSlot
+     *
+     * @param itemSlot  the ItemSlot to be given a price
+     * @param price  the price to be set
+     */
+    public void setPrice(ItemSlot itemSlot, int price) {
+        itemSlot.setPrice(price);
     }
 }
