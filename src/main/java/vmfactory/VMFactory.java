@@ -124,15 +124,15 @@ public class VMFactory {
                                             // find itemSlot with given item name
                                             ItemSlot itemSlot1 = currentVM.findItemSlot(itemName1);
                                             try {
-                                                currentVM.currentTransaction.addToCart(itemSlot1); //here
+                                                currentVM.getCurrentTransaction().addToCart(itemSlot1); //here
                                             } catch (NullPointerException e) {
                                                 System.out.println("Error: Item not found");
                                             }
-                                            currentVM.currentTransaction.previewCart();
+                                            currentVM.getCurrentTransaction().previewCart();
                                             break;
                                         case 2:
                                             // Remove Item from Cart
-                                            currentVM.currentTransaction.previewCart();
+                                            currentVM.getCurrentTransaction().previewCart();
 
                                             System.out.print("Enter item to remove from cart: ");
                                             String itemName2 = VFscan.nextLine();
@@ -140,21 +140,21 @@ public class VMFactory {
                                             // find itemSlot with given item name
                                             ItemSlot itemSlot2 = currentVM.findItemSlot(itemName2);
                                             try {
-                                                currentVM.currentTransaction.removeFromCart(itemSlot2);
+                                                currentVM.getCurrentTransaction().removeFromCart(itemSlot2);
                                             } catch (NullPointerException e) {
                                                 System.out.println("Error: Item not found");
                                             }
 
-                                            currentVM.currentTransaction.previewCart();
+                                            currentVM.getCurrentTransaction().previewCart();
                                             break;
                                         case 3:
                                             // Checkout Current Cart
                                             boolean coSuccess = false;
                                             System.out.println("Proceeding to check out order ...");
-                                            currentVM.currentTransaction.previewCart();
+                                            currentVM.getCurrentTransaction().previewCart();
                                             try {
-                                                coSuccess = currentVM.currentTransaction.checkOut(currentVM.getBalance(),
-                                                        currentVM.listItemSlots);
+                                                coSuccess = currentVM.getCurrentTransaction().checkOut(currentVM.getBalance(),
+                                                        currentVM.getListItemSlots());
                                             } catch (IndexOutOfBoundsException e) {
                                                 System.out.println("Your cart was empty.");
                                             }
@@ -162,17 +162,17 @@ public class VMFactory {
                                             break;
                                         case 4:
                                             // Cancel Order
-                                            currentVM.currentTransaction.cancelOrder(currentVM.getBalance(), currentVM.listItemSlots);
+                                            currentVM.getCurrentTransaction().cancelOrder(currentVM.getBalance(), currentVM.getListItemSlots());
                                             isVFExit = true;
                                             break;
                                     }
                                 } while (!isVFExit);
                             } else if (input2 == 2) {
-                                // user opted to test Maintenance Features
+                                // user opted to test getMaintenance() Features
                                 int MFinput;
                                 boolean isMFExit = false;
                                 do {
-                                    MFinput = displayTestMaintenance();
+                                    MFinput = currentVM.displayTestMaintenance();
                                     Scanner MFscan = new Scanner(System.in);
 
                                     switch (MFinput) {
@@ -187,7 +187,7 @@ public class VMFactory {
                                             System.out.print("Enter number of items to stock: ");
                                             int numItems1 = MFscan.nextInt();
 
-                                            currentVM.maintenance.stockItem(itemSlot1, numItems1);
+                                            currentVM.getMaintenance().stockItem(itemSlot1, numItems1);
                                             currentVM.displayAllSlots();
                                             break;
                                         case 2:
@@ -201,7 +201,7 @@ public class VMFactory {
                                             System.out.print("Enter price: ");
                                             int price2 = MFscan.nextInt();
 
-                                            currentVM.maintenance.setPrice(itemSlot2, price2);
+                                            currentVM.getMaintenance().setPrice(itemSlot2, price2);
                                             currentVM.displayAllSlots();
                                             break;
                                         case 3:
@@ -214,7 +214,7 @@ public class VMFactory {
                                             switch (input3) {
                                                 case 1:
                                                     int collectedMoney1 =
-                                                            currentVM.maintenance.collectMoney(currentVM.getBalance());
+                                                            currentVM.getMaintenance().collectMoney(currentVM.getBalance());
                                                     System.out.println("Collected Money : " + collectedMoney1);
                                                     System.out.println("Remaining balance : " + currentVM.getBalance().getCurrentBal());
                                                     break;
@@ -222,7 +222,7 @@ public class VMFactory {
                                                     System.out.print("Enter specific amount to be collected: ");
                                                     int amount = MFscan.nextInt();
                                                     int collectedMoney2 =
-                                                            currentVM.maintenance.collectMoney(currentVM.getBalance(), amount);
+                                                            currentVM.getMaintenance().collectMoney(currentVM.getBalance(), amount);
                                                     System.out.println("Collected Money : " + collectedMoney2);
                                                     System.out.println("Remaining balance : " + currentVM.getBalance().getCurrentBal());
                                                     break;
@@ -238,14 +238,14 @@ public class VMFactory {
 
                                             if (input4 == 1) {
                                                 System.out.println("Replenishing money with default stock ...");
-                                                currentVM.maintenance.replenishMoney(currentVM.getBalance());
+                                                currentVM.getMaintenance().replenishMoney(currentVM.getBalance());
                                             } else if (input4 == 2) {
                                                 System.out.println("Enter money to be deposited: ");
                                                 System.out.println("Sample Format: '5 100 500 1000'");
 
                                                 String cashList = MFscan.nextLine();
 
-                                                currentVM.maintenance.replenishMoney(currentVM.getBalance());
+                                                currentVM.getMaintenance().replenishMoney(currentVM.getBalance());
 
                                                 System.out.println("Replenishing money with entered cash ...");
                                             }
@@ -254,7 +254,7 @@ public class VMFactory {
                                             break;
                                         case 5:
                                             // Print Summary of Transactions
-                                            currentVM.maintenance.printTransacSummary(currentVM.listItemSlots);
+                                            currentVM.getMaintenance().printTransacSummary(currentVM.getListItemSlots());
                                             break;
                                         case 6:
                                             // Exit

@@ -36,6 +36,14 @@ public class RegularVM {
         this.maintenance = new Maintenance();
     }
 
+    public Transaction getCurrentTransaction() {
+        return currentTransaction;
+    }
+
+    public Maintenance getMaintenance() {
+        return maintenance;
+    }
+
     public Balance getBalance() {
         return this.balance;
     }
