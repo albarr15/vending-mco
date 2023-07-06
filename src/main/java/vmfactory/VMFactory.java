@@ -112,7 +112,8 @@ public class VMFactory {
 
                                     switch (VFinput) {
                                         case 1:
-                                            // Add Item to Cart
+                                            // Receive Payment
+                                            /*
                                             currentVM.displayAllSlots();
 
                                             System.out.print("Enter item to add to cart: ");
@@ -126,9 +127,11 @@ public class VMFactory {
                                                 System.out.println("Error: Item not found");
                                             }
                                             currentVM.getCurrentTransaction().previewCart();
+                                             */
                                             break;
                                         case 2:
-                                            // Remove Item from Cart
+                                            // Dispense Item
+                                            /*
                                             currentVM.getCurrentTransaction().previewCart();
 
                                             System.out.print("Enter item to remove from cart: ");
@@ -143,9 +146,11 @@ public class VMFactory {
                                             }
 
                                             currentVM.getCurrentTransaction().previewCart();
+                                             */
                                             break;
                                         case 3:
-                                            // Checkout Current Cart
+                                            // Produce Change
+                                            /*
                                             boolean coSuccess = false;
                                             System.out.println("Proceeding to check out order ...");
                                             currentVM.getCurrentTransaction().previewCart();
@@ -156,12 +161,9 @@ public class VMFactory {
                                                 System.out.println("Your cart was empty.");
                                             }
                                             if (coSuccess) isVFExit = true;
+                                             */
                                             break;
                                         case 4:
-                                            // Cancel Order
-                                            currentVM.getCurrentTransaction().cancelOrder(currentVM.getBalance(), currentVM.getListItemSlots());
-                                            break;
-                                        case 5:
                                             // Exit
                                             isVFExit = true;
                                             break;

@@ -98,11 +98,10 @@ public class RegularVM {
     public int displayTestVending() {
         System.out.println();
         System.out.println("- TEST VENDING FEATURES -");
-        System.out.println("[1] Add Item to Cart");
-        System.out.println("[2] Remove Item from Cart");
-        System.out.println("[3] Checkout Current Cart");
-        System.out.println("[4] Cancel Order");
-        System.out.println("[5] Exit");
+        System.out.println("[1] Receive Payment");
+        System.out.println("[2] Dispense Item");
+        System.out.println("[3] Produce Change");
+        System.out.println("[4] Exit");
 
         Scanner sc1 = new Scanner(System.in);
         return sc1.nextInt();
