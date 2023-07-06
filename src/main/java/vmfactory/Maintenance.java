@@ -1,4 +1,4 @@
-package regular_vm;
+package vmfactory;
 import java.util.ArrayList;
 
 /** Contains the maintenance features of the vending machine.

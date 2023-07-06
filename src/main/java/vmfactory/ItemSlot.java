@@ -4,7 +4,7 @@
  * Includes the Item set, the list of Items, the price, and the number sold.
  * Features include checking availability, dispensing, and stocking items.
  */
-package regular_vm;
+package vmfactory;
 import java.util.ArrayList;
 
 /**

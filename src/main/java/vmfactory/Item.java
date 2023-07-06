@@ -1,4 +1,4 @@
-package regular_vm;
+package vmfactory;
 
 /**
  * Represents an Item to be stored in ItemSlots or carts of Transactions.

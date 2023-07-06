@@ -1,4 +1,4 @@
-package regular_vm;
+package vmfactory;
 import java.util.ArrayList;
 import java.util.ListIterator;
 import java.util.Scanner;
