@@ -161,10 +161,15 @@ public class VMFactory {
                                         case 4:
                                             // Cancel Order
                                             currentVM.getCurrentTransaction().cancelOrder(currentVM.getBalance(), currentVM.getListItemSlots());
+                                            break;
+                                        case 5:
+                                            // Exit
                                             isVFExit = true;
                                             break;
                                     }
                                 } while (!isVFExit);
+                                isExitVMTest = true;
+
                             } else if (input2 == 2) {
                                 // user opted to test getMaintenance() Features
                                 int MFinput;

@@ -118,6 +118,7 @@ public class RegularVM {
         System.out.println("[2] Remove Item from Cart");
         System.out.println("[3] Checkout Current Cart");
         System.out.println("[4] Cancel Order");
+        System.out.println("[5] Exit");
 
         Scanner sc1 = new Scanner(System.in);
         return sc1.nextInt();
