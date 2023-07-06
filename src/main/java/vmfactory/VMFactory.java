@@ -244,9 +244,10 @@ public class VMFactory {
                                                 System.out.println("Enter money to be deposited: ");
                                                 System.out.println("Sample Format: '5 100 500 1000'");
 
-                                                String cashList = MFscan.nextLine();
+                                                Scanner cashScanner = new Scanner(System.in).useDelimiter("\n");
+                                                String cashList = cashScanner.next();
 
-                                                currentVM.getMaintenance().replenishMoney(currentVM.getBalance());
+                                                currentVM.getMaintenance().replenishMoney(currentVM.getBalance(), cashList);
 
                                                 System.out.println("Replenishing money with entered cash ...");
                                             }
