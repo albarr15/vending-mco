@@ -154,5 +154,25 @@ public class Transaction {
 
         return foundItemSlot;
     }
+
+
+    /**
+     * Receives payment from the customer
+     * @param bal is the current balance of the machine
+     */
+    public void receivePayment(Balance bal){
+        System.out.println("Receiving payment ...");
+
+        Scanner scanner = new Scanner(System.in);
+
+        int initialBal = bal.getCurrentBal();
+
+        // prompt for cash deposit
+        System.out.println("Enter Cash Payment : (Please separate each denomination with spaces)");
+        String amount = scanner.nextLine();
+        bal.depositCash(amount);
+
+        System.out.println("Received : " +  (bal.getCurrentBal() - initialBal));
+    }
 }
 

@@ -113,6 +113,8 @@ public class VMFactory {
                                     switch (VFinput) {
                                         case 1:
                                             // Receive Payment
+                                            currentVM.getCurrentTransaction().receivePayment(currentVM.getBalance());
+
                                             /*
                                             currentVM.displayAllSlots();
 
