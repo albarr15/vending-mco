@@ -11,10 +11,10 @@ public class Transaction {
     private Item itemOrdered;
     private int orderTotal;
     private int amtReceived;
-    private boolean status = true;
+    private boolean status = false;
 
     public void setStatus(boolean status) {
-        if (status == false) {
+        if (!status) {
             this.setItemOrdered(null);
             this.amtReceived = 0;
             this.orderTotal = 0;
@@ -215,7 +215,7 @@ public class Transaction {
         int changeAmt = this.amtReceived - this.orderTotal;
 
         if (this.itemOrdered == null) {
-            System.out.println("TRANSACTION UNSUCCESSFUL (Item not found)");
+            System.out.println("TRANSACTION UNSUCCESSFUL (No item selected)");
             System.out.println("Returning amount received ...");
             System.out.println("Returned : " + bal.withdrawCash(amtReceived));
             this.setStatus(false);
@@ -238,7 +238,7 @@ public class Transaction {
             System.out.println("Your change is: " + changeAmt);
             System.out.print("Dispensing " + this.itemOrdered.getName() + "...");
             System.out.println();
-            this.setStatus(false);
+            this.setStatus(true);
         }
     }
 
@@ -246,11 +246,12 @@ public class Transaction {
      * Dispenses item previously selected and produces corresponding change
      * @param bal is the current balance of the machine
      */
-    public void dispenseItem(Balance bal) {
-        String change;
-
-        int changeAmt = this.amtReceived - this.orderTotal;
+    public void dispenseItem(Balance bal, ArrayList<ItemSlot> listItemSlots) {
         this.produceChange(bal);
+        if (this.status) {
+            ItemSlot itemSlot = this.findItemSlot(itemOrdered, listItemSlots);
+            itemSlot.dispenseItem();
+        }
     }
 }
 

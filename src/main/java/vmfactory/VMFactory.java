@@ -143,10 +143,13 @@ public class VMFactory {
 
                                             try {
                                                 currentVM.getCurrentTransaction().selectItem(itemSlot2.getItem());
-                                                currentVM.getCurrentTransaction().dispenseItem(currentVM.getBalance());
+                                                currentVM.getCurrentTransaction().dispenseItem(currentVM.getBalance(),
+                                                        currentVM.getListItemSlots());
                                             } catch (NullPointerException e) {
                                                 System.out.println("Error: Item not found");
-                                                currentVM.getCurrentTransaction().produceChange(currentVM.getBalance());
+                                                if (!currentVM.getCurrentTransaction().getStatus()) {
+                                                    currentVM.getCurrentTransaction().produceChange(currentVM.getBalance());
+                                                }
                                             }
 
                                             /*
@@ -168,6 +171,7 @@ public class VMFactory {
                                             break;
                                         case 3:
                                             // Produce Change
+                                            currentVM.getCurrentTransaction().produceChange(currentVM.getBalance());
                                             /*
                                             boolean coSuccess = false;
                                             System.out.println("Proceeding to check out order ...");
