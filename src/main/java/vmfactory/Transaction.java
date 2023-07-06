@@ -105,6 +105,7 @@ public class Transaction {
     /**
      * Dispenses item previously selected and produces corresponding change
      * @param bal is the current balance of the machine
+     * @param listItemSlots is the existing list of slots in the machine
      */
     public void dispenseItem(Balance bal, ArrayList<ItemSlot> listItemSlots) {
         if (this.produceChange(bal)) {
