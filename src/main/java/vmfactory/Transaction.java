@@ -12,20 +12,6 @@ public class Transaction {
     private int amtReceived;
     private boolean status = false;
 
-    public void setStatus(boolean status) {
-        if (!status) {
-            this.setItemOrdered(null);
-            this.amtReceived = 0;
-            this.orderTotal = 0;
-        }
-        else {
-            this.status = status;
-        }
-    }
-
-    public boolean getStatus() {
-        return status;
-    }
 
     /**
      * Finds the itemSlot in which item1 is stored in
@@ -47,6 +33,16 @@ public class Transaction {
         return foundItemSlot;
     }
 
+    /**
+     * Sets item order from the parameter itemOrdered1 and sets the order total accordingly
+     * @param itemOrdered1 is the item chosen by the user
+     */
+    public void selectItem(Item itemOrdered1){
+        this.itemOrdered = itemOrdered1;
+        this.orderTotal = itemOrdered1.getPrice();
+
+        System.out.println("You have selected : " + itemOrdered1.getName());
+    }
 
     /**
      * Receives payment from the customer
@@ -63,32 +59,9 @@ public class Transaction {
         System.out.println("Enter Cash Payment : (Please separate each denomination with spaces)");
         String amount = scanner.nextLine();
         bal.depositCash(amount);
-        this.setAmtReceived((bal.getCurrentBal() - initialBal));
+        this.amtReceived = (bal.getCurrentBal() - initialBal);
 
         System.out.println("Received : " +  amtReceived);
-    }
-
-    public void setItemOrdered(Item itemOrdered) {
-        this.itemOrdered = itemOrdered;
-    }
-
-    /**
-     * Sets item order from the parameter itemOrdered1 and sets the order total accordingly
-     * @param itemOrdered1 is the item chosen by the user
-     */
-    public void selectItem(Item itemOrdered1){
-        this.itemOrdered = itemOrdered1;
-        this.orderTotal = itemOrdered1.getPrice();
-
-        System.out.println("You have selected : " + itemOrdered1.getName());
-    }
-
-    public Item getItemOrdered() {
-        return itemOrdered;
-    }
-
-    public void setAmtReceived(int amtReceived) {
-        this.amtReceived = amtReceived;
     }
 
     /**
@@ -96,6 +69,8 @@ public class Transaction {
      * @param bal is the current balance of the machine
      */
     public void produceChange(Balance bal) {
+        // TODO : reset transaction when unsuccessful
+
         int changeAmt = this.amtReceived - this.orderTotal;
 
         if (this.itemOrdered == null) {
@@ -136,6 +111,29 @@ public class Transaction {
             ItemSlot itemSlot = this.findItemSlot(itemOrdered, listItemSlots);
             itemSlot.dispenseItem();
         }
+    }
+
+    public void setItemOrdered(Item itemOrdered) {
+        this.itemOrdered = itemOrdered;
+    }
+
+    public void setStatus(boolean status) {
+        if (!status) {
+            this.setItemOrdered(null);
+            this.amtReceived = 0;
+            this.orderTotal = 0;
+        }
+        else {
+            this.status = status;
+        }
+    }
+
+    public Item getItemOrdered() {
+        return itemOrdered;
+    }
+
+    public boolean getStatus() {
+        return status;
     }
 }
 
