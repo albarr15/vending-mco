@@ -40,7 +40,7 @@ public class VMFactory {
         RegularVM currentVM = null;
 
         do {
-            int input = vmFactory.displayHomeMenu();;
+            int input = vmFactory.displayHomeMenu();
 
             switch (input) {
                 case 1:
@@ -133,6 +133,22 @@ public class VMFactory {
                                             break;
                                         case 2:
                                             // Dispense Item
+                                            System.out.println("Please choose an item from the menu below ...");
+                                            currentVM.displayAllSlots();
+
+                                            String itemName2 = VFscan.nextLine();
+
+                                            // find itemSlot with given item name
+                                            ItemSlot itemSlot2 = currentVM.findItemSlot(itemName2);
+
+                                            try {
+                                                currentVM.getCurrentTransaction().selectItem(itemSlot2.getItem());
+                                                currentVM.getCurrentTransaction().dispenseItem(currentVM.getBalance());
+                                            } catch (NullPointerException e) {
+                                                System.out.println("Error: Item not found");
+                                                currentVM.getCurrentTransaction().produceChange(currentVM.getBalance());
+                                            }
+
                                             /*
                                             currentVM.getCurrentTransaction().previewCart();
 
