@@ -4,8 +4,6 @@ import java.util.Scanner;
 
 public class VMFactory {
 
-    // TODO: Continue modifying code to support RegularVM's main method move to VMFactory class
-
     public int displayHomeMenu() {
         int input;
         do {
@@ -192,18 +190,39 @@ public class VMFactory {
                                             break;
                                         case 2:
                                             // Set Price of Item
+                                            boolean isValidPrice = false;
+
                                             System.out.print("Enter item to price: ");
                                             String itemName2 = MFscan.nextLine();
 
                                             // find itemSlot with given item name
                                             ItemSlot itemSlot2 = currentVM.findItemSlot(itemName2);
 
-                                            // TODO : Add exception handling (only integers should be accepted)
-                                            System.out.print("Enter price: ");
-                                            int price2 = MFscan.nextInt();
+                                            if (itemSlot2 != null) {
 
-                                            currentVM.getMaintenance().setPrice(itemSlot2, price2);
-                                            currentVM.displayAllSlots();
+                                                int price2 = 0;
+
+                                                while (!isValidPrice) {
+                                                    System.out.print("Enter price: ");
+                                                    String sPrice2 = MFscan.next();
+                                                    try {
+                                                        price2 = Integer.parseInt(sPrice2);
+                                                        if (price2 < 0) {
+                                                            System.out.println("Invalid price. " +
+                                                                    "Please enter a positive integer.");
+                                                        }
+                                                        else {
+                                                            isValidPrice = true;
+                                                        }
+                                                    }
+                                                    catch (NumberFormatException e) {
+                                                        System.out.println("Invalid price. Please enter an integer.");
+                                                    }
+                                                }
+
+                                                currentVM.getMaintenance().setPrice(itemSlot2, price2);
+                                                currentVM.displayAllSlots();
+                                            }
                                             break;
                                         case 3:
                                             // Collect Payment
