@@ -11,11 +11,16 @@ import java.util.Scanner;
  * displaying slot availability, displaying all slots, and displaying its menus.
  */
 public class RegularVM {
-    private ArrayList<ItemSlot> listItemSlots = new ArrayList<ItemSlot>();
-    private Balance balance = new Balance();
+    private ArrayList<ItemSlot> listItemSlots;
+    private Balance balance;
     private Transaction currentTransaction;
     private Maintenance maintenance;
 
+    public RegularVM() {
+        this.listItemSlots = new ArrayList<>();
+        this.balance = new Balance();
+        this.maintenance = new Maintenance();
+    }
     /**
      * Adds an itemSlot in the vending machine's list of itemSlots
      * @param itemSlot is the slot to be added in the list of item slots
@@ -28,13 +33,6 @@ public class RegularVM {
      * Creates a new instance of Transaction and assigns it to this
      */
     public void makeTransaction() {this.currentTransaction = new Transaction();}
-
-    /**
-     * Creates a new instance of Maintenance and assigns it to this
-     */
-    public void makeMaintenance() {
-        this.maintenance = new Maintenance();
-    }
 
     public Transaction getCurrentTransaction() {
         return currentTransaction;
@@ -66,20 +64,6 @@ public class RegularVM {
         }
         System.out.println("ERROR : Item Slot for item " + itemName + " not found.");
         return null;
-    }
-
-    /**
-     * Displays a slot's availability with the format : "Slot with (item name) is (available or not)."
-     * @param itemSlot is the slot whose availability will be checked
-     */
-
-    public void displaySlotAvailability(ItemSlot itemSlot) {
-        if (itemSlot.checkSlotAvailability()) {
-            System.out.println("Slot with " + itemSlot.getItemName() + "items is NOT AVAILABLE.");
-        }
-        else {
-            System.out.println("Slot with " + itemSlot.getItemName() + "items is AVAILABLE.");
-        }
     }
 
     public void displayAllSlots() {

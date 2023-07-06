@@ -50,7 +50,6 @@ public class VMFactory {
                     if (input1 == 1) {
                         RegularVM regularVM = new RegularVM();
                         currentVM = regularVM;
-                        currentVM.makeMaintenance();
 
                         // Instantiate items
                         Item chashuPork = new Item("Chashu Pork", 99, 95);
