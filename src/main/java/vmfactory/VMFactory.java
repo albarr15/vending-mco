@@ -115,21 +115,6 @@ public class VMFactory {
                                             // Receive Payment
                                             currentVM.getCurrentTransaction().receivePayment(currentVM.getBalance());
 
-                                            /*
-                                            currentVM.displayAllSlots();
-
-                                            System.out.print("Enter item to add to cart: ");
-                                            String itemName1 = VFscan.nextLine();
-
-                                            // find itemSlot with given item name
-                                            ItemSlot itemSlot1 = currentVM.findItemSlot(itemName1);
-                                            try {
-                                                currentVM.getCurrentTransaction().addToCart(itemSlot1); //here
-                                            } catch (NullPointerException e) {
-                                                System.out.println("Error: Item not found");
-                                            }
-                                            currentVM.getCurrentTransaction().previewCart();
-                                             */
                                             break;
                                         case 2:
                                             // Dispense Item
@@ -151,39 +136,10 @@ public class VMFactory {
                                                     currentVM.getCurrentTransaction().produceChange(currentVM.getBalance());
                                                 }
                                             }
-
-                                            /*
-                                            currentVM.getCurrentTransaction().previewCart();
-
-                                            System.out.print("Enter item to remove from cart: ");
-                                            String itemName2 = VFscan.nextLine();
-
-                                            // find itemSlot with given item name
-                                            ItemSlot itemSlot2 = currentVM.findItemSlot(itemName2);
-                                            try {
-                                                currentVM.getCurrentTransaction().removeFromCart(itemSlot2);
-                                            } catch (NullPointerException e) {
-                                                System.out.println("Error: Item not found");
-                                            }
-
-                                            currentVM.getCurrentTransaction().previewCart();
-                                             */
                                             break;
                                         case 3:
                                             // Produce Change
                                             currentVM.getCurrentTransaction().produceChange(currentVM.getBalance());
-                                            /*
-                                            boolean coSuccess = false;
-                                            System.out.println("Proceeding to check out order ...");
-                                            currentVM.getCurrentTransaction().previewCart();
-                                            try {
-                                                coSuccess = currentVM.getCurrentTransaction().checkOut(currentVM.getBalance(),
-                                                        currentVM.getListItemSlots());
-                                            } catch (IndexOutOfBoundsException e) {
-                                                System.out.println("Your cart was empty.");
-                                            }
-                                            if (coSuccess) isVFExit = true;
-                                             */
                                             break;
                                         case 4:
                                             // Exit
