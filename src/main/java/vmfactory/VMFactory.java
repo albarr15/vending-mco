@@ -118,6 +118,8 @@ public class VMFactory {
                                             break;
                                         case 2:
                                             // Dispense Item
+                                            boolean isSuccessful = false;
+
                                             System.out.println("Please choose an item from the menu below ...");
                                             currentVM.displayAllSlots();
 
@@ -127,15 +129,19 @@ public class VMFactory {
                                             ItemSlot itemSlot2 = currentVM.findItemSlot(itemName2);
 
                                             try {
-                                                currentVM.getCurrentTransaction().selectItem(itemSlot2.getItem());
+                                                isSuccessful = currentVM.getCurrentTransaction().selectItem(itemSlot2.getItem());
                                                 currentVM.getCurrentTransaction().dispenseItem(currentVM.getBalance(),
                                                         currentVM.getListItemSlots());
+
                                             } catch (NullPointerException e) {
                                                 System.out.println("Error: Item not found");
-                                                if (!currentVM.getCurrentTransaction().getStatus()) {
-                                                    currentVM.getCurrentTransaction().produceChange(currentVM.getBalance());
-                                                }
                                             }
+
+                                            if (!isSuccessful) {
+                                                currentVM.getCurrentTransaction().produceChange(currentVM.getBalance());
+                                            }
+
+                                            currentVM.getCurrentTransaction().reset();
                                             break;
                                         case 3:
                                             // Produce Change

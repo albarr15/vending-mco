@@ -10,7 +10,6 @@ public class Transaction {
     private Item itemOrdered;
     private int orderTotal;
     private int amtReceived;
-    private boolean status = false;
 
 
     /**
@@ -36,12 +35,14 @@ public class Transaction {
     /**
      * Sets item order from the parameter itemOrdered1 and sets the order total accordingly
      * @param itemOrdered1 is the item chosen by the user
+     * @return true if selection is successful, false if not
      */
-    public void selectItem(Item itemOrdered1){
+    public boolean selectItem(Item itemOrdered1){
         this.itemOrdered = itemOrdered1;
         this.orderTotal = itemOrdered1.getPrice();
 
         System.out.println("You have selected : " + itemOrdered1.getName());
+        return true;
     }
 
     /**
@@ -67,9 +68,9 @@ public class Transaction {
     /**
      * Produces change according to the case situated by the current balance, item ordered, and order total
      * @param bal is the current balance of the machine
+     * @return true if transaction is successful, false if not
      */
-    public void produceChange(Balance bal) {
-        // TODO : reset transaction when unsuccessful
+    public boolean produceChange(Balance bal) {
 
         int changeAmt = this.amtReceived - this.orderTotal;
 
@@ -77,19 +78,19 @@ public class Transaction {
             System.out.println("TRANSACTION UNSUCCESSFUL (No item selected)");
             System.out.println("Returning amount received ...");
             System.out.println("Returned : " + bal.withdrawCash(amtReceived));
-            this.setStatus(false);
+            return false;
         }
         else if (this.amtReceived < this.orderTotal) {
             System.out.println("TRANSACTION UNSUCCESSFUL (Not enough cash entered)");
             System.out.println("Returning amount received ...");
             System.out.println("Returned : " + bal.withdrawCash(amtReceived));
-            this.setStatus(false);
+            return false;
         }
         else if((bal.withdrawCash(changeAmt)) == null) {
             System.out.println("TRANSACTION UNSUCCESSFUL (Not enough change in machine)");
             System.out.println("Returning amount received ...");
             System.out.println("Returned : " + bal.withdrawCash(amtReceived));
-            this.setStatus(false);
+            return false;
         }
         else {
             System.out.println("TRANSACTION SUCCESSFUL");
@@ -97,7 +98,7 @@ public class Transaction {
             System.out.println("Your change is: " + changeAmt);
             System.out.print("Dispensing " + this.itemOrdered.getName() + "...");
             System.out.println();
-            this.setStatus(true);
+            return true;
         }
     }
 
@@ -106,8 +107,7 @@ public class Transaction {
      * @param bal is the current balance of the machine
      */
     public void dispenseItem(Balance bal, ArrayList<ItemSlot> listItemSlots) {
-        this.produceChange(bal);
-        if (this.status) {
+        if (this.produceChange(bal)) {
             ItemSlot itemSlot = this.findItemSlot(itemOrdered, listItemSlots);
             itemSlot.dispenseItem();
         }
@@ -117,23 +117,14 @@ public class Transaction {
         this.itemOrdered = itemOrdered;
     }
 
-    public void setStatus(boolean status) {
-        if (!status) {
-            this.setItemOrdered(null);
-            this.amtReceived = 0;
-            this.orderTotal = 0;
-        }
-        else {
-            this.status = status;
-        }
+    public void reset() {
+        this.amtReceived = 0;
+        this.orderTotal = 0;
+        this.itemOrdered = null;
     }
 
     public Item getItemOrdered() {
         return itemOrdered;
-    }
-
-    public boolean getStatus() {
-        return status;
     }
 }
 
