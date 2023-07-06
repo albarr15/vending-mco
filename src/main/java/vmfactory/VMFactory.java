@@ -179,7 +179,7 @@ public class VMFactory {
                                         case 1:
                                             // Restock / Stock Item
                                             System.out.print("Enter item to stock: ");
-                                            String itemName1 = MFscan.next();
+                                            String itemName1 = MFscan.nextLine();
 
                                             // find itemSlot with given item name
                                             ItemSlot itemSlot1 = currentVM.findItemSlot(itemName1);
@@ -192,12 +192,13 @@ public class VMFactory {
                                             break;
                                         case 2:
                                             // Set Price of Item
-                                            System.out.print("Enter item to stock: ");
-                                            String itemName2 = MFscan.next();
+                                            System.out.print("Enter item to price: ");
+                                            String itemName2 = MFscan.nextLine();
 
                                             // find itemSlot with given item name
                                             ItemSlot itemSlot2 = currentVM.findItemSlot(itemName2);
 
+                                            // TODO : Add exception handling (only integers should be accepted)
                                             System.out.print("Enter price: ");
                                             int price2 = MFscan.nextInt();
 
