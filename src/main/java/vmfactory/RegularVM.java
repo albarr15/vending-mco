@@ -21,6 +21,7 @@ public class RegularVM {
         this.balance = new Balance();
         this.maintenance = new Maintenance();
     }
+
     /**
      * Adds an itemSlot in the vending machine's list of itemSlots
      * @param itemSlot is the slot to be added in the list of item slots
@@ -33,22 +34,6 @@ public class RegularVM {
      * Creates a new instance of Transaction and assigns it to this
      */
     public void makeTransaction() {this.currentTransaction = new Transaction();}
-
-    public Transaction getCurrentTransaction() {
-        return currentTransaction;
-    }
-
-    public Maintenance getMaintenance() {
-        return maintenance;
-    }
-
-    public Balance getBalance() {
-        return this.balance;
-    }
-
-    public ArrayList<ItemSlot> getListItemSlots () {
-        return this.listItemSlots;
-    }
 
     /**
      * Finds the itemSlot in which itemName is stored in
@@ -119,6 +104,22 @@ public class RegularVM {
 
         Scanner sc1 = new Scanner(System.in);
         return sc1.nextInt();
+    }
+
+    public ArrayList<ItemSlot> getListItemSlots () {
+        return this.listItemSlots;
+    }
+
+    public Balance getBalance() {
+        return this.balance;
+    }
+
+    public Transaction getCurrentTransaction() {
+        return currentTransaction;
+    }
+
+    public Maintenance getMaintenance() {
+        return maintenance;
     }
 
 }
