@@ -9,70 +9,135 @@ import java.util.Scanner;
 public class Transaction {
     private Item itemOrdered;
     private int orderTotal;
-    private int amtReceived;
+    private boolean isSpecial;
+    private SpecialItem specialItem;
 
+    public Transaction() {
+        this.itemOrdered = null;
+        this.orderTotal = 0;
+        this.isSpecial = false;
+        this.specialItem = null;
+    }
 
     /**
      * Finds the itemSlot in which item1 is stored in
-     * @param item1 is the item to be searched
-     * @param listItemSlots is the list of existing item slots in the machine
-     * @return itemSlot if item1 is found in a slot
-     *         null if item1 is not found in any existing slots
+     * @param item  is the item to be searched
+     * @param listItemSlots  is the list of existing item slots in the machine
+     * @return  itemSlot if item is found in a slot
+     *          null if item is not found in any existing slots
      */
-    public ItemSlot findItemSlot(Item item1, ArrayList<ItemSlot> listItemSlots) {
+    public ItemSlot findItemSlot(Item item, ArrayList<ItemSlot> listItemSlots) {
         ItemSlot foundItemSlot = null;
 
         // find itemSlot of item in currentCart
         for (ItemSlot listItemSlot : listItemSlots) {
-            if (listItemSlot.getItemName().equals(item1.getName())) {
+            if (listItemSlot.getItemName().equals(item.getName())) {
                 foundItemSlot = listItemSlot;
             }
         }
-
         return foundItemSlot;
     }
 
     /**
-     * Sets item order from the parameter itemOrdered1 and sets the order total accordingly
-     * @param itemOrdered1 is the item chosen by the user
-     * @return true if selection is successful, false if not
+     * Gets item from slotOrdered and sets the order total accordingly
+     * @param slotOrdered  is the item slot chosen by the user
+     * @return  true if selection is successful, false if not
      */
-    public boolean selectItem(Item itemOrdered1){
-        this.itemOrdered = itemOrdered1;
-        this.orderTotal = itemOrdered1.getPrice();
+    public boolean selectItem(ItemSlot slotOrdered){
+        this.itemOrdered = slotOrdered.dispenseItem();
 
-        System.out.println("You have selected : " + itemOrdered1.getName());
-        return true;
+        if(this.itemOrdered != null) {
+            System.out.println("You have selected : " + itemOrdered.getName());
+            this.orderTotal = this.itemOrdered.getPrice();
+            return true;
+        } else {
+            System.out.println("Error : " + slotOrdered.getItemName() + " is not available.");
+            return false;
+        }
+    }
+
+    /**
+     * Returns the item ordered to its proper slot
+     * @param listItemSlots  the list of existing item slots in the machine
+     */
+    public void returnItem(ArrayList<ItemSlot> listItemSlots) {
+        findItemSlot(this.itemOrdered, listItemSlots).stockItem(true);
+    }
+
+    /**
+     * Starts a special transaction to make a special item
+     */
+    public void doSpecialTransaction() {
+        this.isSpecial = true;
+        this.specialItem = new SpecialItem("Custom Ramen");
+    }
+
+    /**
+     * Adds an item to this special item
+     * @param itemSlot  the slot from which the item will be taken from
+     */
+    public void addItem(ItemSlot itemSlot) {
+        this.specialItem.addComponent(itemSlot.dispenseItem());
+        this.orderTotal = this.specialItem.getTotalPrice();
+    }
+
+    /**
+     * Remmoves an item from this special item
+     * @param itemName  the name of the item to be removed
+     * @param listItemSlots  the list of existing item slots in the machine
+     */
+    public void removeItem(String itemName, ArrayList<ItemSlot> listItemSlots) {
+        Item itemRemoved = this.specialItem.removeComponent(itemName);
+        if(itemRemoved != null)
+            findItemSlot(itemRemoved, listItemSlots).stockItem(true);
+
+        this.orderTotal = this.specialItem.getTotalPrice();
+    }
+
+    /**
+     * Previews this special item and its current components
+     */
+    public void previewItem() {
+        System.out.println(this.specialItem.getName() + ": ");
+
+        for(Item item : this.specialItem.getListComponents())
+            System.out.println(item.getName());
+
+        System.out.println("Current item price: " + this.orderTotal +
+                         "\nCurrent item calories: " + this.specialItem.getTotalCalories());
     }
 
     /**
      * Receives payment from the customer
-     * @param bal is the current balance of the machine
+     * @param bal  is the current balance of the machine
      */
     public void receivePayment(Balance bal){
-        System.out.println("Receiving payment ...");
-
-        Scanner scanner = new Scanner(System.in);
-
+        int amtReceived = 0;
         int initialBal = bal.getCurrentBal();
+        Scanner scanner = new Scanner(System.in);
+        
+        System.out.println("Receiving payment ...");
 
         // prompt for cash deposit
         System.out.println("Enter Cash Payment : (Please separate each denomination with spaces)");
         String amount = scanner.nextLine();
         bal.depositCash(amount);
-        this.amtReceived = (bal.getCurrentBal() - initialBal);
+        amtReceived = (bal.getCurrentBal() - initialBal);
+        scanner.close();
 
         System.out.println("Received : " +  amtReceived);
+        produceChange(bal, amtReceived);
     }
 
     /**
      * Produces change according to the case situated by the current balance, item ordered, and order total
-     * @param bal is the current balance of the machine
-     * @return true if transaction is successful, false if not
+     * @param bal  is the current balance of the machine
+     * @param amtReceived  is the amount given by the customer
+     * @return  true if transaction is successful, false if not
      */
-    public boolean produceChange(Balance bal) {
+    public boolean produceChange(Balance bal, int amtReceived) {
 
-        int changeAmt = this.amtReceived - this.orderTotal;
+        int changeAmt = amtReceived - this.orderTotal;
 
         if (this.itemOrdered == null) {
             System.out.println("TRANSACTION UNSUCCESSFUL (No item selected)");
@@ -80,7 +145,7 @@ public class Transaction {
             System.out.println("Returned : " + bal.withdrawCash(amtReceived));
             return false;
         }
-        else if (this.amtReceived < this.orderTotal) {
+        else if (amtReceived < this.orderTotal) {
             System.out.println("TRANSACTION UNSUCCESSFUL (Not enough cash entered)");
             System.out.println("Returning amount received ...");
             System.out.println("Returned : " + bal.withdrawCash(amtReceived));
@@ -94,38 +159,36 @@ public class Transaction {
         }
         else {
             System.out.println("TRANSACTION SUCCESSFUL");
-            System.out.println("Withdrawing change ...");
-            System.out.println("Your change is: " + changeAmt);
-            System.out.print("Dispensing " + this.itemOrdered.getName() + "...");
+            if(changeAmt > 0) {
+                System.out.println("Withdrawing change ...");
+                System.out.println("Your change is: " + bal.withdrawCash(changeAmt));
+            }
+            if(!isSpecial) {
+                System.out.print("Dispensing " + this.itemOrdered.getName() + "...");
+            } else {
+                this.specialItem.printPreparation();
+                System.out.print("Dispensing " + this.specialItem.getName() + "...");
+            }
             System.out.println();
             return true;
         }
     }
 
     /**
-     * Dispenses item previously selected and produces corresponding change
-     * @param bal is the current balance of the machine
-     * @param listItemSlots is the existing list of slots in the machine
+     * Resets all information of the current transaction
      */
-    public void dispenseItem(Balance bal, ArrayList<ItemSlot> listItemSlots) {
-        if (this.produceChange(bal)) {
-            ItemSlot itemSlot = this.findItemSlot(itemOrdered, listItemSlots);
-            itemSlot.dispenseItem();
-        }
-    }
-
-    public void setItemOrdered(Item itemOrdered) {
-        this.itemOrdered = itemOrdered;
-    }
-
-    public void reset() {
-        this.amtReceived = 0;
-        this.orderTotal = 0;
+    public void reset(ArrayList<ItemSlot> listItemSlots) {
         this.itemOrdered = null;
+        this.orderTotal = 0;
+        this.isSpecial = false;
+        if(this.specialItem != null) {
+            for(Item item : this.specialItem.getListComponents())
+            findItemSlot(item, listItemSlots).stockItem(true);
+        }
+        this.specialItem = null;
     }
 
     public Item getItemOrdered() {
         return itemOrdered;
     }
 }
-
