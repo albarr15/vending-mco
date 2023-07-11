@@ -38,7 +38,7 @@ public class SpecialItem extends Item{
 
     public void printPreparation() {
         for (Item listComponent : listComponents) {
-            System.out.println("Preparing component" + listComponent.getName() + "...");
+            System.out.println(listComponent.getPrepMessage());
         }
     }
 }

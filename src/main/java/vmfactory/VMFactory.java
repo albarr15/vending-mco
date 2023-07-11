@@ -52,14 +52,22 @@ public class VMFactory {
                         currentVM = regularVM;
 
                         // Instantiate items
-                        Item chashuPork = new Item("Chashu Pork", 99, 95);
-                        Item chickenSlices = new Item("Chicken Slices", 95, 153);
-                        Item fishCake = new Item("Fish Cake", 63, 40);
-                        Item ajitamago = new Item("Ajitamago", 72, 35);
-                        Item friedTofu = new Item("Fried Tofu", 77, 14);
-                        Item seaweed = new Item("Seaweed", 8, 16);
-                        Item corn = new Item("Corn", 76, 40);
-                        Item butter = new Item("Butter", 81, 1);
+                        Item chashuPork = new Item("Chashu Pork", 99, 95,
+                                "Topping with Chashu Pork ...");
+                        Item chickenSlices = new Item("Chicken Slices", 95, 153,
+                                "Topping with Chicken Slices ...");
+                        Item fishCake = new Item("Fish Cake", 63, 40,
+                                "Adding Fish Cakes ...");
+                        Item ajitamago = new Item("Ajitamago", 72, 35,
+                                "Adding Ajitamago ...");
+                        Item friedTofu = new Item("Fried Tofu", 77, 14,
+                                "Topping with Fried Tofu ...");
+                        Item seaweed = new Item("Seaweed", 8, 16,
+                                "Topping with Seaweed ...");
+                        Item corn = new Item("Corn", 76, 40,
+                                "Adding corn ...");
+                        Item butter = new Item("Butter", 81, 1,
+                                "Adding Butter ...");
 
                         // Instantiate itemSlots
                         ItemSlot itemSlot1 = new ItemSlot(chashuPork);
