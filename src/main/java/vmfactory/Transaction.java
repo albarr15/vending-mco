@@ -78,7 +78,7 @@ public class Transaction {
      */
     public void addItem(ItemSlot itemSlot) {
         this.specialItem.addComponent(itemSlot.dispenseItem());
-        this.orderTotal = this.specialItem.getTotalPrice();
+        this.orderTotal = this.specialItem.getPrice();
     }
 
     /**
@@ -91,7 +91,7 @@ public class Transaction {
         if(itemRemoved != null)
             findItemSlot(itemRemoved, listItemSlots).stockItem(true);
 
-        this.orderTotal = this.specialItem.getTotalPrice();
+        this.orderTotal = this.specialItem.getPrice();
     }
 
     /**
@@ -104,7 +104,7 @@ public class Transaction {
             System.out.println(item.getName());
 
         System.out.println("Current item price: " + this.orderTotal +
-                         "\nCurrent item calories: " + this.specialItem.getTotalCalories());
+                         "\nCurrent item calories: " + this.specialItem.getCaloriesAmt());
     }
 
     /**

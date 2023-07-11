@@ -15,6 +15,8 @@ public class SpecialItem extends Item{
 
     public void addComponent(Item item) {
         listComponents.add(item);
+        this.setCaloriesAmt(this.getCaloriesAmt() + item.getCaloriesAmt());
+        this.setPrice(this.getPrice() + item.getPrice());
     }
 
     public Item removeComponent(String itemName) {
@@ -24,7 +26,9 @@ public class SpecialItem extends Item{
         for (int i = 0; i < listComponents.size(); i++) {
             if (listComponents.get(i).getName().equals(itemName)) {
                 removedItem = listComponents.get(i);
-                listComponents.remove(i);
+                this.setCaloriesAmt(this.getCaloriesAmt() - removedItem.getCaloriesAmt());
+                this.setPrice(this.getPrice() - removedItem.getPrice());
+                listComponents.remove(removedItem);
                 break;
             }
         }
