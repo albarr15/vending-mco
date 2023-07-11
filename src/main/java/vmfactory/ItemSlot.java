@@ -14,6 +14,7 @@ public class ItemSlot {
     private Item item = null;
     private ArrayList<Item> listItem = new ArrayList<Item>();
     private int price;
+    private boolean forSale;
     private int noSold =  0;
 
     public ItemSlot() {
@@ -59,7 +60,7 @@ public class ItemSlot {
         if(listItem.size() < 10) {
             Item item = new Item(this.item.getName(),
                     this.item.getCaloriesAmt(),
-                    this.item.getPrice());
+                    this.item.getPrice(), this.item.getPrepMessage());
             listItem.add(item);
             if(isReturnedItem) {
                 this.noSold--;
