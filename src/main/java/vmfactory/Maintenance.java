@@ -114,9 +114,8 @@ public class Maintenance {
      * @param caloriesAmt  the calorie count of the Item
      * @param price  the price of the Item
      */
-    public void setItem(ItemSlot itemSlot, String itemName,
-                        int caloriesAmt, int price) {
-        Item item = new Item(itemName, caloriesAmt, price);
+    public void setItem(String itemName, int caloriesAmt, int price, String prepMessage, ItemSlot itemSlot) {
+        Item item = new Item(itemName, caloriesAmt, price, prepMessage);
         itemSlot.setItem(item);
     }
 

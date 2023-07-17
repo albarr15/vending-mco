@@ -137,10 +137,8 @@ public class VMFactory {
                                             ItemSlot itemSlot2 = currentVM.findItemSlot(itemName2);
 
                                             try {
-                                                isSuccessful = currentVM.getCurrentTransaction().selectItem(itemSlot2.getItem());
-                                                currentVM.getCurrentTransaction().dispenseItem(currentVM.getBalance(),
-                                                        currentVM.getListItemSlots());
-
+                                                isSuccessful = currentVM.getCurrentTransaction().selectItem(itemSlot2);
+                                                currentVM.getListItemSlots().get(currentVM.findItemSlotIndex(itemName2)).dispenseItem();
                                             } catch (NullPointerException e) {
                                                 System.out.println("Error: Item not found");
                                             }
@@ -149,7 +147,7 @@ public class VMFactory {
                                                 currentVM.getCurrentTransaction().produceChange(currentVM.getBalance());
                                             }
 
-                                            currentVM.getCurrentTransaction().reset();
+                                            currentVM.getCurrentTransaction().reset(currentVM.getListItemSlots());
                                             break;
                                         case 3:
                                             // Produce Change

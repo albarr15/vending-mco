@@ -51,6 +51,22 @@ public class RegularVM {
         return null;
     }
 
+    /**
+     * Finds the itemSlot's index (from the current vending machine's list of Item Slots) in which itemName is stored in
+     * @param itemName is the name of the item to be searched
+     * @return i if itemName is found in a slot
+     *         null if itemName is not found in any existing slots
+     */
+    public int findItemSlotIndex(String itemName) {
+        for (int i = 0; i < listItemSlots.size(); i++) {
+            if (listItemSlots.get(i).getItemName().equals(itemName)) {
+                return i;
+            }
+        }
+        System.out.println("ERROR : Item Slot for item " + itemName + " not found.");
+        return -1;
+    }
+
     public void displayAllSlots() {
         int size = listItemSlots.size();
 

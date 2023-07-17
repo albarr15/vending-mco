@@ -11,6 +11,7 @@ public class Transaction {
     private int orderTotal;
     private boolean isSpecial;
     private SpecialItem specialItem;
+    private int amtReceived;
 
     public Transaction() {
         this.itemOrdered = null;
@@ -44,7 +45,7 @@ public class Transaction {
      * @return  true if selection is successful, false if not
      */
     public boolean selectItem(ItemSlot slotOrdered){
-        this.itemOrdered = slotOrdered.dispenseItem();
+        this.itemOrdered = slotOrdered.getItem();
 
         if(this.itemOrdered != null) {
             System.out.println("You have selected : " + itemOrdered.getName());
@@ -112,7 +113,6 @@ public class Transaction {
      * @param bal  is the current balance of the machine
      */
     public void receivePayment(Balance bal){
-        int amtReceived = 0;
         int initialBal = bal.getCurrentBal();
         Scanner scanner = new Scanner(System.in);
         
@@ -122,22 +122,19 @@ public class Transaction {
         System.out.println("Enter Cash Payment : (Please separate each denomination with spaces)");
         String amount = scanner.nextLine();
         bal.depositCash(amount);
-        amtReceived = (bal.getCurrentBal() - initialBal);
-        scanner.close();
+        this.amtReceived = (bal.getCurrentBal() - initialBal);
 
-        System.out.println("Received : " +  amtReceived);
-        produceChange(bal, amtReceived);
+        System.out.println("Received : " +  this.amtReceived);
     }
 
     /**
      * Produces change according to the case situated by the current balance, item ordered, and order total
      * @param bal  is the current balance of the machine
-     * @param amtReceived  is the amount given by the customer
-     * @return  true if transaction is successful, false if not
+     * @return true if transaction is successful, false if not
      */
-    public boolean produceChange(Balance bal, int amtReceived) {
+    public boolean produceChange(Balance bal) {
 
-        int changeAmt = amtReceived - this.orderTotal;
+        int changeAmt = this.amtReceived - this.orderTotal;
 
         if (this.itemOrdered == null) {
             System.out.println("TRANSACTION UNSUCCESSFUL (No item selected)");
@@ -145,7 +142,7 @@ public class Transaction {
             System.out.println("Returned : " + bal.withdrawCash(amtReceived));
             return false;
         }
-        else if (amtReceived < this.orderTotal) {
+        else if (this.amtReceived < this.orderTotal) {
             System.out.println("TRANSACTION UNSUCCESSFUL (Not enough cash entered)");
             System.out.println("Returning amount received ...");
             System.out.println("Returned : " + bal.withdrawCash(amtReceived));
@@ -183,7 +180,7 @@ public class Transaction {
         this.isSpecial = false;
         if(this.specialItem != null) {
             for(Item item : this.specialItem.getListComponents())
-            findItemSlot(item, listItemSlots).stockItem(true);
+                findItemSlot(item, listItemSlots).stockItem(true);
         }
         this.specialItem = null;
     }
