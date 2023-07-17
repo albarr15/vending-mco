@@ -2,7 +2,7 @@ package vmfactory;
 
 import java.util.ArrayList;
 
-public class SpecialTransaction extends Transaction{
+public class SpecialTransaction extends Transaction {
     private boolean isSpecial;
     private SpecialItem specialItem;
 
