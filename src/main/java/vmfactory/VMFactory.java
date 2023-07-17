@@ -23,14 +23,18 @@ public class VMFactory {
     }
 
     public int displayCreateVMMenu(){
-        System.out.println();
-        System.out.println("- VENDING MACHINE CREATION -");
-        System.out.println("! Special Vending Machines are not yet available.");
-        System.out.println("Proceed with creating Regular Vending Machine?");
-        System.out.println("[1] Yes");
-        System.out.println("[2] No");
-        Scanner sc1 = new Scanner(System.in);
-        return sc1.nextInt();
+        int input1;
+        do{
+            System.out.println();
+            System.out.println("- VENDING MACHINE CREATION -");
+
+            System.out.println("[1] Regular Vending Machine");
+            System.out.println("[2] Special Vending Machine");
+
+            Scanner scanner = new Scanner(System.in);
+            input1 = scanner.nextInt();
+        } while (input1 != 1 & input1 != 2);
+        return  input1;
     }
 
     public static void main(String[] args) {
@@ -91,8 +95,48 @@ public class VMFactory {
 
                         regularVM.displayAllSlots();
                     } else {
-                        System.out.println("- Rejected Vending Machine Creation -");
-                        System.out.println("Going back to Home Menu ...");
+                        SpecialVM specialVM = new SpecialVM();
+                        currentVM = specialVM;
+
+                        // Instantiate items
+                        Item chashuPork = new Item("Chashu Pork", 99, 95,
+                                "Topping with Chashu Pork ...");
+                        Item chickenSlices = new Item("Chicken Slices", 95, 153,
+                                "Topping with Chicken Slices ...");
+                        Item fishCake = new Item("Fish Cake", 63, 40,
+                                "Adding Fish Cakes ...");
+                        Item ajitamago = new Item("Ajitamago", 72, 35,
+                                "Adding Ajitamago ...");
+                        Item friedTofu = new Item("Fried Tofu", 77, 14,
+                                "Topping with Fried Tofu ...");
+                        Item seaweed = new Item("Seaweed", 8, 16,
+                                "Topping with Seaweed ...");
+                        Item corn = new Item("Corn", 76, 40,
+                                "Adding corn ...");
+                        Item butter = new Item("Butter", 81, 1,
+                                "Adding Butter ...");
+
+                        // Instantiate itemSlots
+                        ItemSlot itemSlot1 = new ItemSlot(chashuPork);
+                        ItemSlot itemSlot2 = new ItemSlot(chickenSlices);
+                        ItemSlot itemSlot3 = new ItemSlot(fishCake);
+                        ItemSlot itemSlot4 = new ItemSlot(ajitamago);
+                        ItemSlot itemSlot5 = new ItemSlot(friedTofu);
+                        ItemSlot itemSlot6 = new ItemSlot(seaweed);
+                        ItemSlot itemSlot7 = new ItemSlot(corn);
+                        ItemSlot itemSlot8 = new ItemSlot(butter);
+
+                        // add itemSlots to regularVM
+                        specialVM.addItemSlot(itemSlot1);
+                        specialVM.addItemSlot(itemSlot2);
+                        specialVM.addItemSlot(itemSlot3);
+                        specialVM.addItemSlot(itemSlot4);
+                        specialVM.addItemSlot(itemSlot5);
+                        specialVM.addItemSlot(itemSlot6);
+                        specialVM.addItemSlot(itemSlot7);
+                        specialVM.addItemSlot(itemSlot8);
+
+                        specialVM.displayAllSlots();
                     }
                     break;
 

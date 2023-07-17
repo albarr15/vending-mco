@@ -18,6 +18,7 @@ public class Transaction {
         this.orderTotal = 0;
         this.isSpecial = false;
         this.specialItem = null;
+        this.amtReceived = 0;
     }
 
     /**
