@@ -41,7 +41,7 @@ public class VMFactory {
         VMFactory vmFactory = new VMFactory();
 
         boolean isExit = false;
-        RegularVM currentVM = null;
+        VendingMachine currentVM = null;
 
         do {
             int input = vmFactory.displayHomeMenu();
