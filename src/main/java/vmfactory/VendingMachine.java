@@ -2,7 +2,13 @@ package vmfactory;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-
+/**
+ * Represents a vending machine.
+ * <p>
+ * Includes the list of item slots, its balance, the current transaction, and its maintenance.
+ * Features include adding an item slot, making a transaction, making its maintenance,
+ * displaying slot availability, displaying all slots, and displaying its menus.
+ */
 public class VendingMachine {
     protected ArrayList<ItemSlot> listItemSlots;
     protected Balance balance;
@@ -14,7 +20,6 @@ public class VendingMachine {
         this.balance = new Balance();
         this.maintenance = new Maintenance();
     }
-
 
     /**
      * Adds an itemSlot in the vending machine's list of itemSlots
@@ -124,13 +129,11 @@ public class VendingMachine {
         return this.balance;
     }
 
-    public Transaction getCurrentTransaction() {
-        return currentTransaction;
-    }
-
     public Maintenance getMaintenance() {
         return maintenance;
     }
 
-}
+    public Transaction getCurrentTransaction() {
+        return currentTransaction;
+    }
 }
