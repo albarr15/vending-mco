@@ -3,11 +3,9 @@ package vmfactory;
 import java.util.ArrayList;
 
 public class SpecialTransaction extends Transaction {
-    private boolean isSpecial;
     private SpecialItem specialItem;
 
     public SpecialTransaction() {
-        this.isSpecial = false;
         this.specialItem = null;
     }
 
@@ -45,13 +43,6 @@ public class SpecialTransaction extends Transaction {
         System.out.println("Current item price: " + this.orderTotal +
                 "\nCurrent item calories: " + this.specialItem.getCaloriesAmt());
     }
-    /**
-     * Starts a special transaction to make a special item
-     */
-    public void doSpecialTransaction() {
-        this.isSpecial = true;
-        this.specialItem = new SpecialItem("Custom Ramen");
-    }
 
     /**
      * (For Special Transactions) Produces change according to the case situated by the current balance, item ordered, and order total
@@ -86,9 +77,6 @@ public class SpecialTransaction extends Transaction {
             if(changeAmt > 0) {
                 System.out.println("Withdrawing change ...");
                 System.out.println("Your change is: " + bal.withdrawCash(changeAmt));
-            }
-            if(!isSpecial) {
-                System.out.print("Dispensing " + this.itemOrdered.getName() + "...");
             } else {
                 this.specialItem.printPreparation();
                 System.out.print("Dispensing " + this.specialItem.getName() + "...");
@@ -104,11 +92,14 @@ public class SpecialTransaction extends Transaction {
     @Override public void reset(ArrayList<ItemSlot> listItemSlots) {
         this.itemOrdered = null;
         this.orderTotal = 0;
-        this.isSpecial = false;
         if(this.specialItem != null) {
             for(Item item : this.specialItem.getListComponents())
                 findItemSlot(item, listItemSlots).stockItem(true);
         }
         this.specialItem = null;
+    }
+
+    public void setSpecialItem(SpecialItem specialItem) {
+        this.specialItem = specialItem;
     }
 }

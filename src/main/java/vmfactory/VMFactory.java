@@ -144,6 +144,7 @@ public class VMFactory {
                                 int VFinput;
                                 boolean isVFExit = false;
                                 currentVM.makeTransaction();
+                                System.out.println(currentVM.currentTransaction instanceof SpecialTransaction);
 
                                 do {
                                     VFinput = currentVM.displayTestVending();
@@ -158,6 +159,7 @@ public class VMFactory {
                                         case 2:
                                             // Dispense Item
                                             boolean isSuccessful = false;
+                                            boolean isSpecial = false;
 
                                             System.out.println("Please choose an item from the menu below ...");
                                             currentVM.displayAllSlots();
@@ -166,10 +168,46 @@ public class VMFactory {
 
                                             // find itemSlot with given item name
                                             ItemSlot itemSlot2 = currentVM.findItemSlot(itemName2);
+                                            int itemIndex = currentVM.findItemSlotIndex(itemName2);
 
                                             try {
                                                 isSuccessful = currentVM.getCurrentTransaction().selectItem(itemSlot2);
-                                                currentVM.getListItemSlots().get(currentVM.findItemSlotIndex(itemName2)).dispenseItem();
+                                                isSpecial = currentVM.getListItemSlots().get(itemIndex).getItem() instanceof SpecialItem;
+
+                                                if (isSpecial) {
+                                                    boolean specialMenuExit = false;
+
+                                                    do {
+                                                        System.out.println("[CUSTOM RAMEN SELECTION]");
+                                                        System.out.println("[1] Add an item");
+                                                        System.out.println("[2] Remove an item");
+                                                        System.out.println("[3] Preview current ramen");
+                                                        System.out.println("[4] Finish Ramen");
+
+                                                        int inputt = VFscan.nextInt();
+
+                                                        switch (inputt) {
+                                                            case 1:
+                                                                // display all items (both for regular and special vm)
+                                                                // add to custom ramen
+                                                                break;
+                                                            case 2:
+                                                                // preview current ramen
+                                                                // ask user choice to remove
+                                                                // remove item
+                                                                break;
+                                                            case 3:
+                                                                // preview current ramen
+                                                                break;
+                                                            case 4:
+                                                                System.out.println("Finishing Custom Ramen ...");
+                                                                specialMenuExit = true;
+                                                                break;
+                                                            }
+                                                        } while (!specialMenuExit);
+                                                    }
+
+                                                currentVM.getListItemSlots().get(itemIndex).dispenseItem();
                                             } catch (NullPointerException e) {
                                                 System.out.println("Error: Item not found");
                                             }
