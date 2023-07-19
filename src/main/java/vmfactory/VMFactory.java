@@ -170,7 +170,6 @@ public class VMFactory {
                                 int VFinput;
                                 boolean isVFExit = false;
                                 currentVM.makeTransaction();
-                                System.out.println(currentVM.currentTransaction instanceof SpecialTransaction);
 
                                 do {
                                     VFinput = currentVM.displayTestVending();
@@ -184,6 +183,8 @@ public class VMFactory {
                                             break;
                                         case 2:
                                             // Dispense Item
+                                            // TODO : fix bug (dispenses item even without / not enough balance)
+
                                             boolean isSuccessful = false;
                                             boolean isSpecial = false;
 
