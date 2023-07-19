@@ -99,22 +99,32 @@ public class VMFactory {
                         currentVM = specialVM;
 
                         // Instantiate items
-                        Item ramen = new SpecialItem("Ramen");
-                        Item ajitamago = new Item("Ajitamago", 72, 35,
-                                "Adding Ajitamago ...");
                         Item chashuPork = new Item("Chashu Pork", 99, 95,
                                 "Topping with Chashu Pork ...");
-                        Item chickenSlices = new Item("Chicken Slices", 78, 67,
+                        Item chickenSlices = new Item("Chicken Slices", 95, 153,
                                 "Topping with Chicken Slices ...");
-                        Item ramenNoodles = new Item("Ramen Noodles", 77, 14,
-                                "Blanching Ramen Noodles ...");
+                        Item fishCake = new Item("Fish Cake", 63, 40,
+                                "Adding Fish Cakes ...");
+                        Item ajitamago = new Item("Ajitamago", 72, 35,
+                                "Adding Ajitamago ...");
+                        Item friedTofu = new Item("Fried Tofu", 77, 14,
+                                "Topping with Fried Tofu ...");
+                        Item seaweed = new Item("Seaweed", 8, 16,
+                                "Topping with Seaweed ...");
+                        Item corn = new Item("Corn", 76, 40,
+                                "Adding corn ...");
+                        Item butter = new Item("Butter", 81, 1,
+                                "Adding Butter ...");
 
                         // Instantiate itemSlots
-                        ItemSlot itemSlot1 = new ItemSlot(ramen);
-                        ItemSlot itemSlot2 = new ItemSlot(ajitamago);
-                        ItemSlot itemSlot3 = new ItemSlot(chickenSlices);
-                        ItemSlot itemSlot4 = new ItemSlot(chashuPork);
-                        ItemSlot itemSlot5 = new ItemSlot(chashuPork);
+                        ItemSlot itemSlot1 = new ItemSlot(chashuPork);
+                        ItemSlot itemSlot2 = new ItemSlot(chickenSlices);
+                        ItemSlot itemSlot3 = new ItemSlot(fishCake);
+                        ItemSlot itemSlot4 = new ItemSlot(ajitamago);
+                        ItemSlot itemSlot5 = new ItemSlot(friedTofu);
+                        ItemSlot itemSlot6 = new ItemSlot(seaweed);
+                        ItemSlot itemSlot7 = new ItemSlot(corn);
+                        ItemSlot itemSlot8 = new ItemSlot(butter);
 
                         // add itemSlots to regularVM
                         specialVM.addItemSlot(itemSlot1);
@@ -122,6 +132,22 @@ public class VMFactory {
                         specialVM.addItemSlot(itemSlot3);
                         specialVM.addItemSlot(itemSlot4);
                         specialVM.addItemSlot(itemSlot5);
+                        specialVM.addItemSlot(itemSlot6);
+                        specialVM.addItemSlot(itemSlot7);
+                        specialVM.addItemSlot(itemSlot8);
+
+                        // Instantiate items
+                        Item ramen = new SpecialItem("Ramen");
+                        Item ramenNoodles = new Item("Ramen Noodles", 77, 14,
+                                "Blanching Ramen Noodles ...");
+
+                        // Instantiate itemSlots
+                        ItemSlot itemSlot9 = new ItemSlot(ramen);
+                        ItemSlot itemSlot10 = new ItemSlot(ramenNoodles);
+
+                        // add itemSlots to regularVM
+                        specialVM.addItemSlot(itemSlot9);
+                        specialVM.addItemSlot(itemSlot10);
 
                         specialVM.displayAllSlots();
                     }
@@ -188,18 +214,28 @@ public class VMFactory {
 
                                                         switch (inputt) {
                                                             case 1:
-                                                                // display all items (both for regular and special vm)
-                                                                // add to custom ramen
+                                                                // Add an item
+                                                                currentVM.displayAllSlots();
+                                                                System.out.print("Enter the name of the item to be added : ");
+                                                                String addItem = VFscan.nextLine();
+
+                                                                ItemSlot itemSlotToBeAdded = currentVM.findItemSlot(addItem);
+                                                                ((SpecialTransaction)currentVM.currentTransaction).addItem(itemSlotToBeAdded);
                                                                 break;
                                                             case 2:
-                                                                // preview current ramen
-                                                                // ask user choice to remove
-                                                                // remove item
+                                                                // Remove an item
+                                                                ((SpecialTransaction)currentVM.currentTransaction).previewItem();
+                                                                System.out.print("Enter the name of the item to be removed : ");
+                                                                String removeItem = VFscan.nextLine();
+                                                                ((SpecialTransaction)currentVM.currentTransaction).removeItem(removeItem,
+                                                                        currentVM.getListItemSlots());
                                                                 break;
                                                             case 3:
-                                                                // preview current ramen
+                                                                // Preview current ramen
+                                                                ((SpecialTransaction)currentVM.currentTransaction).previewItem();
                                                                 break;
                                                             case 4:
+                                                                // Finish ramen
                                                                 System.out.println("Finishing Custom Ramen ...");
                                                                 specialMenuExit = true;
                                                                 break;
