@@ -50,7 +50,7 @@ public class SpecialTransaction extends Transaction {
      * @param bal  is the current balance of the machine
      * @return true if transaction is successful, false if not
      */
-    @Override public boolean produceChange(Balance bal) {
+    @Override public boolean produceChange(Balance bal, ArrayList<ItemSlot> listItemSlots) {
 
         int changeAmt = this.amtReceived - this.orderTotal;
 
@@ -77,9 +77,13 @@ public class SpecialTransaction extends Transaction {
             if(changeAmt > 0) {
                 System.out.println("Withdrawing change ...");
                 System.out.println("Your change is: " + bal.withdrawCash(changeAmt));
-            } else {
+            } else if (this.itemOrdered instanceof SpecialItem){
                 this.specialItem.printPreparation();
                 System.out.print("Dispensing " + this.specialItem.getName() + "...");
+                findItemSlot(this.itemOrdered, listItemSlots).dispenseItem();
+            }
+            else {
+                findItemSlot(this.itemOrdered, listItemSlots).dispenseItem();
             }
             System.out.println();
             return true;

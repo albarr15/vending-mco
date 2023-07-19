@@ -88,7 +88,7 @@ public class Transaction {
      * @param bal  is the current balance of the machine
      * @return true if transaction is successful, false if not
      */
-    public boolean produceChange(Balance bal) {
+    public boolean produceChange(Balance bal, ArrayList<ItemSlot> listItemSlots) {
 
         int changeAmt = this.amtReceived - this.orderTotal;
 
@@ -116,6 +116,7 @@ public class Transaction {
                 System.out.println("Withdrawing change ...");
                 System.out.println("Your change is: " + bal.withdrawCash(changeAmt));
             }
+            findItemSlot(this.itemOrdered, listItemSlots).dispenseItem();
             System.out.println();
             return true;
         }

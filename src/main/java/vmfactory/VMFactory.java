@@ -183,7 +183,6 @@ public class VMFactory {
                                             break;
                                         case 2:
                                             // Dispense Item
-                                            // TODO : fix bug (dispenses item even without / not enough balance)
 
                                             boolean isSuccessful = false;
                                             boolean isSpecial = false;
@@ -201,63 +200,68 @@ public class VMFactory {
                                                 isSuccessful = currentVM.getCurrentTransaction().selectItem(itemSlot2);
                                                 isSpecial = currentVM.getListItemSlots().get(itemIndex).getItem() instanceof SpecialItem;
 
-                                                if (isSpecial) {
-                                                    boolean specialMenuExit = false;
-
-                                                    do {
-                                                        System.out.println("[CUSTOM RAMEN SELECTION]");
-                                                        System.out.println("[1] Add an item");
-                                                        System.out.println("[2] Remove an item");
-                                                        System.out.println("[3] Preview current ramen");
-                                                        System.out.println("[4] Finish Ramen");
-
-                                                        int inputt = VFscan.nextInt();
-
-                                                        switch (inputt) {
-                                                            case 1:
-                                                                // Add an item
-                                                                currentVM.displayAllSlots();
-                                                                System.out.print("Enter the name of the item to be added : ");
-                                                                String addItem = VFscan.nextLine();
-
-                                                                ItemSlot itemSlotToBeAdded = currentVM.findItemSlot(addItem);
-                                                                ((SpecialTransaction)currentVM.currentTransaction).addItem(itemSlotToBeAdded);
-                                                                break;
-                                                            case 2:
-                                                                // Remove an item
-                                                                ((SpecialTransaction)currentVM.currentTransaction).previewItem();
-                                                                System.out.print("Enter the name of the item to be removed : ");
-                                                                String removeItem = VFscan.nextLine();
-                                                                ((SpecialTransaction)currentVM.currentTransaction).removeItem(removeItem,
-                                                                        currentVM.getListItemSlots());
-                                                                break;
-                                                            case 3:
-                                                                // Preview current ramen
-                                                                ((SpecialTransaction)currentVM.currentTransaction).previewItem();
-                                                                break;
-                                                            case 4:
-                                                                // Finish ramen
-                                                                System.out.println("Finishing Custom Ramen ...");
-                                                                specialMenuExit = true;
-                                                                break;
-                                                            }
-                                                        } while (!specialMenuExit);
-                                                    }
-
-                                                currentVM.getListItemSlots().get(itemIndex).dispenseItem();
                                             } catch (NullPointerException e) {
                                                 System.out.println("Error: Item not found");
                                             }
 
-                                            if (!isSuccessful) {
-                                                currentVM.getCurrentTransaction().produceChange(currentVM.getBalance());
+                                            if (isSpecial) {
+                                                SpecialTransaction currentSpecialTransaction = ((SpecialTransaction)currentVM.getCurrentTransaction());
+                                                currentSpecialTransaction.setSpecialItem((SpecialItem)currentVM.currentTransaction.itemOrdered);
+                                                boolean specialMenuExit = false;
+
+                                                do {
+                                                    System.out.println("[CUSTOM RAMEN SELECTION]");
+                                                    System.out.println("[1] Add an item");
+                                                    System.out.println("[2] Remove an item");
+                                                    System.out.println("[3] Preview current ramen");
+                                                    System.out.println("[4] Finish Ramen");
+
+                                                    int inputt = VFscan.nextInt();
+
+                                                    switch (inputt) {
+                                                        // TODO : Add exceptions wherever necessary
+                                                        // TODO : Debug
+                                                        case 1:
+                                                            // Add an item
+                                                            currentVM.displayAllSlots();
+                                                            System.out.println("Enter the name of the item to be added : ");
+                                                            // TODO : Adjust to accept input until enter key is pressed
+                                                            String addItem = VFscan.next();
+
+                                                            System.out.println("You selected " + addItem);
+
+                                                            ItemSlot itemSlotToBeAdded = currentVM.findItemSlot(addItem);
+                                                            currentSpecialTransaction.addItem(itemSlotToBeAdded);
+                                                            break;
+                                                        case 2:
+                                                            // Remove an item
+                                                            ((SpecialTransaction)currentVM.getCurrentTransaction()).previewItem();
+                                                            System.out.print("Enter the name of the item to be removed : ");
+                                                            String removeItem = VFscan.nextLine();
+                                                            currentSpecialTransaction.removeItem(removeItem,
+                                                                    currentVM.getListItemSlots());
+                                                            break;
+                                                        case 3:
+                                                            // Preview current ramen
+                                                            currentSpecialTransaction.previewItem();
+                                                            break;
+                                                        case 4:
+                                                            // Finish ramen
+                                                            System.out.println("Finishing Custom Ramen ...");
+                                                            specialMenuExit = true;
+                                                            break;
+                                                    }
+                                                } while (!specialMenuExit);
                                             }
 
+                                            if (currentVM.getCurrentTransaction().produceChange(currentVM.getBalance(), currentVM.getListItemSlots())) {
+                                                currentVM.getListItemSlots().get(itemIndex).dispenseItem();
+                                            }
                                             currentVM.getCurrentTransaction().reset(currentVM.getListItemSlots());
                                             break;
                                         case 3:
                                             // Produce Change
-                                            currentVM.getCurrentTransaction().produceChange(currentVM.getBalance());
+                                            currentVM.getCurrentTransaction().produceChange(currentVM.getBalance(), currentVM.getListItemSlots());
                                             break;
                                         case 4:
                                             // Exit
