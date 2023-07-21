@@ -52,7 +52,7 @@ public class VMFactory {
 
                     int input1 = vmFactory.displayCreateVMMenu();
                     if (input1 == 1) {
-                        RegularVM regularVM = new RegularVM();
+                        VendingMachine regularVM = new VendingMachine();
                         currentVM = regularVM;
 
                         // Instantiate items
