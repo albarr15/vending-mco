@@ -74,15 +74,15 @@ public class VMFactory {
                                 "Adding Butter ...");
 
                         // Instantiate itemSlots
-                        ItemSlot itemSlot1 = new ItemSlot(chashuPork);
-                        ItemSlot itemSlot2 = new ItemSlot(chickenSlices);
-                        ItemSlot itemSlot3 = new ItemSlot(fishCake);
-                        ItemSlot itemSlot4 = new ItemSlot(ajitamago);
-                        ItemSlot itemSlot5 = new ItemSlot(friedTofu);
-                        ItemSlot itemSlot6 = new ItemSlot(seaweed);
-                        ItemSlot itemSlot7 = new ItemSlot(corn);
-                        ItemSlot itemSlot8 = new ItemSlot(butter);
-
+                        ItemSlot itemSlot1 = new ItemSlot(chashuPork, true);
+                        ItemSlot itemSlot2 = new ItemSlot(chickenSlices, true);
+                        ItemSlot itemSlot3 = new ItemSlot(fishCake, false);
+                        ItemSlot itemSlot4 = new ItemSlot(ajitamago, true);
+                        ItemSlot itemSlot5 = new ItemSlot(friedTofu, false);
+                        ItemSlot itemSlot6 = new ItemSlot(seaweed, false);
+                        ItemSlot itemSlot7 = new ItemSlot(corn, false);
+                        ItemSlot itemSlot8 = new ItemSlot(butter, false);
+                        
                         // add itemSlots to regularVM
                         regularVM.addItemSlot(itemSlot1);
                         regularVM.addItemSlot(itemSlot2);
@@ -117,14 +117,14 @@ public class VMFactory {
                                 "Adding Butter ...");
 
                         // Instantiate itemSlots
-                        ItemSlot itemSlot1 = new ItemSlot(chashuPork);
-                        ItemSlot itemSlot2 = new ItemSlot(chickenSlices);
-                        ItemSlot itemSlot3 = new ItemSlot(fishCake);
-                        ItemSlot itemSlot4 = new ItemSlot(ajitamago);
-                        ItemSlot itemSlot5 = new ItemSlot(friedTofu);
-                        ItemSlot itemSlot6 = new ItemSlot(seaweed);
-                        ItemSlot itemSlot7 = new ItemSlot(corn);
-                        ItemSlot itemSlot8 = new ItemSlot(butter);
+                        ItemSlot itemSlot1 = new ItemSlot(chashuPork, true);
+                        ItemSlot itemSlot2 = new ItemSlot(chickenSlices, true);
+                        ItemSlot itemSlot3 = new ItemSlot(fishCake, false);
+                        ItemSlot itemSlot4 = new ItemSlot(ajitamago, true);
+                        ItemSlot itemSlot5 = new ItemSlot(friedTofu, false);
+                        ItemSlot itemSlot6 = new ItemSlot(seaweed, false);
+                        ItemSlot itemSlot7 = new ItemSlot(corn, false);
+                        ItemSlot itemSlot8 = new ItemSlot(butter, false);
 
                         // add itemSlots to regularVM
                         specialVM.addItemSlot(itemSlot1);
@@ -140,14 +140,17 @@ public class VMFactory {
                         Item ramen = new SpecialItem("Ramen");
                         Item ramenNoodles = new Item("Ramen Noodles", 77, 14,
                                 "Blanching Ramen Noodles ...");
+                        Item ramenBroth = new Item("Ramen broth", 50, 40, "Pouring ramen broth...");
 
                         // Instantiate itemSlots
-                        ItemSlot itemSlot9 = new ItemSlot(ramen);
-                        ItemSlot itemSlot10 = new ItemSlot(ramenNoodles);
-
+                        ItemSlot itemSlot9 = new ItemSlot(ramen, true);
+                        ItemSlot itemSlot10 = new ItemSlot(ramenNoodles, true);
+                        ItemSlot itemSlot11 = new ItemSlot(ramenBroth, false);
+                        
                         // add itemSlots to regularVM
                         specialVM.addItemSlot(itemSlot9);
                         specialVM.addItemSlot(itemSlot10);
+                        specialVM.addItemSlot(itemSlot11);
 
                         specialVM.displayAllSlots();
                     }
@@ -188,7 +191,7 @@ public class VMFactory {
                                             boolean isSpecial = false;
 
                                             System.out.println("Please choose an item from the menu below ...");
-                                            currentVM.displayAllSlots();
+                                            ((SpecialVM)currentVM).displaySaleSlots();
 
                                             String itemName2 = VFscan.nextLine();
 
@@ -197,9 +200,10 @@ public class VMFactory {
                                             int itemIndex = currentVM.findItemSlotIndex(itemName2);
 
                                             try {
-                                                isSuccessful = currentVM.getCurrentTransaction().selectItem(itemSlot2);
-                                                isSpecial = currentVM.getListItemSlots().get(itemIndex).getItem() instanceof SpecialItem;
-
+                                                if(itemSlot2.getItemStock() > 0) {
+                                                    isSuccessful = currentVM.getCurrentTransaction().selectItem(itemSlot2);
+                                                    isSpecial = currentVM.getListItemSlots().get(itemIndex).getItem() instanceof SpecialItem;
+                                                } else System.out.println("Error: Item is out of stock");
                                             } catch (NullPointerException e) {
                                                 System.out.println("Error: Item not found");
                                             }
@@ -208,6 +212,7 @@ public class VMFactory {
                                                 SpecialTransaction currentSpecialTransaction = ((SpecialTransaction)currentVM.getCurrentTransaction());
                                                 currentSpecialTransaction.setSpecialItem((SpecialItem)currentVM.currentTransaction.itemOrdered);
                                                 boolean specialMenuExit = false;
+                                                int inputt = 0;
 
                                                 do {
                                                     System.out.println("[CUSTOM RAMEN SELECTION]");
@@ -216,7 +221,11 @@ public class VMFactory {
                                                     System.out.println("[3] Preview current ramen");
                                                     System.out.println("[4] Finish Ramen");
 
-                                                    int inputt = VFscan.nextInt();
+                                                    try {
+                                                        inputt = Integer.parseInt(VFscan.nextLine());
+                                                    } catch (NumberFormatException e) {
+                                                        System.out.println("Error: Invalid input");
+                                                    }
 
                                                     switch (inputt) {
                                                         // TODO : Add exceptions wherever necessary
@@ -225,8 +234,7 @@ public class VMFactory {
                                                             // Add an item
                                                             currentVM.displayAllSlots();
                                                             System.out.println("Enter the name of the item to be added : ");
-                                                            // TODO : Adjust to accept input until enter key is pressed
-                                                            String addItem = VFscan.next();
+                                                            String addItem = VFscan.nextLine();
 
                                                             System.out.println("You selected " + addItem);
 
