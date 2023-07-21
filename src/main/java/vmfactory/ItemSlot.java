@@ -20,8 +20,9 @@ public class ItemSlot {
     public ItemSlot() {
     }
 
-    public ItemSlot(Item item) {
+    public ItemSlot(Item item, boolean forSale) {
         this.setItem(item);
+        this.forSale = forSale;
     }
 
     /**
@@ -46,7 +47,6 @@ public class ItemSlot {
             Item item = this.listItem.get(this.listItem.size()-1);
             this.listItem.remove(item);
             this.noSold++;
-            System.out.println("Dispensing " + item.getName() + " ...");
             return item;
         } else return null;
     }
@@ -116,6 +116,10 @@ public class ItemSlot {
 
     public int getPrice() {
         return this.price;
+    }
+
+    public boolean getForSale() {
+        return this.forSale;
     }
 
     public int getNoSold() {
