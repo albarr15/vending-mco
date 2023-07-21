@@ -77,12 +77,14 @@ public class SpecialTransaction extends Transaction {
             if(changeAmt > 0) {
                 System.out.println("Withdrawing change ...");
                 System.out.println("Your change is: " + bal.withdrawCash(changeAmt));
-            } else if (this.itemOrdered instanceof SpecialItem){
+            }
+            if (this.itemOrdered instanceof SpecialItem){
                 this.specialItem.printPreparation();
-                System.out.print("Dispensing " + this.specialItem.getName() + "...");
+                System.out.print("Ramen done!\nDispensing " + this.specialItem.getName() + "...");
                 findItemSlot(this.itemOrdered, listItemSlots).dispenseItem();
             }
             else {
+                System.out.println("Dispensing " + this.itemOrdered + " ...");
                 findItemSlot(this.itemOrdered, listItemSlots).dispenseItem();
             }
             System.out.println();
