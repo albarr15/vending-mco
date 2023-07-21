@@ -3,7 +3,7 @@ package vmfactory;
 import java.util.ArrayList;
 
 public class SpecialItem extends Item{
-    private ArrayList<Item> listComponents;
+    private ArrayList<Item> listComponents = new ArrayList<Item>();
 
     public SpecialItem(String name) {
         super(name,0,0,null);
