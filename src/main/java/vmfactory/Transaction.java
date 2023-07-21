@@ -116,6 +116,7 @@ public class Transaction {
                 System.out.println("Withdrawing change ...");
                 System.out.println("Your change is: " + bal.withdrawCash(changeAmt));
             }
+            System.out.println("Dispensing " + this.itemOrdered + " ...");
             findItemSlot(this.itemOrdered, listItemSlots).dispenseItem();
             System.out.println();
             return true;
