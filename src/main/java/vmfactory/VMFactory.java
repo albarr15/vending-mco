@@ -191,7 +191,7 @@ public class VMFactory {
                                             boolean isSpecial = false;
 
                                             System.out.println("Please choose an item from the menu below ...");
-                                            ((SpecialVM)currentVM).displaySaleSlots();
+                                            currentVM.displayAllSlots();
 
                                             String itemName2 = VFscan.nextLine();
 

@@ -47,6 +47,7 @@ public class ItemSlot {
             Item item = this.listItem.get(this.listItem.size()-1);
             this.listItem.remove(item);
             this.noSold++;
+            System.out.println("Dispensing " + this.item.getName() + " ...");
             return item;
         } else return null;
     }
