@@ -295,12 +295,13 @@ public class VMFactory {
 
                                             // find itemSlot with given item name
                                             ItemSlot itemSlot1 = currentVM.findItemSlot(itemName1);
+                                            if (itemSlot1 != null) {
+                                                System.out.print("Enter number of items to stock: ");
+                                                int numItems1 = MFscan.nextInt();
 
-                                            System.out.print("Enter number of items to stock: ");
-                                            int numItems1 = MFscan.nextInt();
-
-                                            currentVM.getMaintenance().stockItem(itemSlot1, numItems1);
-                                            currentVM.displayAllSlots();
+                                                currentVM.getMaintenance().stockItem(itemSlot1, numItems1);
+                                                currentVM.displayAllSlots();
+                                            }
                                             break;
                                         case 2:
                                             // Set Price of Item
