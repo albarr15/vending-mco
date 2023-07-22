@@ -41,11 +41,11 @@ public class Maintenance {
      * 
      * @param bal  the Balance of the machine
      * @param amount  the amount to be collected
-     * @return  the remaining balance or null if unsuccessful
+     * @return  the collected money or null if unsuccessful
      */
     public int collectMoney(Balance bal, int amount) {
         if(bal.withdrawCash(amount) != null)
-            return bal.getCurrentBal();
+            return amount;
         else return 0;
     }
 
@@ -53,7 +53,7 @@ public class Maintenance {
      * Collects all the money from the machine
      * 
      * @param bal  the Balance of the machine
-     * @return  the remaining balance
+     * @return  the collected money
      */
     public int collectMoney(Balance bal) {
         int origBal = bal.getCurrentBal();

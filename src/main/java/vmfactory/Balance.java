@@ -91,7 +91,7 @@ public class Balance {
         for(int i=0; i < 9; i++) {
             int numStock = cashStock[1][i];
 
-            for(int j = numStock; j >= 0; j--) {
+            for(int j = numStock; j > 0; j--) {
                 this.currentBal = currentBal + cashStock[0][i];
             }
             System.out.println("Added " + numStock + " pieces of " + cashStock[0][i] + " to balance.");
