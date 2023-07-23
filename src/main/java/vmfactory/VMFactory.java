@@ -103,10 +103,15 @@ public class VMFactory {
                                 "Topping with Chashu Pork ...");
                         Item chickenSlices = new Item("Chicken Slices", 95, 153,
                                 "Topping with Chicken Slices ...");
-                        Item fishCake = new Item("Fish Cake", 63, 40,
-                                "Adding Fish Cakes ...");
                         Item ajitamago = new Item("Ajitamago", 72, 35,
                                 "Adding Ajitamago ...");
+                        Item ramenNoodles = new Item("Ramen Noodles", 77, 14,
+                                "Blanching Ramen Noodles ...");
+                        Item ramen = new SpecialItem("Ramen");
+
+                        Item fishCake = new Item("Fish Cake", 63, 40,
+                                "Adding Fish Cakes ...");
+
                         Item friedTofu = new Item("Fried Tofu", 77, 14,
                                 "Topping with Fried Tofu ...");
                         Item seaweed = new Item("Seaweed", 8, 16,
@@ -115,16 +120,22 @@ public class VMFactory {
                                 "Adding corn ...");
                         Item butter = new Item("Butter", 81, 1,
                                 "Adding Butter ...");
+                        Item ramenBroth = new Item("Ramen broth", 50, 40,
+                                "Pouring ramen broth...");
 
                         // Instantiate itemSlots
                         ItemSlot itemSlot1 = new ItemSlot(chashuPork, true);
                         ItemSlot itemSlot2 = new ItemSlot(chickenSlices, true);
-                        ItemSlot itemSlot3 = new ItemSlot(fishCake, false);
-                        ItemSlot itemSlot4 = new ItemSlot(ajitamago, true);
-                        ItemSlot itemSlot5 = new ItemSlot(friedTofu, false);
-                        ItemSlot itemSlot6 = new ItemSlot(seaweed, false);
-                        ItemSlot itemSlot7 = new ItemSlot(corn, false);
-                        ItemSlot itemSlot8 = new ItemSlot(butter, false);
+                        ItemSlot itemSlot3 = new ItemSlot(ajitamago, true);
+                        ItemSlot itemSlot4 = new ItemSlot(ramenNoodles, true);
+                        ItemSlot itemSlot5 = new ItemSlot(ramen, true);
+
+                        ItemSlot itemSlot6 = new ItemSlot(fishCake, false);
+                        ItemSlot itemSlot7 = new ItemSlot(friedTofu, false);
+                        ItemSlot itemSlot8 = new ItemSlot(seaweed, false);
+                        ItemSlot itemSlot9 = new ItemSlot(corn, false);
+                        ItemSlot itemSlot10 = new ItemSlot(butter, false);
+                        ItemSlot itemSlot11 = new ItemSlot(ramenBroth, false);
 
                         // add itemSlots to regularVM
                         specialVM.addItemSlot(itemSlot1);
@@ -135,19 +146,6 @@ public class VMFactory {
                         specialVM.addItemSlot(itemSlot6);
                         specialVM.addItemSlot(itemSlot7);
                         specialVM.addItemSlot(itemSlot8);
-
-                        // Instantiate items
-                        Item ramen = new SpecialItem("Ramen");
-                        Item ramenNoodles = new Item("Ramen Noodles", 77, 14,
-                                "Blanching Ramen Noodles ...");
-                        Item ramenBroth = new Item("Ramen broth", 50, 40, "Pouring ramen broth...");
-
-                        // Instantiate itemSlots
-                        ItemSlot itemSlot9 = new ItemSlot(ramen, true);
-                        ItemSlot itemSlot10 = new ItemSlot(ramenNoodles, true);
-                        ItemSlot itemSlot11 = new ItemSlot(ramenBroth, false);
-                        
-                        // add itemSlots to regularVM
                         specialVM.addItemSlot(itemSlot9);
                         specialVM.addItemSlot(itemSlot10);
                         specialVM.addItemSlot(itemSlot11);
