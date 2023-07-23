@@ -10,7 +10,7 @@ public class SpecialVM extends VendingMachine {
         this.currentTransaction = new SpecialTransaction();
     }
 
-    @Override public void displayAllSlots() {
+    public void displayForSaleSlots() {
         int size = listItemSlots.size();
 
         // prints each itemSlot with its corresponding stocked item

@@ -80,7 +80,7 @@ public class SpecialTransaction extends Transaction {
             }
             if (this.itemOrdered instanceof SpecialItem){
                 this.specialItem.printPreparation();
-                System.out.print("Ramen done!\nDispensing " + this.specialItem.getName() + "...");
+                System.out.print("Ramen done!\n");
                 findItemSlot(this.itemOrdered, listItemSlots).dispenseItem();
             }
             else {

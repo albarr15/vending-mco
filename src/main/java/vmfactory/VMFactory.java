@@ -150,7 +150,7 @@ public class VMFactory {
                         specialVM.addItemSlot(itemSlot10);
                         specialVM.addItemSlot(itemSlot11);
 
-                        specialVM.displayAllSlots();
+                        specialVM.displayForSaleSlots();
                     }
                     break;
 
@@ -312,28 +312,33 @@ public class VMFactory {
                                             ItemSlot itemSlot2 = currentVM.findItemSlot(itemName2);
 
                                             if (itemSlot2 != null) {
-
-                                                int price2 = 0;
-
-                                                while (!isValidPrice) {
-                                                    System.out.print("Enter price: ");
-                                                    String sPrice2 = MFscan.next();
-                                                    try {
-                                                        price2 = Integer.parseInt(sPrice2);
-                                                        if (price2 < 0) {
-                                                            System.out.println("Invalid price. " +
-                                                                    "Please enter a positive integer.");
-                                                        }
-                                                        else {
-                                                            isValidPrice = true;
-                                                        }
-                                                    }
-                                                    catch (NumberFormatException e) {
-                                                        System.out.println("Invalid price. Please enter an integer.");
-                                                    }
+                                                if (itemSlot2.getItem() instanceof SpecialItem) {
+                                                    System.out.println("Cannot set price. A Special Item's price must be set according" +
+                                                            " to its components");
                                                 }
+                                                else {
+                                                    int price2 = 0;
 
-                                                currentVM.getMaintenance().setPrice(itemSlot2, price2);
+                                                    while (!isValidPrice) {
+                                                        System.out.print("Enter price: ");
+                                                        String sPrice2 = MFscan.next();
+                                                        try {
+                                                            price2 = Integer.parseInt(sPrice2);
+                                                            if (price2 < 0) {
+                                                                System.out.println("Invalid price. " +
+                                                                        "Please enter a positive integer.");
+                                                            }
+                                                            else {
+                                                                isValidPrice = true;
+                                                            }
+                                                        }
+                                                        catch (NumberFormatException e) {
+                                                            System.out.println("Invalid price. Please enter an integer.");
+                                                        }
+                                                    }
+
+                                                    currentVM.getMaintenance().setPrice(itemSlot2, price2);
+                                                }
                                                 currentVM.displayAllSlots();
                                             }
                                             break;
