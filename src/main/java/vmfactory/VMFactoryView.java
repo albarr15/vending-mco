@@ -66,23 +66,44 @@ public class VMFactoryView {
     }
 
     public void setupVFeaturesFrame(VendingMachine currentVM) {
-        
+        // Header
         this.vFeaturesFrame = new JFrame("Vending Features Testing");
         this.vFeaturesFrame.setLayout(new FlowLayout(FlowLayout.CENTER));
         this.vFeaturesHeader = new JLabel("VENDING FEATURES TESTING");
-
         this.vFeaturesFrame.add(vFeaturesHeader);
+        this.vFeaturesFrame.add(Box.createRigidArea(new Dimension(300, 10)));
 
-        JButton buttone = new JButton( " y e s " );
-        buttone.setPreferredSize(new Dimension(200, 30));
-        this.vFeaturesFrame.add( buttone );
-
+        // Vending machine options
         for(ItemSlot slot : currentVM.getListItemSlots()) {
-            JButton button = new JButton( slot.getItemName() );
-            button.setPreferredSize(new Dimension(70, 30));
+            JButton button = new JButton(slot.getItemName());
+            JLabel label = new JLabel("Stock: " + slot.getItemStock() +
+                                      "  /  Price: " + slot.getPrice() +
+                                      "  /  Calories: " + slot.getItem().getCaloriesAmt());
+            button.setPreferredSize(new Dimension(150, 25));
             this.vFeaturesFrame.add( button );
+            this.vFeaturesFrame.add( label );
         }
+        this.vFeaturesFrame.add(Box.createRigidArea(new Dimension(300, 10)));
 
+        // Selected item display
+        JLabel vFeaturesSelected = new JLabel("Selected Item: ");
+        this.vFeaturesFrame.add(vFeaturesSelected);
+        this.vFeaturesFrame.add(Box.createRigidArea(new Dimension(300, 10)));
+
+        // Money input
+        JLabel vFeaturesMoneyLabel = new JLabel("Input money in proper denominations:");
+        JTextField vFeaturesMoney = new JTextField(30);
+        this.vFeaturesFrame.add(vFeaturesMoneyLabel);
+        this.vFeaturesFrame.add(vFeaturesMoney);
+        this.vFeaturesFrame.add(Box.createRigidArea(new Dimension(300, 10)));
+
+        // Check out or cancel
+        JButton vFeaturesCheckOut = new JButton("Check Out");
+        vFeaturesCheckOut.setPreferredSize(new Dimension(150, 25));
+        JButton vFeaturesCancel = new JButton("Cancel");
+        vFeaturesCancel.setPreferredSize(new Dimension(150, 25));
+        this.vFeaturesFrame.add(vFeaturesCheckOut);
+        this.vFeaturesFrame.add(vFeaturesCancel);
     }
 
     public void setVmCreationBtnListener(ActionListener vmCreationBtnListener) {
