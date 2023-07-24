@@ -29,6 +29,7 @@ public class VMFactoryController {
                 vmFactoryView.getVmCreationFrame().dispose();
 
                 vmFactoryModel.createRegularVM();
+                vmFactoryModel.setupVM();
                 vmFactoryView.createMainFrame(vmFactoryView.getMainFrame());
             }
         });
@@ -40,6 +41,7 @@ public class VMFactoryController {
                 vmFactoryView.getVmCreationFrame().dispose();
 
                 vmFactoryModel.createSpecialVM();
+                vmFactoryModel.setupVM();
                 vmFactoryView.createMainFrame(vmFactoryView.getMainFrame());
             }
         });
