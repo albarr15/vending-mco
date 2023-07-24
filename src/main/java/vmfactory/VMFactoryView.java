@@ -13,5 +13,7 @@ public class VMFactoryView {
         this.mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.mainFrame.setLayout(new FlowLayout(FlowLayout.CENTER));
         this.mainFrame.setSize(500, 800);
+
+
     }
 }
