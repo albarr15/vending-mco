@@ -53,12 +53,23 @@ public class SpecialTransaction extends Transaction {
     @Override public boolean produceChange(Balance bal, ArrayList<ItemSlot> listItemSlots) {
 
         int changeAmt = this.amtReceived - this.orderTotal;
+        boolean isSpecial = this.itemOrdered instanceof SpecialItem;
 
         if (this.itemOrdered == null) {
             System.out.println("TRANSACTION UNSUCCESSFUL (No item selected)");
             System.out.println("Returning amount received ...");
             System.out.println("Returned : " + bal.withdrawCash(amtReceived));
             return false;
+        }
+        // checks if the component of current special item is not allowed to be sold separately
+        else if (isSpecial && this.specialItem.getListComponents().size() == 1) {
+            ItemSlot itemSlot = findItemSlot(this.specialItem.getListComponents().get(0), listItemSlots);
+            if (!itemSlot.getForSale()) {
+                System.out.println("TRANSACTION UNSUCCESSFUL (Component of Special Item is not allowed to be sold separately)");
+                System.out.println("Returning amount received ...");
+                System.out.println("Returned : " + bal.withdrawCash(amtReceived));
+                return false;
+            }
         }
         else if (this.amtReceived < this.orderTotal) {
             System.out.println("TRANSACTION UNSUCCESSFUL (Not enough cash entered)");
@@ -90,6 +101,7 @@ public class SpecialTransaction extends Transaction {
             System.out.println();
             return true;
         }
+        return false;
     }
 
     /**
