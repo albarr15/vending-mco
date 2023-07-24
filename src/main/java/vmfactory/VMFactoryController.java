@@ -20,5 +20,12 @@ public class VMFactoryController {
                 vmFactoryView.createVmCreationFrame(vmFactoryView.getVmCreationFrame());
             }
         });
+
+        this.vmFactoryView.setVmExitBtnListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
     }
 }
