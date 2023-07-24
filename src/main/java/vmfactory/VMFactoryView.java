@@ -2,12 +2,13 @@ package vmfactory;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class VMFactoryView {
     private JFrame mainFrame, vmCreationFrame, vmTestingFrame;
-    private JLabel appHeader;
-    private JButton vmCreationBtn, vmTestBtn, vmExitBtn;
+    private JLabel appHeader, vmCHeader;
+    private JButton vmCreationBtn, vmTestBtn, vmExitBtn, regVMCreateBtn, spcVMCreateBtn;
     private JPanel panel;
 
     public VMFactoryView() {
@@ -33,10 +34,23 @@ public class VMFactoryView {
 
         this.mainFrame.setVisible(true);
 
+        // code for VM Creation Frame
+        this.vmCreationFrame = new JFrame("Vending Machine Creation");
+        this.vmCreationFrame.setLayout(new FlowLayout(FlowLayout.CENTER));
+        this.vmCHeader = new JLabel("VENDING MACHINE CREATION");
+
+        this.regVMCreateBtn = new JButton("Regular Vending Machine");
+        this.regVMCreateBtn.setPreferredSize(new Dimension(200, 50));
+        this.spcVMCreateBtn = new JButton("Special Vending Machine");
+        this.spcVMCreateBtn.setPreferredSize(new Dimension(200, 50));
+
+        this.vmCreationFrame.add(vmCHeader);
+        this.vmCreationFrame.add(regVMCreateBtn);
+        this.vmCreationFrame.add(spcVMCreateBtn);
     }
 
-    public void setVmCreationBtnListener(ActionListener actionListener) {
-        this.vmCreationBtn.addActionListener(actionListener);
+    public void setVmCreationBtnListener(ActionListener vmCreationBtnListener) {
+        this.vmCreationBtn.addActionListener(vmCreationBtnListener);
     }
 
     public void setVmTestBtnListener(ActionListener actionListener) {
@@ -45,5 +59,20 @@ public class VMFactoryView {
 
     public void setVmExitBtnListener(ActionListener actionListener) {
         this.vmExitBtn.addActionListener(actionListener);
+    }
+
+    public void createVmCreationFrame(JFrame vmCreationFrame) {
+        this.vmCreationFrame = vmCreationFrame;
+        this.vmCreationFrame.setSize(380,500);
+        this.vmCreationFrame.setVisible(true);
+        this.vmCreationFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
+    public JFrame getMainFrame() {
+        return mainFrame;
+    }
+
+    public JFrame getVmCreationFrame() {
+        return vmCreationFrame;
     }
 }
