@@ -22,6 +22,28 @@ public class VMFactoryController {
             }
         });
 
+        this.vmFactoryView.setregVmCreateBtnListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                vmFactoryView.getMainFrame().dispose();
+                vmFactoryView.getVmCreationFrame().dispose();
+
+                vmFactoryModel.createRegularVM();
+                vmFactoryView.createMainFrame(vmFactoryView.getMainFrame());
+            }
+        });
+
+        this.vmFactoryView.setspcVmCreateBtnListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                vmFactoryView.getMainFrame().dispose();
+                vmFactoryView.getVmCreationFrame().dispose();
+
+                vmFactoryModel.createSpecialVM();
+                vmFactoryView.createMainFrame(vmFactoryView.getMainFrame());
+            }
+        });
+
         this.vmFactoryView.setVmTestBtnListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -36,6 +58,16 @@ public class VMFactoryController {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.exit(0);
+            }
+        });
+
+        this.vmFactoryView.setVFeaturesBtnListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                vmFactoryView.getMainFrame().dispose();
+                vmFactoryView.getVmTestingFrame().dispose();
+
+                vmFactoryView.createVFeaturesFrame(vmFactoryView.getVFeaturesFrame(), vmFactoryModel.getCurrentVM());
             }
         });
     }
