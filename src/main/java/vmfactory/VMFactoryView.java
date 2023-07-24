@@ -7,10 +7,10 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class VMFactoryView {
-    private JFrame mainFrame, vmCreationFrame, vmTestingFrame, vFeaturesFrame;
-    private JLabel appHeader, vmCHeader, vmTHeader, vFeaturesHeader;
+    private JFrame mainFrame, vmCreationFrame, vmTestingFrame, vFeaturesFrame, vMaintenanceFrame;
+    private JLabel appHeader, vmCHeader, vmTHeader, vFeaturesHeader, vMaintenanceHeader;
     private JButton vmCreationBtn, vmTestBtn, vmExitBtn, regVMCreateBtn, spcVMCreateBtn,
-            vFeaturesBtn, vMaintenanceBtn;
+            vFeaturesBtn, vMaintenanceBtn, restockBtn, setPriceBtn, collectPayBtn, replenishMoneyBtn, printTransacSummaryBtn;
     private JPanel panel;
 
     public VMFactoryView() {
@@ -106,6 +106,31 @@ public class VMFactoryView {
         this.vFeaturesFrame.add(vFeaturesCancel);
     }
 
+    public void setupVMaintenanceFrame() {
+        // Header
+        this.vMaintenanceFrame = new JFrame("Test Maintenance Features");
+        this.vMaintenanceFrame.setLayout(new FlowLayout(FlowLayout.CENTER));
+        this.vMaintenanceHeader = new JLabel("TEST MAINTENANCE FEATURES");
+        this.vMaintenanceFrame.add(vMaintenanceHeader);
+
+        this.restockBtn = new JButton("Restock / Stock Item");
+        this.restockBtn.setPreferredSize(new Dimension(200, 50));
+        this.setPriceBtn = new JButton("Set Price of Item");
+        this.setPriceBtn.setPreferredSize(new Dimension(200, 50));
+        this.collectPayBtn = new JButton("Collect Payment");
+        this.collectPayBtn.setPreferredSize(new Dimension(200, 50));
+        this.replenishMoneyBtn = new JButton("Replenish Money");
+        this.replenishMoneyBtn.setPreferredSize(new Dimension(200, 50));
+        this.printTransacSummaryBtn = new JButton("Print Transactions Summary");
+        this.printTransacSummaryBtn.setPreferredSize(new Dimension(200, 50));
+
+        this.vMaintenanceFrame.add(restockBtn);
+        this.vMaintenanceFrame.add(setPriceBtn);
+        this.vMaintenanceFrame.add(collectPayBtn);
+        this.vMaintenanceFrame.add(replenishMoneyBtn);
+        this.vMaintenanceFrame.add(printTransacSummaryBtn);
+    }
+
     public void setVmCreationBtnListener(ActionListener vmCreationBtnListener) {
         this.vmCreationBtn.addActionListener(vmCreationBtnListener);
     }
@@ -125,6 +150,25 @@ public class VMFactoryView {
     public void setVFeaturesBtnListener(ActionListener actionListener) {
         this.vFeaturesBtn.addActionListener(actionListener);
     }
+    public void setvMaintenanceBtnListener(ActionListener actionListener) {
+        this.vMaintenanceBtn.addActionListener(actionListener);
+    }
+    public void setRestockBtnListener(ActionListener actionListener) {
+        this.restockBtn.addActionListener(actionListener);
+    }
+    public void setSetPriceBtnListener(ActionListener actionListener) {
+        this.setPriceBtn.addActionListener(actionListener);
+    }
+    public void setCollectPayBtnListener(ActionListener actionListener) {
+        this.collectPayBtn.addActionListener(actionListener);
+    }
+    public void setReplenishMoneyBtnBtnListener(ActionListener actionListener) {
+        this.replenishMoneyBtn.addActionListener(actionListener);
+    }
+    public void setPrintTransacSummaryBtnListener(ActionListener actionListener) {
+        this.printTransacSummaryBtn.addActionListener(actionListener);
+    }
+
 
     public void setVmExitBtnListener(ActionListener actionListener) {
         this.vmExitBtn.addActionListener(actionListener);
@@ -159,6 +203,14 @@ public class VMFactoryView {
         this.vFeaturesFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
+    public void createVMaintenanceFrame(JFrame vMaintenanceFrame) {
+        this.vMaintenanceFrame = vMaintenanceFrame;
+        setupVMaintenanceFrame();
+        this.vMaintenanceFrame.setSize(380,500);
+        this.vMaintenanceFrame.setVisible(true);
+        this.vMaintenanceFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
     public JFrame getMainFrame() {
         return mainFrame;
     }
@@ -173,5 +225,9 @@ public class VMFactoryView {
 
     public JFrame getVFeaturesFrame() {
         return vFeaturesFrame;
+    }
+
+    public JFrame getvMaintenanceFrame() {
+        return vMaintenanceFrame;
     }
 }

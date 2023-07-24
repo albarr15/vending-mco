@@ -72,5 +72,16 @@ public class VMFactoryController {
                 vmFactoryView.createVFeaturesFrame(vmFactoryView.getVFeaturesFrame(), vmFactoryModel.getCurrentVM());
             }
         });
+
+        this.vmFactoryView.setvMaintenanceBtnListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                vmFactoryView.getMainFrame().dispose();
+                vmFactoryView.getVmTestingFrame().dispose();
+
+                vmFactoryView.createVMaintenanceFrame(vmFactoryView.getvMaintenanceFrame());
+            }
+        });
+
     }
 }
