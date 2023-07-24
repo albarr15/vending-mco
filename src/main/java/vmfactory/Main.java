@@ -5,7 +5,5 @@ public class Main {
         VMFactoryView vmFactoryView = new VMFactoryView();
         VMFactoryModel vmFactoryModel = new VMFactoryModel();
         VMFactoryController vmFactoryController = new VMFactoryController(vmFactoryView, vmFactoryModel);
-
-
     }
 }
