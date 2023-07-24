@@ -4,6 +4,20 @@ package vmfactory;
 import java.util.Scanner;
 
 public class VMFactoryModel {
+    
+    private VendingMachine currentVM;
+
+    public void createRegularVM() {
+        this.currentVM = new VendingMachine();
+    }
+
+    public void createSpecialVM() {
+        this.currentVM = new SpecialVM();
+    }
+
+    public VendingMachine getCurrentVM() {
+        return this.currentVM;
+    }
 
     public int displayHomeMenu() {
         int input;
