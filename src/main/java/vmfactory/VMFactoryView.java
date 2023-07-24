@@ -4,10 +4,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class VMFactoryView {
-    private JFrame mainFrame, vmCreationFrame, vmTestingFrame;
-    private JLabel appHeader, vmCHeader, vmTHeader;
+    private JFrame mainFrame, vmCreationFrame, vmTestingFrame, vFeaturesFrame;
+    private JLabel appHeader, vmCHeader, vmTHeader, vFeaturesHeader;
     private JButton vmCreationBtn, vmTestBtn, vmExitBtn, regVMCreateBtn, spcVMCreateBtn,
             vFeaturesBtn, vMaintenanceBtn;
     private JPanel panel;
@@ -64,16 +65,55 @@ public class VMFactoryView {
         this.vmTestingFrame.add(vMaintenanceBtn);
     }
 
+    public void setupVFeaturesFrame(VendingMachine currentVM) {
+        
+        this.vFeaturesFrame = new JFrame("Vending Features Testing");
+        this.vFeaturesFrame.setLayout(new FlowLayout(FlowLayout.CENTER));
+        this.vFeaturesHeader = new JLabel("VENDING FEATURES TESTING");
+
+        this.vFeaturesFrame.add(vFeaturesHeader);
+
+        JButton buttone = new JButton( " y e s " );
+        buttone.setPreferredSize(new Dimension(200, 30));
+        this.vFeaturesFrame.add( buttone );
+
+        for(ItemSlot slot : currentVM.getListItemSlots()) {
+            JButton button = new JButton( slot.getItemName() );
+            button.setPreferredSize(new Dimension(70, 30));
+            this.vFeaturesFrame.add( button );
+        }
+
+    }
+
     public void setVmCreationBtnListener(ActionListener vmCreationBtnListener) {
         this.vmCreationBtn.addActionListener(vmCreationBtnListener);
+    }
+
+    public void setregVmCreateBtnListener(ActionListener actionListener) {
+        this.regVMCreateBtn.addActionListener(actionListener);
+    }
+
+    public void setspcVmCreateBtnListener(ActionListener actionListener) {
+        this.spcVMCreateBtn.addActionListener(actionListener);
     }
 
     public void setVmTestBtnListener(ActionListener actionListener) {
         this.vmTestBtn.addActionListener(actionListener);
     }
 
+    public void setVFeaturesBtnListener(ActionListener actionListener) {
+        this.vFeaturesBtn.addActionListener(actionListener);
+    }
+
     public void setVmExitBtnListener(ActionListener actionListener) {
         this.vmExitBtn.addActionListener(actionListener);
+    }
+
+    public void createMainFrame(JFrame mainFrame) {
+        this.mainFrame = mainFrame;
+        this.mainFrame.setSize(380,500);
+        this.mainFrame.setVisible(true);
+        this.mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     public void createVmCreationFrame(JFrame vmCreationFrame) {
@@ -90,6 +130,14 @@ public class VMFactoryView {
         this.vmTestingFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
+    public void createVFeaturesFrame(JFrame vFeaturesFrame, VendingMachine currentVM) {
+        this.vFeaturesFrame = vFeaturesFrame;
+        setupVFeaturesFrame(currentVM);
+        this.vFeaturesFrame.setSize(380,500);
+        this.vFeaturesFrame.setVisible(true);
+        this.vFeaturesFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
     public JFrame getMainFrame() {
         return mainFrame;
     }
@@ -100,5 +148,9 @@ public class VMFactoryView {
 
     public JFrame getVmTestingFrame() {
         return vmTestingFrame;
+    }
+
+    public JFrame getVFeaturesFrame() {
+        return vFeaturesFrame;
     }
 }
