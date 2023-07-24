@@ -16,8 +16,19 @@ public class VMFactoryController {
             @Override
             public void actionPerformed(ActionEvent e) {
                 vmFactoryView.getMainFrame().dispose();
+                vmFactoryView.getVmTestingFrame().dispose();
 
                 vmFactoryView.createVmCreationFrame(vmFactoryView.getVmCreationFrame());
+            }
+        });
+
+        this.vmFactoryView.setVmTestBtnListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                vmFactoryView.getMainFrame().dispose();
+                vmFactoryView.getVmCreationFrame().dispose();
+
+                vmFactoryView.createVmTestingFrame(vmFactoryView.getVmTestingFrame());
             }
         });
 

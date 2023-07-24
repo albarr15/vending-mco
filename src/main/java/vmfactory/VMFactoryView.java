@@ -7,8 +7,9 @@ import java.awt.event.ActionListener;
 
 public class VMFactoryView {
     private JFrame mainFrame, vmCreationFrame, vmTestingFrame;
-    private JLabel appHeader, vmCHeader;
-    private JButton vmCreationBtn, vmTestBtn, vmExitBtn, regVMCreateBtn, spcVMCreateBtn;
+    private JLabel appHeader, vmCHeader, vmTHeader;
+    private JButton vmCreationBtn, vmTestBtn, vmExitBtn, regVMCreateBtn, spcVMCreateBtn,
+            vFeaturesBtn, vMaintenanceBtn;
     private JPanel panel;
 
     public VMFactoryView() {
@@ -47,6 +48,20 @@ public class VMFactoryView {
         this.vmCreationFrame.add(vmCHeader);
         this.vmCreationFrame.add(regVMCreateBtn);
         this.vmCreationFrame.add(spcVMCreateBtn);
+
+        // code for VM Testing Frame
+        this.vmTestingFrame = new JFrame("Vending Machine Testing");
+        this.vmTestingFrame.setLayout(new FlowLayout(FlowLayout.CENTER));
+        this.vmTHeader = new JLabel("VENDING MACHINE TESTING");
+
+        this.vFeaturesBtn = new JButton("Vending Features");
+        this.vFeaturesBtn.setPreferredSize(new Dimension(200, 50));
+        this.vMaintenanceBtn = new JButton("Maintenance Features");
+        this.vMaintenanceBtn.setPreferredSize(new Dimension(200, 50));
+
+        this.vmTestingFrame.add(vmTHeader);
+        this.vmTestingFrame.add(vFeaturesBtn);
+        this.vmTestingFrame.add(vMaintenanceBtn);
     }
 
     public void setVmCreationBtnListener(ActionListener vmCreationBtnListener) {
@@ -68,11 +83,22 @@ public class VMFactoryView {
         this.vmCreationFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
+    public void createVmTestingFrame(JFrame vmTestingFrame) {
+        this.vmTestingFrame = vmTestingFrame;
+        this.vmTestingFrame.setSize(380,500);
+        this.vmTestingFrame.setVisible(true);
+        this.vmTestingFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
     public JFrame getMainFrame() {
         return mainFrame;
     }
 
     public JFrame getVmCreationFrame() {
         return vmCreationFrame;
+    }
+
+    public JFrame getVmTestingFrame() {
+        return vmTestingFrame;
     }
 }
