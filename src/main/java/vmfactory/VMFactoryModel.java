@@ -15,6 +15,45 @@ public class VMFactoryModel {
         this.currentVM = new SpecialVM();
     }
 
+    public void setupVM() {
+        Item chashuPork = new Item("Chashu Pork", 99, 95,
+                "Topping with Chashu Pork ...");
+        Item chickenSlices = new Item("Chicken Slices", 95, 153,
+                "Topping with Chicken Slices ...");
+        Item fishCake = new Item("Fish Cake", 63, 40,
+                "Adding Fish Cakes ...");
+        Item ajitamago = new Item("Ajitamago", 72, 35,
+                "Adding Ajitamago ...");
+        Item friedTofu = new Item("Fried Tofu", 77, 14,
+                "Topping with Fried Tofu ...");
+        Item seaweed = new Item("Seaweed", 8, 16,
+                "Topping with Seaweed ...");
+        Item corn = new Item("Corn", 76, 40,
+                "Adding corn ...");
+        Item butter = new Item("Butter", 81, 1,
+                "Adding Butter ...");
+
+        // Instantiate itemSlots
+        ItemSlot itemSlot1 = new ItemSlot(chashuPork, true);
+        ItemSlot itemSlot2 = new ItemSlot(chickenSlices, true);
+        ItemSlot itemSlot3 = new ItemSlot(fishCake, false);
+        ItemSlot itemSlot4 = new ItemSlot(ajitamago, true);
+        ItemSlot itemSlot5 = new ItemSlot(friedTofu, false);
+        ItemSlot itemSlot6 = new ItemSlot(seaweed, false);
+        ItemSlot itemSlot7 = new ItemSlot(corn, false);
+        ItemSlot itemSlot8 = new ItemSlot(butter, false);
+
+        // add itemSlots to VM
+        currentVM.addItemSlot(itemSlot1);
+        currentVM.addItemSlot(itemSlot2);
+        currentVM.addItemSlot(itemSlot3);
+        currentVM.addItemSlot(itemSlot4);
+        currentVM.addItemSlot(itemSlot5);
+        currentVM.addItemSlot(itemSlot6);
+        currentVM.addItemSlot(itemSlot7);
+        currentVM.addItemSlot(itemSlot8);
+    }
+
     public VendingMachine getCurrentVM() {
         return this.currentVM;
     }
