@@ -16,6 +16,7 @@ public class VMFactoryView {
             vFeaturesBtn, selectItemBut, vFeaturesCheckOut, vFeaturesCancel,
             vMaintenanceBtn, restockBtn, setPriceBtn, collectPayBtn, replenishMoneyBtn, printTransacSummaryBtn,
             finishRestockBtn, finishSetPriceBtn;
+    private ArrayList<JButton> listSelectItem = new ArrayList<JButton>();
     private JTextField vFeaturesMoney, restockItemName, restockItemNum, setPriceItemName, setPriceItem;
     private JTextArea restockItemsList, setPriceItemsList;
     private JPanel restockPanel1, restockPanel2, setPricePanel1, setPricePanel2;
@@ -87,17 +88,21 @@ public class VMFactoryView {
         this.vFeaturesFrame.add(Box.createRigidArea(new Dimension(300, 10)));
 
         // Vending machine options
+        this.listSelectItem.clear();
         for(ItemSlot slot : currentVM.getListItemSlots()) {
             if(!(currentVM instanceof SpecialVM) || slot.getForSale()) {
                 this.selectItemBut = new JButton(slot.getItemName());
+                selectItemBut.setPreferredSize(new Dimension(150, 25));
+
                 if(slot.getItem() instanceof SpecialItem)
                     this.buyItemLabel = new JLabel("Special Item : Build-it-yourself!");
                 else this.buyItemLabel = new JLabel("Stock: " + slot.getItemStock() +
                                                     "  /  Price: " + slot.getPrice() +
                                                     "  /  Calories: " + slot.getItem().getCaloriesAmt());
-                selectItemBut.setPreferredSize(new Dimension(150, 25));
-                this.vFeaturesFrame.add( selectItemBut );
-                this.vFeaturesFrame.add( buyItemLabel );
+
+                this.vFeaturesFrame.add(selectItemBut);
+                this.vFeaturesFrame.add(buyItemLabel);
+                this.listSelectItem.add(selectItemBut);
             }
         }
         this.vFeaturesFrame.add(Box.createRigidArea(new Dimension(300, 10)));
@@ -114,6 +119,12 @@ public class VMFactoryView {
         vFeaturesCheckOut.setPreferredSize(new Dimension(150, 25));
         this.vFeaturesCancel = new JButton("Cancel");
         vFeaturesCancel.setPreferredSize(new Dimension(150, 25));
+        this.vFeaturesCancel.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                createVmTestingFrame(getVmTestingFrame());
+                vFeaturesFrame.dispose();
+            }
+        });
         
         this.vFeaturesFrame.add(vFeaturesSelected);
         this.vFeaturesFrame.add(Box.createRigidArea(new Dimension(300, 10)));
@@ -247,25 +258,33 @@ public class VMFactoryView {
         this.setPriceFrame.add(setPriceItemsList);
     }
 
+    // main menu + vm creation screens
     public void setVmCreationBtnListener(ActionListener vmCreationBtnListener) {
         this.vmCreationBtn.addActionListener(vmCreationBtnListener);
     }
-
     public void setregVmCreateBtnListener(ActionListener actionListener) {
         this.regVMCreateBtn.addActionListener(actionListener);
     }
-
     public void setspcVmCreateBtnListener(ActionListener actionListener) {
         this.spcVMCreateBtn.addActionListener(actionListener);
     }
-
     public void setVmTestBtnListener(ActionListener actionListener) {
         this.vmTestBtn.addActionListener(actionListener);
     }
 
+    // vending features testing
     public void setVFeaturesBtnListener(ActionListener actionListener) {
         this.vFeaturesBtn.addActionListener(actionListener);
     }
+    public void setSelectItemBtnListener(ArrayList<ActionListener> actionListener) {
+        for(int i=0; i < listSelectItem.size(); i++)
+            listSelectItem.get(i).addActionListener(actionListener.get(i));
+    }
+    public void setCheckOutBtnListener(ActionListener actionListener) {
+        this.vFeaturesCheckOut.addActionListener(actionListener);
+    }
+
+    // maintenance testing
     public void setvMaintenanceBtnListener(ActionListener actionListener) {
         this.vMaintenanceBtn.addActionListener(actionListener);
     }
@@ -358,6 +377,10 @@ public class VMFactoryView {
 
     public JFrame getVFeaturesFrame() {
         return vFeaturesFrame;
+    }
+
+    public JLabel getSelected() {
+        return vFeaturesSelected;
     }
 
     public JFrame getvMaintenanceFrame() {
