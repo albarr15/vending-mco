@@ -11,14 +11,15 @@ public class VMFactoryView {
             restockFrame, setPriceFrame, collectPayFrame, replenishMoneyFrame, printTransacSummaryFrame;
     private JLabel appHeader, vmCHeader, vmTHeader, vmError, vFeaturesHeader, vMaintenanceHeader,
             vFeaturesSelected, buyItemLabel, vFeaturesMoneyLabel, vFeaturesError,
-            restockFbackLbl, restockItemNameLbl, restockItemNumLbl, setPriceLbl, setPriceItemNameLbl, setPriceFbackLbl;
+            restockFbackLbl, restockItemNameLbl, restockItemNumLbl, setPriceLbl, setPriceItemNameLbl, setPriceFbackLbl,
+            collectPaySpecLbl, collectPayFbackLbl;
     private JButton vmCreationBtn, vmTestBtn, vmExitBtn, regVMCreateBtn, spcVMCreateBtn,
             vFeaturesBtn, selectItemBut, vFeaturesCheckOut, vFeaturesCancel,
             vMaintenanceBtn, restockBtn, setPriceBtn, collectPayBtn, replenishMoneyBtn, printTransacSummaryBtn,
-            finishRestockBtn, finishSetPriceBtn;
+            finishRestockBtn, finishSetPriceBtn, collectPayAllBtn, collectPaySpecBtn, finishCollectPayBtn;
     private ArrayList<JButton> listSelectItem = new ArrayList<JButton>();
-    private JTextField vFeaturesMoneyField, restockItemName, restockItemNum, setPriceItemName, setPriceItem;
-    private JTextArea restockItemsList, setPriceItemsList;
+    private JTextField vFeaturesMoneyField, restockItemName, restockItemNum, setPriceItemName, setPriceItem, collectPaySpecTF;
+    private JTextArea restockItemsList, setPriceItemsList, collectPayCurBal;
     private JPanel restockPanel1, restockPanel2, setPricePanel1, setPricePanel2;
 
     public VMFactoryView() {
@@ -164,6 +165,13 @@ public class VMFactoryView {
 
         this.collectPayBtn = new JButton("Collect Payment");
         this.collectPayBtn.setPreferredSize(new Dimension(200, 50));
+        this.collectPayBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                createCollectPayFrame(getCollectPayFrame());
+                vMaintenanceFrame.dispose();
+            }
+        });
+
         this.replenishMoneyBtn = new JButton("Replenish Money");
         this.replenishMoneyBtn.setPreferredSize(new Dimension(200, 50));
         this.printTransacSummaryBtn = new JButton("Print Transactions Summary");
@@ -260,6 +268,39 @@ public class VMFactoryView {
         this.setPriceFrame.add(setPriceItemsList);
     }
 
+    public void setupCollectPayFrame() {
+        // Header
+        this.collectPayFrame = new JFrame("Collect Payment");
+        this.collectPayFrame.setLayout(new FlowLayout(FlowLayout.CENTER));
+
+        this.collectPayFbackLbl = new JLabel();
+        this.collectPayFbackLbl.setPreferredSize(new Dimension(220, 30));
+
+        this.collectPayCurBal = new JTextArea(" ");
+        this.collectPayCurBal.setPreferredSize(new Dimension(220, 30));
+        this.collectPayCurBal.setEditable(false);
+
+        this.collectPayAllBtn = new JButton("Collect all money");
+        this.collectPayAllBtn.setPreferredSize(new Dimension(200, 50));
+
+        this.collectPaySpecLbl = new JLabel("Enter specific amount:  ");
+        this.collectPaySpecLbl.setPreferredSize(new Dimension(220, 30));
+
+        this.collectPaySpecTF = new JTextField(30);
+
+        this.collectPaySpecBtn = new JButton("Collect a specified amount of money");
+        this.collectPaySpecBtn.setPreferredSize(new Dimension(200, 50));
+
+        this.finishCollectPayBtn = new JButton("Collect");
+
+        this.collectPayFrame.add(collectPaySpecLbl);
+        this.collectPayFrame.add(collectPaySpecTF);
+        this.collectPayFrame.add(collectPayAllBtn);
+        this.collectPayFrame.add(finishCollectPayBtn);
+        this.collectPayFrame.add(collectPayFbackLbl);
+        this.collectPayFrame.add(collectPayCurBal);
+    }
+
     // main menu + vm creation screens
     public void setVmCreationBtnListener(ActionListener vmCreationBtnListener) {
         this.vmCreationBtn.addActionListener(vmCreationBtnListener);
@@ -290,19 +331,6 @@ public class VMFactoryView {
     public void setvMaintenanceBtnListener(ActionListener actionListener) {
         this.vMaintenanceBtn.addActionListener(actionListener);
     }
-    public void setSetPriceBtnListener(ActionListener actionListener) {
-        this.setPriceBtn.addActionListener(actionListener);
-    }
-    public void setCollectPayBtnListener(ActionListener actionListener) {
-        this.collectPayBtn.addActionListener(actionListener);
-    }
-    public void setReplenishMoneyBtnListener(ActionListener actionListener) {
-        this.replenishMoneyBtn.addActionListener(actionListener);
-    }
-    public void setPrintTransacSummaryBtnListener(ActionListener actionListener) {
-        this.printTransacSummaryBtn.addActionListener(actionListener);
-    }
-
 
     public void setVmExitBtnListener(ActionListener actionListener) {
         this.vmExitBtn.addActionListener(actionListener);
@@ -361,6 +389,14 @@ public class VMFactoryView {
         this.setPriceFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
+    public void createCollectPayFrame(JFrame setPriceFrame) {
+        this.collectPayFrame = collectPayFrame;
+        setupCollectPayFrame();
+        this.collectPayFrame.setSize(380,500);
+        this.collectPayFrame.setVisible(true);
+        this.collectPayFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
     public JFrame getMainFrame() {
         return mainFrame;
     }
@@ -402,5 +438,9 @@ public class VMFactoryView {
 
     public JFrame getSetPriceFrame() {
         return setPriceFrame;
+    }
+
+    public JFrame getCollectPayFrame() {
+        return collectPayFrame;
     }
 }
