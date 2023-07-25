@@ -249,7 +249,8 @@ public class VMFactoryModel {
                                     switch (VFinput) {
                                         case 1:
                                             // Receive Payment
-                                            currentVM.getCurrentTransaction().receivePayment(currentVM.getBalance());
+                                            String sampleAmt = "50 50 100";
+                                            currentVM.getCurrentTransaction().receivePayment(sampleAmt, currentVM.getBalance());
 
                                             break;
                                         case 2:
@@ -330,9 +331,9 @@ public class VMFactoryModel {
                                                 } while (!specialMenuExit);
                                             }
 
-                                            if (currentVM.getCurrentTransaction().produceChange(currentVM.getBalance(), currentVM.getListItemSlots())) {
+                                            if (currentVM.getCurrentTransaction().produceChange(currentVM.getBalance(), currentVM.getListItemSlots()) > 0) {
                                                 currentVM.getListItemSlots().get(itemIndex).dispenseItem();
-                                            }
+                                             }
                                             currentVM.getCurrentTransaction().reset(currentVM.getListItemSlots());
                                             break;
                                         case 3:

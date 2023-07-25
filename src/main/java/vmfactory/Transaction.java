@@ -77,7 +77,8 @@ public class Transaction {
 
     /**
      * Produces change according to the case situated by the current balance, item ordered, and order total
-     * @param bal  is the current balance of the machine
+     *
+     * @param bal is the current balance of the machine
      * @return true if transaction is successful, false if not
      */
     public int produceChange(Balance bal, ArrayList<ItemSlot> listItemSlots) {

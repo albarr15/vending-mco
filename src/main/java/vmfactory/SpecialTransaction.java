@@ -47,10 +47,10 @@ public class SpecialTransaction extends Transaction {
     /**
      * (For Special Transactions) Produces change according to the case situated by the current balance, item ordered, and order total
      *
-     * @param bal  is the current balance of the machine
+     * @param bal is the current balance of the machine
      * @return true if transaction is successful, false if not
      */
-    @Override public boolean produceChange(Balance bal, ArrayList<ItemSlot> listItemSlots) {
+    @Override public int produceChange(Balance bal, ArrayList<ItemSlot> listItemSlots) {
 
         int changeAmt = this.amtReceived - this.orderTotal;
         boolean isSpecial = this.itemOrdered instanceof SpecialItem;
@@ -59,7 +59,7 @@ public class SpecialTransaction extends Transaction {
             System.out.println("TRANSACTION UNSUCCESSFUL (No item selected)");
             System.out.println("Returning amount received ...");
             System.out.println("Returned : " + bal.withdrawCash(amtReceived));
-            return false;
+            return 1;
         }
         // checks if the component of current special item is not allowed to be sold separately
         else if (isSpecial && this.specialItem.getListComponents().size() == 1) {
@@ -68,20 +68,20 @@ public class SpecialTransaction extends Transaction {
                 System.out.println("TRANSACTION UNSUCCESSFUL (Component of Special Item is not allowed to be sold separately)");
                 System.out.println("Returning amount received ...");
                 System.out.println("Returned : " + bal.withdrawCash(amtReceived));
-                return false;
+                return 2;
             }
         }
         else if (this.amtReceived < this.orderTotal) {
             System.out.println("TRANSACTION UNSUCCESSFUL (Not enough cash entered)");
             System.out.println("Returning amount received ...");
             System.out.println("Returned : " + bal.withdrawCash(amtReceived));
-            return false;
+            return 3;
         }
         else if((bal.withdrawCash(changeAmt)) == null) {
             System.out.println("TRANSACTION UNSUCCESSFUL (Not enough change in machine)");
             System.out.println("Returning amount received ...");
             System.out.println("Returned : " + bal.withdrawCash(amtReceived));
-            return false;
+            return 4;
         }
         else {
             System.out.println("TRANSACTION SUCCESSFUL");
@@ -99,9 +99,9 @@ public class SpecialTransaction extends Transaction {
                 findItemSlot(this.itemOrdered, listItemSlots).dispenseItem();
             }
             System.out.println();
-            return true;
+            return 0;
         }
-        return false;
+        return 5;
     }
 
     /**
