@@ -1,7 +1,5 @@
 package vmfactory;
 import java.util.ArrayList;
-import java.util.ListIterator;
-import java.util.Scanner;
 
 /**
  * Represents a transaction
@@ -68,15 +66,9 @@ public class Transaction {
      * Receives payment from the customer
      * @param bal  is the current balance of the machine
      */
-    public void receivePayment(Balance bal){
+    public void receivePayment(String amount, Balance bal){
         int initialBal = bal.getCurrentBal();
-        Scanner scanner = new Scanner(System.in);
         
-        System.out.println("Receiving payment ...");
-
-        // prompt for cash deposit
-        System.out.println("Enter Cash Payment : (Please separate each denomination with spaces)");
-        String amount = scanner.nextLine();
         bal.depositCash(amount);
         this.amtReceived = (bal.getCurrentBal() - initialBal);
 
@@ -88,7 +80,7 @@ public class Transaction {
      * @param bal  is the current balance of the machine
      * @return true if transaction is successful, false if not
      */
-    public boolean produceChange(Balance bal, ArrayList<ItemSlot> listItemSlots) {
+    public int produceChange(Balance bal, ArrayList<ItemSlot> listItemSlots) {
 
         int changeAmt = this.amtReceived - this.orderTotal;
 
@@ -96,19 +88,19 @@ public class Transaction {
             System.out.println("TRANSACTION UNSUCCESSFUL (No item selected)");
             System.out.println("Returning amount received ...");
             System.out.println("Returned : " + bal.withdrawCash(amtReceived));
-            return false;
+            return 1;
         }
         else if (this.amtReceived < this.orderTotal) {
             System.out.println("TRANSACTION UNSUCCESSFUL (Not enough cash entered)");
             System.out.println("Returning amount received ...");
             System.out.println("Returned : " + bal.withdrawCash(amtReceived));
-            return false;
+            return 2;
         }
         else if((bal.withdrawCash(changeAmt)) == null) {
             System.out.println("TRANSACTION UNSUCCESSFUL (Not enough change in machine)");
             System.out.println("Returning amount received ...");
             System.out.println("Returned : " + bal.withdrawCash(amtReceived));
-            return false;
+            return 3;
         }
         else {
             System.out.println("TRANSACTION SUCCESSFUL");
@@ -118,7 +110,7 @@ public class Transaction {
             }
             findItemSlot(this.itemOrdered, listItemSlots).dispenseItem();
             System.out.println();
-            return true;
+            return 0;
         }
     }
 
