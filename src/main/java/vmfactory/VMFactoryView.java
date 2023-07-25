@@ -17,11 +17,11 @@ public class VMFactoryView {
             vFeaturesBtn, selectItemBut, vFeaturesCheckOut, vFeaturesCancel,
             vMaintenanceBtn, restockBtn, setPriceBtn, collectPayBtn, replenishMoneyBtn, printTransacSummaryBtn,
             finishRestockBtn, finishSetPriceBtn, collectPayAllBtn, collectPaySpecBtn, finishCollectPayBtn, replenishMoneyAllBtn,
-            finishReplenishMoneyBtn;
+            finishReplenishMoneyBtn, finishPrintTransacSummaryBtn;
     private ArrayList<JButton> listSelectItem = new ArrayList<JButton>();
     private JTextField vFeaturesMoneyField, restockItemName, restockItemNum, setPriceItemName, setPriceItem, collectPaySpecTF,
                         replenishMoneySpecTF;
-    private JTextArea restockItemsList, setPriceItemsList, collectPayCurBal, replenishMoneyCurBalTA;
+    private JTextArea restockItemsList, setPriceItemsList, collectPayCurBal, replenishMoneyCurBalTA, printTransacSummaryTA;
     private JPanel restockPanel1, restockPanel2, setPricePanel1, setPricePanel2;
 
     public VMFactoryView() {
@@ -185,6 +185,12 @@ public class VMFactoryView {
 
         this.printTransacSummaryBtn = new JButton("Print Transactions Summary");
         this.printTransacSummaryBtn.setPreferredSize(new Dimension(200, 50));
+        this.printTransacSummaryBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                createPrintTransacSummaryFrame(getPrintTransacSummaryFrame());
+                vMaintenanceFrame.dispose();
+            }
+        });
 
         this.vMaintenanceFrame.add(restockBtn);
         this.vMaintenanceFrame.add(setPriceBtn);
@@ -341,6 +347,26 @@ public class VMFactoryView {
         this.replenishMoneyFrame.add(replenishMoneyFbackLbl);
     }
 
+    public void setupPrintTransacSummaryFrame() {
+        // Header
+        this.printTransacSummaryFrame = new JFrame("Print Transaction Summary");
+        this.printTransacSummaryFrame.setLayout(new FlowLayout(FlowLayout.CENTER));
+
+        this.printTransacSummaryTA = new JTextArea(" ");
+        this.printTransacSummaryTA.setPreferredSize(new Dimension(330, 400));
+        this.printTransacSummaryTA.setEditable(false);
+
+        this.finishPrintTransacSummaryBtn = new JButton("Done");
+        this.finishPrintTransacSummaryBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                createVmTestingFrame(getVmTestingFrame());
+                printTransacSummaryFrame.dispose();
+            }
+        });
+
+        this.printTransacSummaryFrame.add(printTransacSummaryTA);
+        this.printTransacSummaryFrame.add(finishPrintTransacSummaryBtn);
+    }
 
     // main menu + vm creation screens
     public void setVmCreationBtnListener(ActionListener vmCreationBtnListener) {
@@ -445,6 +471,13 @@ public class VMFactoryView {
         this.replenishMoneyFrame.setVisible(true);
         this.replenishMoneyFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
+    public void createPrintTransacSummaryFrame(JFrame printTransacSummaryFrame) {
+        this.printTransacSummaryFrame = printTransacSummaryFrame;
+        setupPrintTransacSummaryFrame();
+        this.printTransacSummaryFrame.setSize(380,500);
+        this.printTransacSummaryFrame.setVisible(true);
+        this.printTransacSummaryFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
 
     public JFrame getMainFrame() {
         return mainFrame;
@@ -495,5 +528,9 @@ public class VMFactoryView {
 
     public JFrame getReplenishMoneyFrame() {
         return replenishMoneyFrame;
+    }
+
+    public JFrame getPrintTransacSummaryFrame() {
+        return printTransacSummaryFrame;
     }
 }
