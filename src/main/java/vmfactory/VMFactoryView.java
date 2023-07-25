@@ -12,14 +12,16 @@ public class VMFactoryView {
     private JLabel appHeader, vmCHeader, vmTHeader, vmError, vFeaturesHeader, vMaintenanceHeader,
             vFeaturesSelected, buyItemLabel, vFeaturesMoneyLabel, vFeaturesError,
             restockFbackLbl, restockItemNameLbl, restockItemNumLbl, setPriceLbl, setPriceItemNameLbl, setPriceFbackLbl,
-            collectPaySpecLbl, collectPayFbackLbl;
+            collectPaySpecLbl, collectPayFbackLbl, replenishMoneyFbackLbl, replenishMoneySpecLbl;
     private JButton vmCreationBtn, vmTestBtn, vmExitBtn, regVMCreateBtn, spcVMCreateBtn,
             vFeaturesBtn, selectItemBut, vFeaturesCheckOut, vFeaturesCancel,
             vMaintenanceBtn, restockBtn, setPriceBtn, collectPayBtn, replenishMoneyBtn, printTransacSummaryBtn,
-            finishRestockBtn, finishSetPriceBtn, collectPayAllBtn, collectPaySpecBtn, finishCollectPayBtn;
+            finishRestockBtn, finishSetPriceBtn, collectPayAllBtn, collectPaySpecBtn, finishCollectPayBtn, replenishMoneyAllBtn,
+            finishReplenishMoneyBtn;
     private ArrayList<JButton> listSelectItem = new ArrayList<JButton>();
-    private JTextField vFeaturesMoneyField, restockItemName, restockItemNum, setPriceItemName, setPriceItem, collectPaySpecTF;
-    private JTextArea restockItemsList, setPriceItemsList, collectPayCurBal;
+    private JTextField vFeaturesMoneyField, restockItemName, restockItemNum, setPriceItemName, setPriceItem, collectPaySpecTF,
+                        replenishMoneySpecTF;
+    private JTextArea restockItemsList, setPriceItemsList, collectPayCurBal, replenishMoneyCurBalTA;
     private JPanel restockPanel1, restockPanel2, setPricePanel1, setPricePanel2;
 
     public VMFactoryView() {
@@ -174,6 +176,13 @@ public class VMFactoryView {
 
         this.replenishMoneyBtn = new JButton("Replenish Money");
         this.replenishMoneyBtn.setPreferredSize(new Dimension(200, 50));
+        this.replenishMoneyBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                createReplenishMoneyFrame(getReplenishMoneyFrame());
+                vMaintenanceFrame.dispose();
+            }
+        });
+
         this.printTransacSummaryBtn = new JButton("Print Transactions Summary");
         this.printTransacSummaryBtn.setPreferredSize(new Dimension(200, 50));
 
@@ -301,6 +310,38 @@ public class VMFactoryView {
         this.collectPayFrame.add(collectPayCurBal);
     }
 
+    public void setupReplenishMoneyFrame() {
+        // Header
+        this.replenishMoneyFrame = new JFrame("Replenish Money");
+        this.replenishMoneyFrame.setLayout(new FlowLayout(FlowLayout.CENTER));
+
+        this.replenishMoneyFbackLbl = new JLabel();
+        this.replenishMoneyFbackLbl.setPreferredSize(new Dimension(220, 30));
+
+        this.replenishMoneyCurBalTA = new JTextArea(" ");
+        this.replenishMoneyCurBalTA.setPreferredSize(new Dimension(220, 30));
+        this.replenishMoneyCurBalTA.setEditable(false);
+
+        this.replenishMoneyAllBtn = new JButton("Replenish with default stock");
+        this.replenishMoneyAllBtn.setPreferredSize(new Dimension(200, 50));
+
+        this.replenishMoneySpecLbl = new JLabel("Enter specific amount:  ");
+        this.replenishMoneySpecLbl.setPreferredSize(new Dimension(220, 30));
+
+        this.replenishMoneySpecTF = new JTextField(30);
+
+
+        this.finishReplenishMoneyBtn = new JButton("Replenish");
+
+        this.replenishMoneyFrame.add(replenishMoneyCurBalTA);
+        this.replenishMoneyFrame.add(replenishMoneySpecLbl);
+        this.replenishMoneyFrame.add(replenishMoneySpecTF);
+        this.replenishMoneyFrame.add(finishReplenishMoneyBtn);
+        this.replenishMoneyFrame.add(replenishMoneyAllBtn);
+        this.replenishMoneyFrame.add(replenishMoneyFbackLbl);
+    }
+
+
     // main menu + vm creation screens
     public void setVmCreationBtnListener(ActionListener vmCreationBtnListener) {
         this.vmCreationBtn.addActionListener(vmCreationBtnListener);
@@ -389,12 +430,20 @@ public class VMFactoryView {
         this.setPriceFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    public void createCollectPayFrame(JFrame setPriceFrame) {
+    public void createCollectPayFrame(JFrame collectPayFrame) {
         this.collectPayFrame = collectPayFrame;
         setupCollectPayFrame();
         this.collectPayFrame.setSize(380,500);
         this.collectPayFrame.setVisible(true);
         this.collectPayFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
+    public void createReplenishMoneyFrame(JFrame replenishMoneyFrame) {
+        this.replenishMoneyFrame = replenishMoneyFrame;
+        setupReplenishMoneyFrame();
+        this.replenishMoneyFrame.setSize(380,500);
+        this.replenishMoneyFrame.setVisible(true);
+        this.replenishMoneyFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     public JFrame getMainFrame() {
@@ -442,5 +491,9 @@ public class VMFactoryView {
 
     public JFrame getCollectPayFrame() {
         return collectPayFrame;
+    }
+
+    public JFrame getReplenishMoneyFrame() {
+        return replenishMoneyFrame;
     }
 }
