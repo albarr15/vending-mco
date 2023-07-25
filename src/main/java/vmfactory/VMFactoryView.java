@@ -10,14 +10,14 @@ public class VMFactoryView {
     private JFrame mainFrame, vmCreationFrame, vmTestingFrame, vFeaturesFrame, vMaintenanceFrame,
             restockFrame, setPriceFrame, collectPayFrame, replenishMoneyFrame, printTransacSummaryFrame;
     private JLabel appHeader, vmCHeader, vmTHeader, vmError, vFeaturesHeader, vMaintenanceHeader,
-            vFeaturesSelected, buyItemLabel, vFeaturesMoneyLabel,
+            vFeaturesSelected, buyItemLabel, vFeaturesMoneyLabel, vFeaturesError,
             restockFbackLbl, restockItemNameLbl, restockItemNumLbl, setPriceLbl, setPriceItemNameLbl, setPriceFbackLbl;
     private JButton vmCreationBtn, vmTestBtn, vmExitBtn, regVMCreateBtn, spcVMCreateBtn,
             vFeaturesBtn, selectItemBut, vFeaturesCheckOut, vFeaturesCancel,
             vMaintenanceBtn, restockBtn, setPriceBtn, collectPayBtn, replenishMoneyBtn, printTransacSummaryBtn,
             finishRestockBtn, finishSetPriceBtn;
     private ArrayList<JButton> listSelectItem = new ArrayList<JButton>();
-    private JTextField vFeaturesMoney, restockItemName, restockItemNum, setPriceItemName, setPriceItem;
+    private JTextField vFeaturesMoneyField, restockItemName, restockItemNum, setPriceItemName, setPriceItem;
     private JTextArea restockItemsList, setPriceItemsList;
     private JPanel restockPanel1, restockPanel2, setPricePanel1, setPricePanel2;
 
@@ -112,7 +112,7 @@ public class VMFactoryView {
         
         // Money input
         this.vFeaturesMoneyLabel = new JLabel("Input money in proper denominations:");
-        this.vFeaturesMoney = new JTextField(30);
+        this.vFeaturesMoneyField = new JTextField(30);
         
         // Check out or cancel
         this.vFeaturesCheckOut = new JButton("Check Out");
@@ -125,14 +125,16 @@ public class VMFactoryView {
                 vFeaturesFrame.dispose();
             }
         });
+        this.vFeaturesError = new JLabel("");
         
         this.vFeaturesFrame.add(vFeaturesSelected);
         this.vFeaturesFrame.add(Box.createRigidArea(new Dimension(300, 10)));
         this.vFeaturesFrame.add(vFeaturesMoneyLabel);
-        this.vFeaturesFrame.add(vFeaturesMoney);
+        this.vFeaturesFrame.add(vFeaturesMoneyField);
         this.vFeaturesFrame.add(Box.createRigidArea(new Dimension(300, 10)));
         this.vFeaturesFrame.add(vFeaturesCheckOut);
         this.vFeaturesFrame.add(vFeaturesCancel);
+        this.vFeaturesFrame.add(vFeaturesError);
     }
 
     public void setupVMaintenanceFrame() {
@@ -381,6 +383,13 @@ public class VMFactoryView {
 
     public JLabel getSelected() {
         return vFeaturesSelected;
+    }
+
+    public JTextField getMoneyField() {
+        return vFeaturesMoneyField;
+    }
+    public JLabel getVFeaturesError() {
+        return vFeaturesError;
     }
 
     public JFrame getvMaintenanceFrame() {
