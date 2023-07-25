@@ -8,13 +8,15 @@ import java.util.ArrayList;
 
 public class VMFactoryView {
     private JFrame mainFrame, vmCreationFrame, vmTestingFrame, vFeaturesFrame, vMaintenanceFrame,
-                    restockFrame, setPriceFrame, collectPayFrame, replenishMoneyFrame, printTransacSummaryFrame;
-    private JLabel appHeader, vmCHeader, vmTHeader, vFeaturesHeader, vMaintenanceHeader,
+            restockFrame, setPriceFrame, collectPayFrame, replenishMoneyFrame, printTransacSummaryFrame;
+    private JLabel appHeader, vmCHeader, vmTHeader, vmError, vFeaturesHeader, vMaintenanceHeader,
+            vFeaturesSelected, buyItemLabel, vFeaturesMoneyLabel,
             restockFbackLbl, restockItemNameLbl, restockItemNumLbl, setPriceLbl, setPriceItemNameLbl, setPriceFbackLbl;
     private JButton vmCreationBtn, vmTestBtn, vmExitBtn, regVMCreateBtn, spcVMCreateBtn,
-            vFeaturesBtn, vMaintenanceBtn, restockBtn, setPriceBtn, collectPayBtn, replenishMoneyBtn, printTransacSummaryBtn,
+            vFeaturesBtn, selectItemBut, vFeaturesCheckOut, vFeaturesCancel,
+            vMaintenanceBtn, restockBtn, setPriceBtn, collectPayBtn, replenishMoneyBtn, printTransacSummaryBtn,
             finishRestockBtn, finishSetPriceBtn;
-    private JTextField restockItemName, restockItemNum, setPriceItemName, setPriceItem;
+    private JTextField vFeaturesMoney, restockItemName, restockItemNum, setPriceItemName, setPriceItem;
     private JTextArea restockItemsList, setPriceItemsList;
     private JPanel restockPanel1, restockPanel2, setPricePanel1, setPricePanel2;
 
@@ -33,11 +35,14 @@ public class VMFactoryView {
         this.vmTestBtn.setPreferredSize(new Dimension(200, 50));
         this.vmExitBtn = new JButton("Exit");
         this.vmExitBtn.setPreferredSize(new Dimension(200, 50));
+        this.vmError = new JLabel("");
 
         this.mainFrame.add(appHeader);
         this.mainFrame.add(vmCreationBtn);
         this.mainFrame.add(vmTestBtn);
         this.mainFrame.add(vmExitBtn);
+        this.mainFrame.add(Box.createRigidArea(new Dimension(300, 10)));
+        this.mainFrame.add(vmError);
 
         this.mainFrame.setVisible(true);
 
@@ -74,39 +79,47 @@ public class VMFactoryView {
         // Header
         this.vFeaturesFrame = new JFrame("Vending Features Testing");
         this.vFeaturesFrame.setLayout(new FlowLayout(FlowLayout.CENTER));
-        this.vFeaturesHeader = new JLabel("VENDING FEATURES TESTING");
+        if(currentVM instanceof SpecialVM)
+            this.vFeaturesHeader = new JLabel("SPECIAL VENDING FEATURES TESTING");
+        else this.vFeaturesHeader = new JLabel("REGULAR VENDING FEATURES TESTING");
+        
         this.vFeaturesFrame.add(vFeaturesHeader);
         this.vFeaturesFrame.add(Box.createRigidArea(new Dimension(300, 10)));
 
         // Vending machine options
         for(ItemSlot slot : currentVM.getListItemSlots()) {
-            JButton button = new JButton(slot.getItemName());
-            JLabel label = new JLabel("Stock: " + slot.getItemStock() +
-                                      "  /  Price: " + slot.getPrice() +
-                                      "  /  Calories: " + slot.getItem().getCaloriesAmt());
-            button.setPreferredSize(new Dimension(150, 25));
-            this.vFeaturesFrame.add( button );
-            this.vFeaturesFrame.add( label );
+            if(!(currentVM instanceof SpecialVM) || slot.getForSale()) {
+                this.selectItemBut = new JButton(slot.getItemName());
+                if(slot.getItem() instanceof SpecialItem)
+                    this.buyItemLabel = new JLabel("Special Item : Build-it-yourself!");
+                else this.buyItemLabel = new JLabel("Stock: " + slot.getItemStock() +
+                                                    "  /  Price: " + slot.getPrice() +
+                                                    "  /  Calories: " + slot.getItem().getCaloriesAmt());
+                selectItemBut.setPreferredSize(new Dimension(150, 25));
+                this.vFeaturesFrame.add( selectItemBut );
+                this.vFeaturesFrame.add( buyItemLabel );
+            }
         }
         this.vFeaturesFrame.add(Box.createRigidArea(new Dimension(300, 10)));
 
         // Selected item display
-        JLabel vFeaturesSelected = new JLabel("Selected Item: ");
+        this.vFeaturesSelected = new JLabel("Selected Item: ");
+        
+        // Money input
+        this.vFeaturesMoneyLabel = new JLabel("Input money in proper denominations:");
+        this.vFeaturesMoney = new JTextField(30);
+        
+        // Check out or cancel
+        this.vFeaturesCheckOut = new JButton("Check Out");
+        vFeaturesCheckOut.setPreferredSize(new Dimension(150, 25));
+        this.vFeaturesCancel = new JButton("Cancel");
+        vFeaturesCancel.setPreferredSize(new Dimension(150, 25));
+        
         this.vFeaturesFrame.add(vFeaturesSelected);
         this.vFeaturesFrame.add(Box.createRigidArea(new Dimension(300, 10)));
-
-        // Money input
-        JLabel vFeaturesMoneyLabel = new JLabel("Input money in proper denominations:");
-        JTextField vFeaturesMoney = new JTextField(30);
         this.vFeaturesFrame.add(vFeaturesMoneyLabel);
         this.vFeaturesFrame.add(vFeaturesMoney);
         this.vFeaturesFrame.add(Box.createRigidArea(new Dimension(300, 10)));
-
-        // Check out or cancel
-        JButton vFeaturesCheckOut = new JButton("Check Out");
-        vFeaturesCheckOut.setPreferredSize(new Dimension(150, 25));
-        JButton vFeaturesCancel = new JButton("Cancel");
-        vFeaturesCancel.setPreferredSize(new Dimension(150, 25));
         this.vFeaturesFrame.add(vFeaturesCheckOut);
         this.vFeaturesFrame.add(vFeaturesCancel);
     }
@@ -329,6 +342,10 @@ public class VMFactoryView {
 
     public JFrame getMainFrame() {
         return mainFrame;
+    }
+
+    public JLabel getMainError() {
+        return vmError;
     }
 
     public JFrame getVmCreationFrame() {
