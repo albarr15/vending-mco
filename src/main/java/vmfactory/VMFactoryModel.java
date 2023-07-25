@@ -38,8 +38,8 @@ public class VMFactoryModel {
         ItemSlot itemSlot2 = new ItemSlot(chickenSlices, true);
         ItemSlot itemSlot3 = new ItemSlot(fishCake, false);
         ItemSlot itemSlot4 = new ItemSlot(ajitamago, true);
-        ItemSlot itemSlot5 = new ItemSlot(friedTofu, false);
-        ItemSlot itemSlot6 = new ItemSlot(seaweed, false);
+        ItemSlot itemSlot5 = new ItemSlot(friedTofu, true);
+        ItemSlot itemSlot6 = new ItemSlot(seaweed, true);
         ItemSlot itemSlot7 = new ItemSlot(corn, false);
         ItemSlot itemSlot8 = new ItemSlot(butter, false);
 
@@ -52,6 +52,22 @@ public class VMFactoryModel {
         currentVM.addItemSlot(itemSlot6);
         currentVM.addItemSlot(itemSlot7);
         currentVM.addItemSlot(itemSlot8);
+
+        if(currentVM instanceof SpecialVM) {
+            Item ramenNoodles = new Item("Ramen Noodles", 77, 14,
+                    "Blanching Ramen Noodles ...");
+            Item ramenBroth = new Item("Ramen broth", 50, 40,
+                    "Pouring ramen broth...");
+            Item ramen = new SpecialItem("Ramen");    
+            
+            ItemSlot itemSlot9 = new ItemSlot(ramenNoodles, true);
+            ItemSlot itemSlot10 = new ItemSlot(ramenBroth, false);
+            ItemSlot itemSlot11 = new ItemSlot(ramen, true);
+            
+            currentVM.addItemSlot(itemSlot9);
+            currentVM.addItemSlot(itemSlot10);
+            currentVM.addItemSlot(itemSlot11);
+        }
     }
 
     public VendingMachine getCurrentVM() {
