@@ -10,13 +10,13 @@ public class VMFactoryView {
     private JFrame mainFrame, vmCreationFrame, vmTestingFrame, vFeaturesFrame, vMaintenanceFrame,
                     restockFrame, setPriceFrame, collectPayFrame, replenishMoneyFrame, printTransacSummaryFrame;
     private JLabel appHeader, vmCHeader, vmTHeader, vFeaturesHeader, vMaintenanceHeader,
-            restockFbackLbl, restockItemNameLbl, restockItemNumLbl;
+            restockFbackLbl, restockItemNameLbl, restockItemNumLbl, setPriceLbl, setPriceItemNameLbl, setPriceFbackLbl;
     private JButton vmCreationBtn, vmTestBtn, vmExitBtn, regVMCreateBtn, spcVMCreateBtn,
             vFeaturesBtn, vMaintenanceBtn, restockBtn, setPriceBtn, collectPayBtn, replenishMoneyBtn, printTransacSummaryBtn,
-            finishRestockBtn;
-    private JTextField restockItemName, restockItemNum;
-    private JTextArea restockItemsList;
-    private JPanel restockPanel1, restockPanel2;
+            finishRestockBtn, finishSetPriceBtn;
+    private JTextField restockItemName, restockItemNum, setPriceItemName, setPriceItem;
+    private JTextArea restockItemsList, setPriceItemsList;
+    private JPanel restockPanel1, restockPanel2, setPricePanel1, setPricePanel2;
 
     public VMFactoryView() {
         this.mainFrame = new JFrame("VMFactory GUI");
@@ -126,8 +126,16 @@ public class VMFactoryView {
                 vMaintenanceFrame.dispose();
             }
         });
+
         this.setPriceBtn = new JButton("Set Price of Item");
         this.setPriceBtn.setPreferredSize(new Dimension(200, 50));
+        this.setPriceBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                createSetPriceFrame(getSetPriceFrame());
+                vMaintenanceFrame.dispose();
+            }
+        });
+
         this.collectPayBtn = new JButton("Collect Payment");
         this.collectPayBtn.setPreferredSize(new Dimension(200, 50));
         this.replenishMoneyBtn = new JButton("Replenish Money");
@@ -182,6 +190,48 @@ public class VMFactoryView {
         this.restockFrame.add(finishRestockBtn);
         this.restockFrame.add(restockFbackLbl);
         this.restockFrame.add(restockItemsList);
+    }
+
+    public void setupSetPriceFrame() {
+        // Header
+        this.setPriceFrame = new JFrame("Set Price of Item");
+        this.setPriceFrame.setLayout(new FlowLayout(FlowLayout.CENTER));
+
+        this.setPriceItemName = new JTextField(30);
+        this.setPriceItem = new JTextField(30);
+
+        this.setPriceItemNameLbl = new JLabel("Enter Item Name to set price:      ");
+        this.setPriceLbl = new JLabel("Enter Price of item: ");
+        this.setPriceFbackLbl = new JLabel();
+        this.setPriceFbackLbl.setPreferredSize(new Dimension(220, 30));
+
+        this.setPriceItemsList = new JTextArea(" ");
+        this.setPriceItemsList.setPreferredSize(new Dimension(330, 230));
+        this.setPriceItemsList.setEditable(false);
+
+        this.setPriceItemName = new JTextField();
+        this.setPriceItemName.setColumns(10);
+        this.setPriceItem = new JTextField();
+        this.setPriceItem.setColumns(10);
+
+        this.finishSetPriceBtn = new JButton("Finish setting price");
+        this.finishSetPriceBtn.setPreferredSize(new Dimension(200, 50));
+
+        this.setPricePanel1 = new JPanel();
+        this.setPricePanel1.setLayout(new FlowLayout(FlowLayout.CENTER));
+        this.setPricePanel1.add(setPriceItemNameLbl);
+        this.setPricePanel1.add(setPriceItemName);
+
+        this.setPricePanel2 = new JPanel();
+        this.setPricePanel2.setLayout(new FlowLayout(FlowLayout.CENTER));
+        this.setPricePanel2.add(setPriceLbl);
+        this.setPricePanel2.add(setPriceItem);
+
+        this.setPriceFrame.add(setPricePanel1);
+        this.setPriceFrame.add(setPricePanel2);
+        this.setPriceFrame.add(finishSetPriceBtn);
+        this.setPriceFrame.add(setPriceFbackLbl);
+        this.setPriceFrame.add(setPriceItemsList);
     }
 
     public void setVmCreationBtnListener(ActionListener vmCreationBtnListener) {
@@ -269,6 +319,14 @@ public class VMFactoryView {
         this.restockFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
+    public void createSetPriceFrame(JFrame setPriceFrame) {
+        this.setPriceFrame = setPriceFrame;
+        setupSetPriceFrame();
+        this.setPriceFrame.setSize(380,500);
+        this.setPriceFrame.setVisible(true);
+        this.setPriceFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
     public JFrame getMainFrame() {
         return mainFrame;
     }
@@ -291,5 +349,9 @@ public class VMFactoryView {
 
     public JFrame getRestockFrame() {
         return restockFrame;
+    }
+
+    public JFrame getSetPriceFrame() {
+        return setPriceFrame;
     }
 }
