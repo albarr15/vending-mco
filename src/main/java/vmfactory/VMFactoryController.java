@@ -80,7 +80,27 @@ public class VMFactoryController {
                 vmFactoryModel.getCurrentVM().makeTransaction();
                 setupSlots();
                 vmFactoryView.createVFeaturesFrame(vmFactoryView.getVFeaturesFrame(), vmFactoryModel.getCurrentVM());
-                vmFactoryView.setSelectItemBtnListener(listSelectListeners); 
+                vmFactoryView.setSelectItemBtnListener(listSelectListeners);
+                vmFactoryView.setCheckOutBtnListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        VendingMachine currentVM = vmFactoryModel.getCurrentVM();
+                        currentVM.getCurrentTransaction().receivePayment(vmFactoryView.getMoneyField().getText(), currentVM.getBalance());
+                        switch(currentVM.getCurrentTransaction().produceChange(currentVM.getBalance(), currentVM.getListItemSlots())) {
+                            case 1: 
+                                vmFactoryView.getVFeaturesError().setText("Error: No item selected");
+                                break;
+                            case 2: 
+                                vmFactoryView.getVFeaturesError().setText("Error: Insufficient cash input");
+                                break;
+                            case 3: 
+                                vmFactoryView.getVFeaturesError().setText("Error: Insufficient change in machine");
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                });
             }
         });
 
