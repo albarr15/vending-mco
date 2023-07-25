@@ -82,6 +82,5 @@ public class VMFactoryController {
                 vmFactoryView.createVMaintenanceFrame(vmFactoryView.getvMaintenanceFrame());
             }
         });
-
     }
 }

@@ -7,11 +7,16 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class VMFactoryView {
-    private JFrame mainFrame, vmCreationFrame, vmTestingFrame, vFeaturesFrame, vMaintenanceFrame;
-    private JLabel appHeader, vmCHeader, vmTHeader, vFeaturesHeader, vMaintenanceHeader;
+    private JFrame mainFrame, vmCreationFrame, vmTestingFrame, vFeaturesFrame, vMaintenanceFrame,
+                    restockFrame, setPriceFrame, collectPayFrame, replenishMoneyFrame, printTransacSummaryFrame;
+    private JLabel appHeader, vmCHeader, vmTHeader, vFeaturesHeader, vMaintenanceHeader,
+            restockFbackLbl, restockItemNameLbl, restockItemNumLbl;
     private JButton vmCreationBtn, vmTestBtn, vmExitBtn, regVMCreateBtn, spcVMCreateBtn,
-            vFeaturesBtn, vMaintenanceBtn, restockBtn, setPriceBtn, collectPayBtn, replenishMoneyBtn, printTransacSummaryBtn;
-    private JPanel panel;
+            vFeaturesBtn, vMaintenanceBtn, restockBtn, setPriceBtn, collectPayBtn, replenishMoneyBtn, printTransacSummaryBtn,
+            finishRestockBtn;
+    private JTextField restockItemName, restockItemNum;
+    private JTextArea restockItemsList;
+    private JPanel restockPanel1, restockPanel2;
 
     public VMFactoryView() {
         this.mainFrame = new JFrame("VMFactory GUI");
@@ -115,6 +120,12 @@ public class VMFactoryView {
 
         this.restockBtn = new JButton("Restock / Stock Item");
         this.restockBtn.setPreferredSize(new Dimension(200, 50));
+        this.restockBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                createRestockFrame(getRestockFrame());
+                vMaintenanceFrame.dispose();
+            }
+        });
         this.setPriceBtn = new JButton("Set Price of Item");
         this.setPriceBtn.setPreferredSize(new Dimension(200, 50));
         this.collectPayBtn = new JButton("Collect Payment");
@@ -129,6 +140,48 @@ public class VMFactoryView {
         this.vMaintenanceFrame.add(collectPayBtn);
         this.vMaintenanceFrame.add(replenishMoneyBtn);
         this.vMaintenanceFrame.add(printTransacSummaryBtn);
+    }
+
+    public void setupRestockFrame() {
+        // Header
+        this.restockFrame = new JFrame("Restock Item");
+        this.restockFrame.setLayout(new FlowLayout(FlowLayout.CENTER));
+
+        this.restockItemName = new JTextField(30);
+        this.restockItemNum = new JTextField(30);
+
+        this.restockItemNameLbl = new JLabel("Enter Item Name to stock:      ");
+        this.restockItemNumLbl = new JLabel("Enter Number of items to stock: ");
+        this.restockFbackLbl = new JLabel();
+        this.restockFbackLbl.setPreferredSize(new Dimension(220, 30));
+
+        this.restockItemsList = new JTextArea(" ");
+        this.restockItemsList.setPreferredSize(new Dimension(330, 230));
+        this.restockItemsList.setEditable(false);
+
+        this.restockItemName = new JTextField();
+        this.restockItemName.setColumns(10);
+        this.restockItemNum = new JTextField();
+        this.restockItemNum.setColumns(10);
+
+        this.finishRestockBtn = new JButton("Finish restocking");
+        this.finishRestockBtn.setPreferredSize(new Dimension(200, 50));
+
+        this.restockPanel1 = new JPanel();
+        this.restockPanel1.setLayout(new FlowLayout(FlowLayout.CENTER));
+        this.restockPanel1.add(restockItemNameLbl);
+        this.restockPanel1.add(restockItemName);
+
+        this.restockPanel2 = new JPanel();
+        this.restockPanel2.setLayout(new FlowLayout(FlowLayout.CENTER));
+        this.restockPanel2.add(restockItemNumLbl);
+        this.restockPanel2.add(restockItemNum);
+
+        this.restockFrame.add(restockPanel1);
+        this.restockFrame.add(restockPanel2);
+        this.restockFrame.add(finishRestockBtn);
+        this.restockFrame.add(restockFbackLbl);
+        this.restockFrame.add(restockItemsList);
     }
 
     public void setVmCreationBtnListener(ActionListener vmCreationBtnListener) {
@@ -153,16 +206,13 @@ public class VMFactoryView {
     public void setvMaintenanceBtnListener(ActionListener actionListener) {
         this.vMaintenanceBtn.addActionListener(actionListener);
     }
-    public void setRestockBtnListener(ActionListener actionListener) {
-        this.restockBtn.addActionListener(actionListener);
-    }
     public void setSetPriceBtnListener(ActionListener actionListener) {
         this.setPriceBtn.addActionListener(actionListener);
     }
     public void setCollectPayBtnListener(ActionListener actionListener) {
         this.collectPayBtn.addActionListener(actionListener);
     }
-    public void setReplenishMoneyBtnBtnListener(ActionListener actionListener) {
+    public void setReplenishMoneyBtnListener(ActionListener actionListener) {
         this.replenishMoneyBtn.addActionListener(actionListener);
     }
     public void setPrintTransacSummaryBtnListener(ActionListener actionListener) {
@@ -211,6 +261,14 @@ public class VMFactoryView {
         this.vMaintenanceFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
+    public void createRestockFrame(JFrame restockFrame) {
+        this.restockFrame = restockFrame;
+        setupRestockFrame();
+        this.restockFrame.setSize(380,500);
+        this.restockFrame.setVisible(true);
+        this.restockFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
     public JFrame getMainFrame() {
         return mainFrame;
     }
@@ -229,5 +287,9 @@ public class VMFactoryView {
 
     public JFrame getvMaintenanceFrame() {
         return vMaintenanceFrame;
+    }
+
+    public JFrame getRestockFrame() {
+        return restockFrame;
     }
 }
