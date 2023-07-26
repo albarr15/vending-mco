@@ -85,17 +85,31 @@ public class VMFactoryController {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         VendingMachine currentVM = vmFactoryModel.getCurrentVM();
-                        currentVM.getCurrentTransaction().receivePayment(vmFactoryView.getMoneyField().getText(), currentVM.getBalance());
-                        switch(currentVM.getCurrentTransaction().produceChange(currentVM.getBalance(), currentVM.getListItemSlots())) {
+                        Transaction transac = currentVM.getCurrentTransaction();
+                        transac.receivePayment(vmFactoryView.getMoneyField().getText(), currentVM.getBalance());
+                        
+                        switch(transac.produceChange(currentVM.getBalance(), currentVM.getListItemSlots())) {
                             case 1: 
                                 vmFactoryView.getVFeaturesError().setText("Error: No item selected");
+                                vmFactoryView.getVFeaturesChange().setText("Returning change: " + transac.getReturned());
                                 break;
                             case 2: 
-                                vmFactoryView.getVFeaturesError().setText("Error: Insufficient cash input");
+                                vmFactoryView.getVFeaturesError().setText("Error: Insufficient item stock");
+                                vmFactoryView.getVFeaturesChange().setText("Returning change: " + transac.getReturned());
                                 break;
                             case 3: 
-                                vmFactoryView.getVFeaturesError().setText("Error: Insufficient change in machine");
+                                vmFactoryView.getVFeaturesError().setText("Error: Insufficient cash input");
+                                vmFactoryView.getVFeaturesChange().setText("Returning change: " + transac.getReturned());
                                 break;
+                            case 4: 
+                                vmFactoryView.getVFeaturesError().setText("Error: Insufficient change in machine");
+                                vmFactoryView.getVFeaturesChange().setText("Returning change: " + transac.getReturned());
+                                break;
+                            case 5: 
+                                vmFactoryView.getVFeaturesError().setText("Error: Item cannot be sold individually");
+                                vmFactoryView.getVFeaturesChange().setText("Returning change: " + transac.getReturned());
+                                break;
+                            case 0:
                             default:
                                 break;
                         }
