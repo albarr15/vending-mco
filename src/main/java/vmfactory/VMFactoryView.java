@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class VMFactoryView {
-    private JFrame mainFrame, vmCreationFrame, vmTestingFrame, vFeaturesFrame, vMaintenanceFrame,
+    private JFrame mainFrame, vmCreationFrame, vmTestingFrame, vFeaturesFrame, checkoutFrame, vMaintenanceFrame,
             restockFrame, setPriceFrame, collectPayFrame, replenishMoneyFrame, printTransacSummaryFrame;
     private JLabel appHeader, vmCHeader, vmTHeader, vmError, vFeaturesHeader, vMaintenanceHeader,
             vFeaturesSelected, buyItemLabel, vFeaturesMoneyLabel, vFeaturesError, vFeaturesChange,
@@ -142,6 +142,35 @@ public class VMFactoryView {
         this.vFeaturesFrame.add(vFeaturesCancel);
         this.vFeaturesFrame.add(vFeaturesError);
         this.vFeaturesFrame.add(vFeaturesChange);
+    }
+
+    public void setupCheckoutFrame() {
+        // Header
+        this.checkoutFrame = new JFrame("Vending Features Testing");
+        this.checkoutFrame.setLayout(new FlowLayout(FlowLayout.CENTER));
+        this.vFeaturesHeader = new JLabel("CHECKOUT");
+        // Selected item display
+        this.vFeaturesSelected = new JLabel("");
+        this.vFeaturesSelected.setPreferredSize(new Dimension(380, 20));
+        this.vFeaturesSelected.setHorizontalAlignment(SwingConstants.CENTER);
+        this.vFeaturesChange = new JLabel("");
+        
+        // Exit
+        this.vFeaturesCancel = new JButton("Done");
+        vFeaturesCancel.setPreferredSize(new Dimension(150, 25));
+        this.vFeaturesCancel.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                createVmTestingFrame(getVmTestingFrame());
+                checkoutFrame.dispose();
+            }
+        });        
+        
+        this.checkoutFrame.add(vFeaturesHeader);
+        this.checkoutFrame.add(Box.createRigidArea(new Dimension(300, 10)));
+        this.checkoutFrame.add(vFeaturesSelected);
+        this.checkoutFrame.add(vFeaturesChange);
+        this.checkoutFrame.add(Box.createRigidArea(new Dimension(300, 10)));
+        this.checkoutFrame.add(vFeaturesCancel);
     }
 
     public void setupVMaintenanceFrame(VendingMachine currentVM) {
@@ -448,6 +477,14 @@ public class VMFactoryView {
         this.vFeaturesFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
+    public void createCheckoutFrame(JFrame vFeaturesFrame) {
+        this.checkoutFrame = vFeaturesFrame;
+        setupCheckoutFrame();
+        this.checkoutFrame.setSize(380,500);
+        this.checkoutFrame.setVisible(true);
+        this.checkoutFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
     public void createVMaintenanceFrame(JFrame vMaintenanceFrame, VendingMachine currentVM) {
         this.vMaintenanceFrame = vMaintenanceFrame;
         setupVMaintenanceFrame(currentVM);
@@ -514,23 +551,19 @@ public class VMFactoryView {
     public JFrame getVFeaturesFrame() {
         return vFeaturesFrame;
     }
-
-    public JLabel getSelected() {
-        return vFeaturesSelected;
-    }
-    public JTextField getMoneyField() {
-        return vFeaturesMoneyField;
-    }
+    public JLabel getSelected() { return vFeaturesSelected; }
+    public JTextField getMoneyField() { return vFeaturesMoneyField; }
+    public JLabel getVFeaturesError() { return vFeaturesError; }
+    public JLabel getVFeaturesChange() { return vFeaturesChange; }
+    
     public JTextField getRestockItemName() {return restockItemName;}
     public JTextField getRestockItemNum() { return restockItemNum;}
     public JTextField getSetPriceItemName() { return setPriceItemName; }
     public JTextField getSetPriceItem() {return setPriceItem;}
     public JTextArea getRestockItemsList() {return restockItemsList;}
-    public JLabel getVFeaturesError() {
-        return vFeaturesError;
-    }
-    public JLabel getVFeaturesChange() {
-        return vFeaturesChange;
+    
+    public JFrame getCheckoutFrame() {
+        return checkoutFrame;
     }
 
     public JFrame getvMaintenanceFrame() {
