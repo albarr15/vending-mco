@@ -8,6 +8,7 @@ public class Transaction {
     protected Item itemOrdered;
     protected int orderTotal;
     protected int amtReceived;
+    protected String returned = "0";
 
     public Transaction() {
         this.itemOrdered = null;
@@ -84,30 +85,43 @@ public class Transaction {
     public int produceChange(Balance bal, ArrayList<ItemSlot> listItemSlots) {
 
         int changeAmt = this.amtReceived - this.orderTotal;
+        String change = null;
 
         if (this.itemOrdered == null) {
             System.out.println("TRANSACTION UNSUCCESSFUL (No item selected)");
             System.out.println("Returning amount received ...");
-            System.out.println("Returned : " + bal.withdrawCash(amtReceived));
+            this.returned = bal.withdrawCash(amtReceived);
+            System.out.println("Returned : " + returned);
             return 1;
+        }
+        else if(findItemSlot(this.itemOrdered, listItemSlots).getItemStock() == 0) {
+            System.out.println("TRANSACTION UNSUCCESSFUL (Not enough item stock)");
+            System.out.println("Returning amount received ...");
+            this.returned = bal.withdrawCash(amtReceived);
+            System.out.println("Returned : " + returned);
+            return 2;
         }
         else if (this.amtReceived < this.orderTotal) {
             System.out.println("TRANSACTION UNSUCCESSFUL (Not enough cash entered)");
             System.out.println("Returning amount received ...");
-            System.out.println("Returned : " + bal.withdrawCash(amtReceived));
-            return 2;
+            this.returned = bal.withdrawCash(amtReceived);
+            System.out.println("Returned : " + returned);
+            return 3;
         }
-        else if((bal.withdrawCash(changeAmt)) == null) {
+        change = bal.withdrawCash(changeAmt);
+        if(change == null) {
             System.out.println("TRANSACTION UNSUCCESSFUL (Not enough change in machine)");
             System.out.println("Returning amount received ...");
-            System.out.println("Returned : " + bal.withdrawCash(amtReceived));
-            return 3;
+            this.returned = bal.withdrawCash(amtReceived);
+            System.out.println("Returned : " + returned);
+            return 4;
         }
         else {
             System.out.println("TRANSACTION SUCCESSFUL");
             if(changeAmt > 0) {
                 System.out.println("Withdrawing change ...");
-                System.out.println("Your change is: " + bal.withdrawCash(changeAmt));
+                this.returned = change;
+                System.out.println("Your change is: " + change);
             }
             findItemSlot(this.itemOrdered, listItemSlots).dispenseItem();
             System.out.println();
@@ -125,5 +139,9 @@ public class Transaction {
 
     public Item getItemOrdered() {
         return itemOrdered;
+    }
+
+    public String getReturned() {
+        return this.returned;
     }
 }
