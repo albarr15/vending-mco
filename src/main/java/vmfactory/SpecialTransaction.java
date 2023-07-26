@@ -54,11 +54,13 @@ public class SpecialTransaction extends Transaction {
 
         int changeAmt = this.amtReceived - this.orderTotal;
         boolean isSpecial = this.itemOrdered instanceof SpecialItem;
+        String change = null;
 
         if (this.itemOrdered == null) {
             System.out.println("TRANSACTION UNSUCCESSFUL (No item selected)");
             System.out.println("Returning amount received ...");
-            System.out.println("Returned : " + bal.withdrawCash(amtReceived));
+            this.returned = bal.withdrawCash(amtReceived);
+            System.out.println("Returned : " + returned);
             return 1;
         }
         // checks if the component of current special item is not allowed to be sold separately
@@ -67,27 +69,39 @@ public class SpecialTransaction extends Transaction {
             if (!itemSlot.getForSale()) {
                 System.out.println("TRANSACTION UNSUCCESSFUL (Component of Special Item is not allowed to be sold separately)");
                 System.out.println("Returning amount received ...");
-                System.out.println("Returned : " + bal.withdrawCash(amtReceived));
-                return 2;
+                this.returned = bal.withdrawCash(amtReceived);
+                System.out.println("Returned : " + returned);
+                return 5;
             }
+        }
+        else if(!isSpecial && findItemSlot(this.itemOrdered, listItemSlots).getItemStock() == 0) {
+            System.out.println("TRANSACTION UNSUCCESSFUL (Not enough item stock)");
+            System.out.println("Returning amount received ...");
+            this.returned = bal.withdrawCash(amtReceived);
+            System.out.println("Returned : " + returned);
+            return 2;
         }
         else if (this.amtReceived < this.orderTotal) {
             System.out.println("TRANSACTION UNSUCCESSFUL (Not enough cash entered)");
             System.out.println("Returning amount received ...");
-            System.out.println("Returned : " + bal.withdrawCash(amtReceived));
+            this.returned = bal.withdrawCash(amtReceived);
+            System.out.println("Returned : " + returned);
             return 3;
         }
-        else if((bal.withdrawCash(changeAmt)) == null) {
+        change = bal.withdrawCash(changeAmt);
+        if(change == null) {
             System.out.println("TRANSACTION UNSUCCESSFUL (Not enough change in machine)");
             System.out.println("Returning amount received ...");
-            System.out.println("Returned : " + bal.withdrawCash(amtReceived));
+            this.returned = bal.withdrawCash(amtReceived);
+            System.out.println("Returned : " + returned);
             return 4;
         }
         else {
             System.out.println("TRANSACTION SUCCESSFUL");
             if(changeAmt > 0) {
                 System.out.println("Withdrawing change ...");
-                System.out.println("Your change is: " + bal.withdrawCash(changeAmt));
+                this.returned = change;
+                System.out.println("Your change is: " + change);
             }
             if (this.itemOrdered instanceof SpecialItem){
                 this.specialItem.printPreparation();
@@ -95,13 +109,11 @@ public class SpecialTransaction extends Transaction {
                 findItemSlot(this.itemOrdered, listItemSlots).dispenseItem();
             }
             else {
-                System.out.println("Dispensing " + this.itemOrdered + " ...");
                 findItemSlot(this.itemOrdered, listItemSlots).dispenseItem();
             }
             System.out.println();
             return 0;
         }
-        return 5;
     }
 
     /**
