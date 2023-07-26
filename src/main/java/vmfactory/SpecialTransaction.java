@@ -3,10 +3,9 @@ package vmfactory;
 import java.util.ArrayList;
 
 public class SpecialTransaction extends Transaction {
-    private SpecialItem specialItem;
 
     public SpecialTransaction() {
-        this.specialItem = null;
+        this.itemOrdered = null;
     }
 
     /**
@@ -14,8 +13,8 @@ public class SpecialTransaction extends Transaction {
      * @param itemSlot  the slot from which the item will be taken from
      */
     public void addItem(ItemSlot itemSlot) {
-        this.specialItem.addComponent(itemSlot.dispenseItem());
-        this.orderTotal = this.specialItem.getPrice();
+        ((SpecialItem)this.itemOrdered).addComponent(itemSlot.dispenseItem());
+        this.orderTotal = this.itemOrdered.getPrice();
     }
 
     /**
@@ -24,24 +23,24 @@ public class SpecialTransaction extends Transaction {
      * @param listItemSlots  the list of existing item slots in the machine
      */
     public void removeItem(String itemName, ArrayList<ItemSlot> listItemSlots) {
-        Item itemRemoved = this.specialItem.removeComponent(itemName);
+        Item itemRemoved = ((SpecialItem)this.itemOrdered).removeComponent(itemName);
         if(itemRemoved != null)
             findItemSlot(itemRemoved, listItemSlots).stockItem(true);
 
-        this.orderTotal = this.specialItem.getPrice();
+        this.orderTotal = this.itemOrdered.getPrice();
     }
 
     /**
      * Previews this special item and its current components
      */
     public void previewItem() {
-        System.out.println(this.specialItem.getName() + ": ");
+        System.out.println(this.itemOrdered.getName() + ": ");
 
-        for(Item item : this.specialItem.getListComponents())
+        for(Item item : ((SpecialItem)this.itemOrdered).getListComponents())
             System.out.println(item.getName());
 
         System.out.println("Current item price: " + this.orderTotal +
-                "\nCurrent item calories: " + this.specialItem.getCaloriesAmt());
+                "\nCurrent item calories: " + this.itemOrdered.getCaloriesAmt());
     }
 
     /**
@@ -64,8 +63,8 @@ public class SpecialTransaction extends Transaction {
             return 1;
         }
         // checks if the component of current special item is not allowed to be sold separately
-        else if (isSpecial && this.specialItem.getListComponents().size() == 1) {
-            ItemSlot itemSlot = findItemSlot(this.specialItem.getListComponents().get(0), listItemSlots);
+        else if (isSpecial && ((SpecialItem)this.itemOrdered).getListComponents().size() == 1) {
+            ItemSlot itemSlot = findItemSlot(((SpecialItem)this.itemOrdered).getListComponents().get(0), listItemSlots);
             if (!itemSlot.getForSale()) {
                 System.out.println("TRANSACTION UNSUCCESSFUL (Component of Special Item is not allowed to be sold separately)");
                 System.out.println("Returning amount received ...");
@@ -104,7 +103,7 @@ public class SpecialTransaction extends Transaction {
                 System.out.println("Your change is: " + change);
             }
             if (this.itemOrdered instanceof SpecialItem){
-                this.specialItem.printPreparation();
+                ((SpecialItem)this.itemOrdered).printPreparation();
                 System.out.print("Ramen done!\n");
                 findItemSlot(this.itemOrdered, listItemSlots).dispenseItem();
             }
@@ -122,14 +121,14 @@ public class SpecialTransaction extends Transaction {
     @Override public void reset(ArrayList<ItemSlot> listItemSlots) {
         this.itemOrdered = null;
         this.orderTotal = 0;
-        if(this.specialItem != null) {
-            for(Item item : this.specialItem.getListComponents())
+        if(this.itemOrdered != null) {
+            for(Item item : ((SpecialItem)this.itemOrdered).getListComponents())
                 findItemSlot(item, listItemSlots).stockItem(true);
         }
-        this.specialItem = null;
+        this.itemOrdered = null;
     }
 
     public void setSpecialItem(SpecialItem specialItem) {
-        this.specialItem = specialItem;
+        this.itemOrdered = specialItem;
     }
 }
