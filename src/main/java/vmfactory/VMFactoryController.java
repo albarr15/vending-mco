@@ -110,6 +110,11 @@ public class VMFactoryController {
                                 vmFactoryView.getVFeaturesChange().setText("Returning change: " + transac.getReturned());
                                 break;
                             case 0:
+                                vmFactoryView.getVFeaturesFrame().dispose();
+                                vmFactoryView.createCheckoutFrame(vmFactoryView.getCheckoutFrame());
+                                vmFactoryView.getSelected().setText("Dispensing " + transac.getItemOrdered().getName() + "...");
+                                vmFactoryView.getVFeaturesChange().setText("Change: " + transac.getReturned());   
+                                break;
                             default:
                                 break;
                         }
