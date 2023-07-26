@@ -140,7 +140,7 @@ public class VMFactoryView {
         this.vFeaturesFrame.add(vFeaturesError);
     }
 
-    public void setupVMaintenanceFrame() {
+    public void setupVMaintenanceFrame(VendingMachine currentVM) {
         // Header
         this.vMaintenanceFrame = new JFrame("Test Maintenance Features");
         this.vMaintenanceFrame.setLayout(new FlowLayout(FlowLayout.CENTER));
@@ -399,6 +399,10 @@ public class VMFactoryView {
         this.vMaintenanceBtn.addActionListener(actionListener);
     }
 
+    public void setFinishRestockBtnListener(ActionListener actionListener) {
+        this.finishRestockBtn.addActionListener(actionListener);
+    }
+
     public void setVmExitBtnListener(ActionListener actionListener) {
         this.vmExitBtn.addActionListener(actionListener);
     }
@@ -432,9 +436,9 @@ public class VMFactoryView {
         this.vFeaturesFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    public void createVMaintenanceFrame(JFrame vMaintenanceFrame) {
+    public void createVMaintenanceFrame(JFrame vMaintenanceFrame, VendingMachine currentVM) {
         this.vMaintenanceFrame = vMaintenanceFrame;
-        setupVMaintenanceFrame();
+        setupVMaintenanceFrame(currentVM);
         this.vMaintenanceFrame.setSize(380,500);
         this.vMaintenanceFrame.setVisible(true);
         this.vMaintenanceFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -506,6 +510,11 @@ public class VMFactoryView {
     public JTextField getMoneyField() {
         return vFeaturesMoneyField;
     }
+    public JTextField getRestockItemName() {return restockItemName;}
+    public JTextField getRestockItemNum() { return restockItemNum;}
+    public JTextField getSetPriceItemName() { return setPriceItemName; }
+    public JTextField getSetPriceItem() {return setPriceItem;}
+    public JTextArea getRestockItemsList() {return restockItemsList;}
     public JLabel getVFeaturesError() {
         return vFeaturesError;
     }

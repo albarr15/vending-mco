@@ -110,7 +110,18 @@ public class VMFactoryController {
                 vmFactoryView.getMainFrame().dispose();
                 vmFactoryView.getVmTestingFrame().dispose();
 
-                vmFactoryView.createVMaintenanceFrame(vmFactoryView.getvMaintenanceFrame());
+                vmFactoryView.createVMaintenanceFrame(vmFactoryView.getvMaintenanceFrame(), vmFactoryModel.getCurrentVM());
+            }
+        });
+
+        this.vmFactoryView.setFinishRestockBtnListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ItemSlot itemSlot = vmFactoryModel.getCurrentVM().findItemSlot(vmFactoryView.getRestockItemName().getText());
+                int price = Integer.parseInt(vmFactoryView.getSetPriceItem().getText());
+                vmFactoryModel.getCurrentVM().getMaintenance().setPrice(itemSlot, price);
+
+                vmFactoryView.getRestockItemsList().setText(vmFactoryModel.getCurrentVM().displayAllSlots());
             }
         });
     }
