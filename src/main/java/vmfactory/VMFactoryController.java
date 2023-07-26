@@ -76,8 +76,14 @@ public class VMFactoryController {
             public void actionPerformed(ActionEvent e) {
                 vmFactoryView.getMainFrame().dispose();
                 vmFactoryView.getVmTestingFrame().dispose();
+                if(vmFactoryView.getSpecialFrame() != null)
+                    vmFactoryView.getSpecialFrame().dispose();
 
-                vmFactoryModel.getCurrentVM().makeTransaction();
+                if(!vmFactoryView.getSpecialReturn()) {
+                    vmFactoryModel.getCurrentVM().makeTransaction();
+                    vmFactoryView.setSpecialReturn(false);
+                }
+                
                 setupSlots();
                 vmFactoryView.createVFeaturesFrame(vmFactoryView.getVFeaturesFrame(), vmFactoryModel.getCurrentVM());
                 vmFactoryView.setSelectItemBtnListener(listSelectListeners);
@@ -120,6 +126,15 @@ public class VMFactoryController {
                         }
                     }
                 });
+
+                vmFactoryView.setSpecialBtnListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        vmFactoryView.getVFeaturesFrame().dispose();
+                        ((SpecialTransaction)vmFactoryModel.getCurrentVM().getCurrentTransaction()).setSpecialItem(new SpecialItem("Ramen"));
+                        vmFactoryView.createSpecialFrame(vmFactoryView.getvMaintenanceFrame(), vmFactoryModel.getCurrentVM());
+                    }
+                }); 
             }
         });
 
@@ -150,6 +165,24 @@ public class VMFactoryController {
     }
 
     private void setupSlots() {
+        this.listSelectListeners.clear();
+        for(int i=0; i < vmFactoryModel.getCurrentVM().getListItemSlots().size(); i++) {
+            ItemSlot currentSlot = vmFactoryModel.getCurrentVM().getListItemSlots().get(i);
+            if(!(vmFactoryModel.getCurrentVM() instanceof SpecialVM) || currentSlot.getForSale()) {
+                ActionListener al = new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        vmFactoryView.getSelected().setText("Selected item: " + currentSlot.getItemName());
+                        vmFactoryModel.getCurrentVM().getCurrentTransaction().selectItem(currentSlot);
+                    }
+                };
+                this.listSelectListeners.add(al);
+                System.out.println(i + " contains " + currentSlot.getItemName());
+            }
+        }
+    }
+    
+    private void setupComponents() {
         this.listSelectListeners.clear();
         for(int i=0; i < vmFactoryModel.getCurrentVM().getListItemSlots().size(); i++) {
             ItemSlot currentSlot = vmFactoryModel.getCurrentVM().getListItemSlots().get(i);
