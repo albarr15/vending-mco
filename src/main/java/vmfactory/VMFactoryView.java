@@ -10,7 +10,7 @@ public class VMFactoryView {
     private JFrame mainFrame, vmCreationFrame, vmTestingFrame, vFeaturesFrame, vMaintenanceFrame,
             restockFrame, setPriceFrame, collectPayFrame, replenishMoneyFrame, printTransacSummaryFrame;
     private JLabel appHeader, vmCHeader, vmTHeader, vmError, vFeaturesHeader, vMaintenanceHeader,
-            vFeaturesSelected, buyItemLabel, vFeaturesMoneyLabel, vFeaturesError,
+            vFeaturesSelected, buyItemLabel, vFeaturesMoneyLabel, vFeaturesError, vFeaturesChange,
             restockFbackLbl, restockItemNameLbl, restockItemNumLbl, setPriceLbl, setPriceItemNameLbl, setPriceFbackLbl,
             collectPaySpecLbl, collectPayFbackLbl, replenishMoneyFbackLbl, replenishMoneySpecLbl;
     private JButton vmCreationBtn, vmTestBtn, vmExitBtn, regVMCreateBtn, spcVMCreateBtn,
@@ -129,6 +129,9 @@ public class VMFactoryView {
             }
         });
         this.vFeaturesError = new JLabel("");
+        this.vFeaturesError.setPreferredSize(new Dimension(300, 15));
+        this.vFeaturesError.setHorizontalAlignment(SwingConstants.CENTER);
+        this.vFeaturesChange = new JLabel("");
         
         this.vFeaturesFrame.add(vFeaturesSelected);
         this.vFeaturesFrame.add(Box.createRigidArea(new Dimension(300, 10)));
@@ -138,6 +141,7 @@ public class VMFactoryView {
         this.vFeaturesFrame.add(vFeaturesCheckOut);
         this.vFeaturesFrame.add(vFeaturesCancel);
         this.vFeaturesFrame.add(vFeaturesError);
+        this.vFeaturesFrame.add(vFeaturesChange);
     }
 
     public void setupVMaintenanceFrame(VendingMachine currentVM) {
@@ -506,7 +510,6 @@ public class VMFactoryView {
     public JLabel getSelected() {
         return vFeaturesSelected;
     }
-
     public JTextField getMoneyField() {
         return vFeaturesMoneyField;
     }
@@ -517,6 +520,9 @@ public class VMFactoryView {
     public JTextArea getRestockItemsList() {return restockItemsList;}
     public JLabel getVFeaturesError() {
         return vFeaturesError;
+    }
+    public JLabel getVFeaturesChange() {
+        return vFeaturesChange;
     }
 
     public JFrame getvMaintenanceFrame() {
