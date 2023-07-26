@@ -132,10 +132,14 @@ public class VMFactoryController {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ItemSlot itemSlot = vmFactoryModel.getCurrentVM().findItemSlot(vmFactoryView.getRestockItemName().getText());
-                int price = Integer.parseInt(vmFactoryView.getSetPriceItem().getText());
-                vmFactoryModel.getCurrentVM().getMaintenance().setPrice(itemSlot, price);
-
-                vmFactoryView.getRestockItemsList().setText(vmFactoryModel.getCurrentVM().displayAllSlots());
+                int num = Integer.parseInt(vmFactoryView.getRestockItemNum().getText());
+                System.out.println(itemSlot.getItemName());
+                System.out.println(num);
+                vmFactoryModel.getCurrentVM().getMaintenance().stockItem(itemSlot, num);
+                if (vmFactoryModel.getCurrentVM() instanceof SpecialVM) {
+                    vmFactoryView.getRestockItemsList().setText(((SpecialVM)vmFactoryModel.getCurrentVM()).displayAllSlots());
+                }
+                else { vmFactoryView.getRestockItemsList().setText(vmFactoryModel.getCurrentVM().displayAllSlots()); }
             }
         });
     }

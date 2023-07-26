@@ -1,6 +1,7 @@
 package vmfactory;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.StringJoiner;
 
 /**
  * Represents a vending machine.
@@ -66,23 +67,26 @@ public class VendingMachine {
         return -1;
     }
 
-    public void displayAllSlots() {
+    public String displayAllSlots() {
+        StringJoiner displaySlots = new StringJoiner("");
         int size = listItemSlots.size();
 
         // prints each itemSlot with its corresponding stocked item
         for (int i = 0; i < size; i++) {
             if ((listItemSlots.get(i)).checkSlotAvailability()) {
-                System.out.println("Slot " + (i + 1) + " ( OUT OF STOCK )");
+                displaySlots.add("Slot " + (i + 1) + " ( OUT OF STOCK )" + "\n");
             }
             else {
-                System.out.printf("%-5s", "[" + listItemSlots.get(i).getItemStock() + "]");
-                System.out.printf("%-10s", "Slot " + (i + 1));
-                System.out.printf("%-20s", "(" + (listItemSlots.get(i)).getItemName() + ")");
-                System.out.printf("%-15s", "Price : " + listItemSlots.get(i).getPrice());
-                System.out.printf("%-12s", "Calories : " + listItemSlots.get(i).getItem().getCaloriesAmt());
-                System.out.println();
+                displaySlots.add(String.format("%-5s", "[" + listItemSlots.get(i).getItemStock() + "]"));
+                displaySlots.add(String.format("%-10s", "Slot " + (i + 1)));
+                displaySlots.add(String.format("%-20s", "(" + (listItemSlots.get(i)).getItemName() + ")"));
+                displaySlots.add(String.format("%-15s", "Price : " + listItemSlots.get(i).getPrice()));
+                displaySlots.add(String.format("Calories : " + listItemSlots.get(i).getItem().getCaloriesAmt() + "\n"));
             }
         }
+
+        System.out.println(displaySlots.toString());
+        return displaySlots.toString();
     }
 
     public int displayTestVM(){
