@@ -125,7 +125,9 @@ public class Maintenance {
      * @param itemSlot  the ItemSlot to be given a price
      * @param price  the price to be set
      */
-    public void setPrice(ItemSlot itemSlot, int price) {
-        itemSlot.setPrice(price);
+    public String setPrice(ItemSlot itemSlot, int price) {
+        String feedback = "";
+        feedback = itemSlot.setPrice(price);
+        return feedback;
     }
 }

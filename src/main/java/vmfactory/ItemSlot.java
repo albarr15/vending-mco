@@ -96,11 +96,30 @@ public class ItemSlot {
         this.price = item.getPrice();
     }
 
-    public void setPrice(int price) {
-        this.price = price;
-
-        for (int i=0; i<this.listItem.size(); i++)
-            this.listItem.get(i).setPrice(price);
+    public String setPrice(int price) {
+        String feedback = "";
+        if (this.item instanceof SpecialItem) {
+            feedback = ("Cannot set price. A Special Item's price must be set according" +
+                    " to its components");
+            return feedback;
+        }
+        else {
+            try {
+                if (price < 0) {
+                    feedback = ("Invalid price. " +
+                            "Please enter a positive integer.");
+                    return feedback;
+                }
+            }
+                catch (NumberFormatException e) {
+                    feedback = ("Invalid price. Please enter an integer.");
+                    return feedback;
+                }
+                this.price = price;
+            for (int i=0; i<this.listItem.size(); i++)
+                this.listItem.get(i).setPrice(price);
+            }
+        return "";
     }
 
     public Item getItem() {

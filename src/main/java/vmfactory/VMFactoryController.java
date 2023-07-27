@@ -170,11 +170,17 @@ public class VMFactoryController {
                 int price = Integer.parseInt(vmFactoryView.getSetPriceItem().getText());
                 System.out.println(itemSlot.getItemName());
                 System.out.println(price);
-                vmFactoryModel.getCurrentVM().getMaintenance().setPrice(itemSlot, price);
-                if (vmFactoryModel.getCurrentVM() instanceof SpecialVM) {
-                    vmFactoryView.getSetPriceItemsList().setText(((SpecialVM)vmFactoryModel.getCurrentVM()).displayAllSlots());
+                if (vmFactoryModel.getCurrentVM().getMaintenance().setPrice(itemSlot, price).equals("")) {
+                    if (vmFactoryModel.getCurrentVM() instanceof SpecialVM) {
+                        vmFactoryView.getSetPriceItemsList().setText(((SpecialVM)vmFactoryModel.getCurrentVM()).displayAllSlots());
+                    }
+                    else { vmFactoryView.getSetPriceItemsList().setText(vmFactoryModel.getCurrentVM().displayAllSlots()); }
                 }
-                else { vmFactoryView.getSetPriceItemsList().setText(vmFactoryModel.getCurrentVM().displayAllSlots()); }
+                else {
+                    // TODO: Add feedback label in view
+                    String feedback = vmFactoryModel.getCurrentVM().getMaintenance().setPrice(itemSlot, price);
+                    System.out.println(feedback);
+                }
             }
         });
     }
