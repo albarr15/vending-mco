@@ -317,7 +317,7 @@ public class VMFactoryView {
             @Override
             public void actionPerformed(ActionEvent e) {
                 restockFrame.dispose();
-                createVMaintenanceFrame(vMaintenanceFrame, currentVM);
+                createMainFrame(mainFrame);
             }
         });
 
