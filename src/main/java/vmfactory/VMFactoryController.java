@@ -162,6 +162,21 @@ public class VMFactoryController {
                 else { vmFactoryView.getRestockItemsList().setText(vmFactoryModel.getCurrentVM().displayAllSlots()); }
             }
         });
+
+        this.vmFactoryView.setFinishSetPriceBtn(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ItemSlot itemSlot = vmFactoryModel.getCurrentVM().findItemSlot(vmFactoryView.getSetPriceItemName().getText());
+                int price = Integer.parseInt(vmFactoryView.getSetPriceItem().getText());
+                System.out.println(itemSlot.getItemName());
+                System.out.println(price);
+                vmFactoryModel.getCurrentVM().getMaintenance().setPrice(itemSlot, price);
+                if (vmFactoryModel.getCurrentVM() instanceof SpecialVM) {
+                    vmFactoryView.getSetPriceItemsList().setText(((SpecialVM)vmFactoryModel.getCurrentVM()).displayAllSlots());
+                }
+                else { vmFactoryView.getSetPriceItemsList().setText(vmFactoryModel.getCurrentVM().displayAllSlots()); }
+            }
+        });
     }
 
     private void setupSlots() {

@@ -16,7 +16,7 @@ public class VMFactoryView {
     private JButton vmCreationBtn, vmTestBtn, vmExitBtn, regVMCreateBtn, spcVMCreateBtn,
             vFeaturesBtn, selectItemBut, vFeaturesCheckOut, vFeaturesCancel, specialBtn, removeBut, specialCancelBtn = new JButton("Cancel"),
             vMaintenanceBtn, restockBtn, setPriceBtn, collectPayBtn, replenishMoneyBtn, printTransacSummaryBtn,
-            finishRestockBtn = new JButton("Restock"), cancelRestockBtn, finishSetPriceBtn, collectPayAllBtn, collectPaySpecBtn, finishCollectPayBtn, replenishMoneyAllBtn,
+            finishRestockBtn = new JButton("Restock"), cancelRestockBtn, finishSetPriceBtn = new JButton("Set Price"), collectPayAllBtn, collectPaySpecBtn, finishCollectPayBtn, replenishMoneyAllBtn,
             finishReplenishMoneyBtn, finishPrintTransacSummaryBtn;
     private ArrayList<JButton> listSelectItem = new ArrayList<JButton>(), listComponents = new ArrayList<JButton>(), listRemove = new ArrayList<JButton>();
     private JTextField vFeaturesMoneyField, restockItemName, restockItemNum, setPriceItemName, setPriceItem, collectPaySpecTF,
@@ -361,7 +361,6 @@ public class VMFactoryView {
         this.setPriceItem = new JTextField();
         this.setPriceItem.setColumns(10);
 
-        this.finishSetPriceBtn = new JButton("Finish setting price");
         this.finishSetPriceBtn.setPreferredSize(new Dimension(200, 50));
 
         this.setPricePanel1 = new JPanel();
@@ -505,6 +504,10 @@ public class VMFactoryView {
         this.finishRestockBtn.addActionListener(actionListener);
     }
 
+    public void setFinishSetPriceBtn(ActionListener actionListener) {
+        this.finishSetPriceBtn.addActionListener(actionListener);
+    }
+
     public void setVmExitBtnListener(ActionListener actionListener) {
         this.vmExitBtn.addActionListener(actionListener);
     }
@@ -629,6 +632,7 @@ public class VMFactoryView {
     public JTextField getRestockItemNum() { return restockItemNum;}
     public JTextField getSetPriceItemName() { return setPriceItemName; }
     public JTextField getSetPriceItem() {return setPriceItem;}
+    public JTextArea getSetPriceItemsList() {return setPriceItemsList;}
     public JTextArea getRestockItemsList() {return restockItemsList;}
 
     public JFrame getSpecialFrame() {
