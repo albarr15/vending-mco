@@ -104,21 +104,15 @@ public class ItemSlot {
             return feedback;
         }
         else {
-            try {
-                if (price < 0) {
-                    feedback = ("Invalid price. " +
-                            "Please enter a positive integer.");
-                    return feedback;
-                }
+            if (price < 0) {
+                feedback = ("Invalid price. " +
+                        "Please enter a positive integer.");
+                return feedback;
             }
-                catch (NumberFormatException e) {
-                    feedback = ("Invalid price. Please enter an integer.");
-                    return feedback;
-                }
-                this.price = price;
-            for (int i=0; i<this.listItem.size(); i++)
+            this.price = price;
+            for (int i = 0; i < this.listItem.size(); i++)
                 this.listItem.get(i).setPrice(price);
-            }
+        }
         return "";
     }
 
