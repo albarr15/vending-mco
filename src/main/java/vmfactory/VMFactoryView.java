@@ -508,7 +508,7 @@ public class VMFactoryView {
         this.finishRestockBtn.addActionListener(actionListener);
     }
 
-    public void setFinishSetPriceBtn(ActionListener actionListener) {
+    public void setFinishSetPriceBtnListener(ActionListener actionListener) {
         this.finishSetPriceBtn.addActionListener(actionListener);
     }
 

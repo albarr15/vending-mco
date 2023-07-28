@@ -170,31 +170,15 @@ public class VMFactoryController {
         this.vmFactoryView.setFinishSetPriceBtnListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int price = 0;
                 ItemSlot itemSlot = vmFactoryModel.getCurrentVM().findItemSlot(vmFactoryView.getSetPriceItemName().getText());
-
-                try {
-                    // TODO: Fix bug (shows error but continues to set price of decimal values)
-                    price = Integer.parseInt(vmFactoryView.getSetPriceItem().getText());
-                }
-                catch (NumberFormatException e2) {
-                    // add in feedback label
-                    System.out.println("Invalid price. Please enter an integer.");
-                }
-
+                int price = Integer.parseInt(vmFactoryView.getSetPriceItem().getText());
                 System.out.println(itemSlot.getItemName());
                 System.out.println(price);
-                if (vmFactoryModel.getCurrentVM().getMaintenance().setPrice(itemSlot, price).equals("")) {
-                    if (vmFactoryModel.getCurrentVM() instanceof SpecialVM) {
-                        vmFactoryView.getSetPriceItemsList().setText(((SpecialVM)vmFactoryModel.getCurrentVM()).displayAllSlots());
-                    }
-                    else { vmFactoryView.getSetPriceItemsList().setText(vmFactoryModel.getCurrentVM().displayAllSlots()); }
+                vmFactoryModel.getCurrentVM().getMaintenance().setPrice(itemSlot, price);
+                if (vmFactoryModel.getCurrentVM() instanceof SpecialVM) {
+                    vmFactoryView.getSetPriceItemsList().setText(((SpecialVM)vmFactoryModel.getCurrentVM()).displayAllSlots());
                 }
-                else {
-                    // TODO: Add feedback label in view
-                    String feedback = vmFactoryModel.getCurrentVM().getMaintenance().setPrice(itemSlot, price);
-                    System.out.println(feedback);
-                }
+                else { vmFactoryView.getSetPriceItemsList().setText(vmFactoryModel.getCurrentVM().displayAllSlots()); }
             }
         });
     }
