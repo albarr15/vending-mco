@@ -96,11 +96,28 @@ public class ItemSlot {
         this.price = item.getPrice();
     }
 
-    public void setPrice(int price) {
-        this.price = price;
-
-        for (int i=0; i<this.listItem.size(); i++)
-            this.listItem.get(i).setPrice(price);
+    public int setPrice(int price) {
+        if (this.item instanceof SpecialItem) {
+            // cannot manually set price of special item
+            return 1;
+        }
+        else {
+            try {
+                if (price < 0) {
+                    // price must be a positive integer
+                    return 2;
+                }
+            }
+            catch (NumberFormatException e) {
+                // price must be an integer
+                return 3;
+            }
+            this.price = price;
+            for (int i=0; i<this.listItem.size(); i++)
+                this.listItem.get(i).setPrice(price);
+        }
+            // no errors
+            return 0;
     }
 
     public Item getItem() {

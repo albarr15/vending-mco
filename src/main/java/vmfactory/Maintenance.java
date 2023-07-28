@@ -125,7 +125,7 @@ public class Maintenance {
      * @param itemSlot  the ItemSlot to be given a price
      * @param price  the price to be set
      */
-    public void setPrice(ItemSlot itemSlot, int price) {
-        itemSlot.setPrice(price);
+    public int setPrice(ItemSlot itemSlot, int price) {
+        return itemSlot.setPrice(price);
     }
 }

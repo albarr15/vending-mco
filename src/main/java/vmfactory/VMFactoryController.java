@@ -97,23 +97,23 @@ public class VMFactoryController {
                         transac.receivePayment(vmFactoryView.getMoneyField().getText(), currentVM.getBalance());
                         
                         switch(transac.produceChange(currentVM.getBalance(), currentVM.getListItemSlots())) {
-                            case 1: 
+                            case 1:
                                 vmFactoryView.getVFeaturesError().setText("Error: No item selected");
                                 vmFactoryView.getVFeaturesChange().setText("Returning change: " + transac.getReturned());
                                 break;
-                            case 2: 
+                            case 2:
                                 vmFactoryView.getVFeaturesError().setText("Error: Insufficient item stock");
                                 vmFactoryView.getVFeaturesChange().setText("Returning change: " + transac.getReturned());
                                 break;
-                            case 3: 
+                            case 3:
                                 vmFactoryView.getVFeaturesError().setText("Error: Insufficient cash input");
                                 vmFactoryView.getVFeaturesChange().setText("Returning change: " + transac.getReturned());
                                 break;
-                            case 4: 
+                            case 4:
                                 vmFactoryView.getVFeaturesError().setText("Error: Insufficient change in machine");
                                 vmFactoryView.getVFeaturesChange().setText("Returning change: " + transac.getReturned());
                                 break;
-                            case 5: 
+                            case 5:
                                 vmFactoryView.getVFeaturesError().setText("Error: Item cannot be sold individually");
                                 vmFactoryView.getVFeaturesChange().setText("Returning change: " + transac.getReturned());
                                 break;
@@ -121,7 +121,7 @@ public class VMFactoryController {
                                 vmFactoryView.getVFeaturesFrame().dispose();
                                 vmFactoryView.createCheckoutFrame(vmFactoryView.getCheckoutFrame());
                                 vmFactoryView.getSelected().setText("Dispensing " + transac.getItemOrdered().getName() + "...");
-                                vmFactoryView.getVFeaturesChange().setText("Change: " + transac.getReturned());   
+                                vmFactoryView.getVFeaturesChange().setText("Change: " + transac.getReturned());
                                 break;
                             default:
                                 break;
@@ -170,15 +170,53 @@ public class VMFactoryController {
         this.vmFactoryView.setFinishSetPriceBtnListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ItemSlot itemSlot = vmFactoryModel.getCurrentVM().findItemSlot(vmFactoryView.getSetPriceItemName().getText());
-                int price = Integer.parseInt(vmFactoryView.getSetPriceItem().getText());
+                VendingMachine currentVM = vmFactoryModel.getCurrentVM();
+                Maintenance maintenance = currentVM.getMaintenance();
+
+                int price = 0;
+                boolean isValid = false;
+
+                ItemSlot itemSlot = currentVM.findItemSlot(vmFactoryView.getSetPriceItemName().getText());
+                if (itemSlot == null) {
+                    vmFactoryView.getSetPriceErrorLbl().setText("Cannot find item slot for " + vmFactoryView.getSetPriceItemName().getText()
+                            + ".");
+                }
+
+                try {
+                    price = Integer.parseInt(vmFactoryView.getSetPriceItem().getText());
+                    isValid = true;
+                }
+                catch (NumberFormatException e2) {
+                    vmFactoryView.getSetPriceErrorLbl().setText("Invalid price. Please enter an integer.");
+                }
+
                 System.out.println(itemSlot.getItemName());
                 System.out.println(price);
-                vmFactoryModel.getCurrentVM().getMaintenance().setPrice(itemSlot, price);
-                if (vmFactoryModel.getCurrentVM() instanceof SpecialVM) {
-                    vmFactoryView.getSetPriceItemsList().setText(((SpecialVM)vmFactoryModel.getCurrentVM()).displayAllSlots());
+
+                if (isValid) {
+                    switch(maintenance.setPrice(itemSlot, price)) {
+                        case 1:
+                            vmFactoryView.getSetPriceErrorLbl().setText("Cannot set price. " +
+                                    "A Special Item's price must be set according to its components");
+                            break;
+                        case 2:
+                            vmFactoryView.getSetPriceErrorLbl().setText("Invalid price. " +
+                                    "Please enter a positive integer.");
+                            break;
+                        case 3:
+                            vmFactoryView.getSetPriceErrorLbl().setText("Invalid price. Please enter an integer.");
+                            break;
+                        case 0:
+                            vmFactoryView.getSetPriceErrorLbl().setText("SETTING PRICE SUCCESSFUL");
+                            break;
+                        default:
+                            break;
+                    }
+                    if (vmFactoryModel.getCurrentVM() instanceof SpecialVM) {
+                        vmFactoryView.getSetPriceItemsList().setText(((SpecialVM)vmFactoryModel.getCurrentVM()).displayAllSlots());
+                    }
+                    else { vmFactoryView.getSetPriceItemsList().setText(vmFactoryModel.getCurrentVM().displayAllSlots()); }
                 }
-                else { vmFactoryView.getSetPriceItemsList().setText(vmFactoryModel.getCurrentVM().displayAllSlots()); }
             }
         });
     }

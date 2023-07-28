@@ -11,7 +11,7 @@ public class VMFactoryView {
             vMaintenanceFrame, restockFrame, setPriceFrame, collectPayFrame, replenishMoneyFrame, printTransacSummaryFrame;
     private JLabel appHeader, vmCHeader, vmTHeader, vmError, vFeaturesHeader, vMaintenanceHeader,
             vFeaturesSelected, buyItemLabel, vFeaturesMoneyLabel, vFeaturesError, vFeaturesChange, removeLabel,
-            restockFbackLbl, restockItemNameLbl, restockItemNumLbl, setPriceLbl, setPriceItemNameLbl, setPriceFbackLbl,
+            restockItemNameLbl, restockItemNumLbl, restockErrorLbl, setPriceLbl, setPriceItemNameLbl, setPriceErrorLbl,
             collectPaySpecLbl, collectPayFbackLbl, replenishMoneyFbackLbl, replenishMoneySpecLbl;
     private JButton vmCreationBtn, vmTestBtn, vmExitBtn, regVMCreateBtn, spcVMCreateBtn,
             vFeaturesBtn, selectItemBut, vFeaturesCheckOut, vFeaturesCancel, specialBtn, removeBut, specialCancelBtn = new JButton("Cancel"),
@@ -299,8 +299,6 @@ public class VMFactoryView {
 
         this.restockItemNameLbl = new JLabel("Enter Item Name to stock:      ");
         this.restockItemNumLbl = new JLabel("Enter Number of items to stock: ");
-        this.restockFbackLbl = new JLabel();
-        this.restockFbackLbl.setPreferredSize(new Dimension(220, 30));
 
         this.restockItemsList = new JTextArea(" ");
         this.restockItemsList.setPreferredSize(new Dimension(360, 250));
@@ -320,6 +318,7 @@ public class VMFactoryView {
                 createMainFrame(mainFrame);
             }
         });
+        this.restockErrorLbl = new JLabel("ERROR LABEL HERE");
 
         this.restockPanel1 = new JPanel();
         this.restockPanel1.setLayout(new FlowLayout(FlowLayout.CENTER));
@@ -334,7 +333,7 @@ public class VMFactoryView {
         this.restockFrame.add(restockPanel1);
         this.restockFrame.add(restockPanel2);
         this.restockFrame.add(finishRestockBtn);
-        this.restockFrame.add(restockFbackLbl);
+        this.restockFrame.add(restockErrorLbl);
         this.restockFrame.add(restockItemsList);
         this.restockFrame.add(cancelRestockBtn);
     }
@@ -349,8 +348,8 @@ public class VMFactoryView {
 
         this.setPriceItemNameLbl = new JLabel("Enter Item Name to set price:      ");
         this.setPriceLbl = new JLabel("Enter Price of item: ");
-        this.setPriceFbackLbl = new JLabel();
-        this.setPriceFbackLbl.setPreferredSize(new Dimension(220, 30));
+        this.setPriceErrorLbl = new JLabel();
+        this.setPriceErrorLbl.setPreferredSize(new Dimension(350, 30));
 
         this.setPriceItemsList = new JTextArea(" ");
         this.setPriceItemsList.setPreferredSize(new Dimension(330, 230));
@@ -376,7 +375,7 @@ public class VMFactoryView {
         this.setPriceFrame.add(setPricePanel1);
         this.setPriceFrame.add(setPricePanel2);
         this.setPriceFrame.add(finishSetPriceBtn);
-        this.setPriceFrame.add(setPriceFbackLbl);
+        this.setPriceFrame.add(setPriceErrorLbl);
         this.setPriceFrame.add(setPriceItemsList);
     }
 
@@ -631,7 +630,8 @@ public class VMFactoryView {
     public JTextField getMoneyField() { return vFeaturesMoneyField; }
     public JLabel getVFeaturesError() { return vFeaturesError; }
     public JLabel getVFeaturesChange() { return vFeaturesChange; }
-    
+    public JLabel getRestockErrorLbl() { return restockErrorLbl; }
+    public JLabel getSetPriceErrorLbl() { return setPriceErrorLbl; }
     public JTextField getRestockItemName() {return restockItemName;}
     public JTextField getRestockItemNum() { return restockItemNum;}
     public JTextField getSetPriceItemName() { return setPriceItemName; }
