@@ -120,7 +120,7 @@ public class SpecialTransaction extends Transaction {
      */
     @Override public void reset(ArrayList<ItemSlot> listItemSlots) {
         this.orderTotal = 0;
-        if(this.itemOrdered != null) {
+        if(this.itemOrdered instanceof SpecialItem) {
             for(Item item : ((SpecialItem)this.itemOrdered).getListComponents())
                 findItemSlot(item, listItemSlots).stockItem(true);
         }
