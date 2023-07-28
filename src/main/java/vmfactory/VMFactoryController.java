@@ -76,13 +76,15 @@ public class VMFactoryController {
             public void actionPerformed(ActionEvent e) {
                 vmFactoryView.getMainFrame().dispose();
                 vmFactoryView.getVmTestingFrame().dispose();
-                if(vmFactoryView.getSpecialFrame() != null)
-                    vmFactoryView.getSpecialFrame().dispose();
-
-                if(!vmFactoryView.getSpecialReturn()) {
-                    vmFactoryModel.getCurrentVM().makeTransaction();
-                    vmFactoryView.setSpecialReturn(false);
-                }
+                if(vmFactoryView.getSpecialFrame() != null) {
+                    if(vmFactoryView.getSpecialReturn()) {
+                        vmFactoryView.setSpecialReturn(false);
+                        System.out.println("speical transac done");
+                    } else {
+                        vmFactoryModel.getCurrentVM().getCurrentTransaction().reset(vmFactoryModel.getCurrentVM().getListItemSlots());
+                        System.out.println("resetting transaction");
+                     }
+                } else vmFactoryModel.getCurrentVM().makeTransaction();
                 
                 setupSlots();
                 vmFactoryView.createVFeaturesFrame(vmFactoryView.getVFeaturesFrame(), vmFactoryModel.getCurrentVM());
@@ -132,7 +134,9 @@ public class VMFactoryController {
                     public void actionPerformed(ActionEvent e) {
                         vmFactoryView.getVFeaturesFrame().dispose();
                         ((SpecialTransaction)vmFactoryModel.getCurrentVM().getCurrentTransaction()).setSpecialItem(new SpecialItem("Ramen"));
+                        setupComponents();
                         vmFactoryView.createSpecialFrame(vmFactoryView.getvMaintenanceFrame(), vmFactoryModel.getCurrentVM());
+                        vmFactoryView.setComponentsBtnListener(listSelectListeners);
                     }
                 }); 
             }
@@ -217,12 +221,16 @@ public class VMFactoryController {
         this.listSelectListeners.clear();
         for(int i=0; i < vmFactoryModel.getCurrentVM().getListItemSlots().size(); i++) {
             ItemSlot currentSlot = vmFactoryModel.getCurrentVM().getListItemSlots().get(i);
-            if(!(vmFactoryModel.getCurrentVM() instanceof SpecialVM) || currentSlot.getForSale()) {
+            if(!(currentSlot.getItem() instanceof SpecialItem)) {
                 ActionListener al = new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        vmFactoryView.getSelected().setText("Selected item: " + currentSlot.getItemName());
-                        vmFactoryModel.getCurrentVM().getCurrentTransaction().selectItem(currentSlot);
+                        System.out.println("Adding " + currentSlot.getItemName());
+                        ((SpecialTransaction)vmFactoryModel.getCurrentVM().getCurrentTransaction()).addItem(currentSlot);
+                        vmFactoryView.getSpecialFrame().dispose();
+                        setupComponents();
+                        vmFactoryView.createSpecialFrame(vmFactoryView.getvMaintenanceFrame(), vmFactoryModel.getCurrentVM());
+                        vmFactoryView.setComponentsBtnListener(listSelectListeners);
                     }
                 };
                 this.listSelectListeners.add(al);
