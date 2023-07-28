@@ -249,6 +249,28 @@ public class VMFactoryController {
                 }
             }
         });
+
+        this.vmFactoryView.setCollectPaySpecBtnListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int amount = 0;
+                boolean isValid = false;
+
+                try {
+                    amount = Integer.parseInt(vmFactoryView.getCollectPaySpecTF().getText());
+                    isValid = true;
+                }
+                catch (NumberFormatException e1) {
+                    vmFactoryView.getSetPriceErrorLbl().setText("Invalid amount. Please enter an integer.");
+                }
+
+                if (isValid) {
+                    // TODO: create switch cases to display error messages
+                    vmFactoryModel.getCurrentVM().getMaintenance().collectMoney(vmFactoryModel.getCurrentVM().getBalance(),
+                            amount);
+                }
+            }
+        });
     }
 
     private void setupSlots() {
