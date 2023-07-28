@@ -177,7 +177,7 @@ public class VMFactoryView {
             this.removeBut = new JButton(item.getName());
             removeBut.setPreferredSize(new Dimension(100, 25));
             this.specialFrame.add(removeBut);
-            this.listRemove.add(selectItemBut);
+            this.listRemove.add(removeBut);
         }
         this.specialFrame.add(Box.createRigidArea(new Dimension(300, 10)));
         this.vFeaturesMoneyLabel = new JLabel("Current total : " + currentVM.getCurrentTransaction().getItemOrdered().getPrice() +
