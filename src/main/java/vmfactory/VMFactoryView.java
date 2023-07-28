@@ -196,7 +196,7 @@ public class VMFactoryView {
         this.vFeaturesChange = new JLabel("");
         
         this.specialFrame.add(vFeaturesMoneyLabel);
-        this.specialFrame.add(Box.createRigidArea(new Dimension(300, 10)));
+        this.specialFrame.add(Box.createRigidArea(new Dimension(380, 10)));
         this.specialFrame.add(vFeaturesCheckOut);
         this.specialFrame.add(specialCancelBtn);
     }
@@ -494,6 +494,10 @@ public class VMFactoryView {
     public void setSpecialBtnListener(ActionListener actionListener) {
         this.specialBtn.addActionListener(actionListener);
     }
+    public void setComponentsBtnListener(ArrayList<ActionListener> actionListener) {
+        for(int i=0; i < listComponents.size(); i++)
+            listComponents.get(i).addActionListener(actionListener.get(i));
+    }
 
     // maintenance testing
     public void setvMaintenanceBtnListener(ActionListener actionListener) {
@@ -544,7 +548,7 @@ public class VMFactoryView {
     public void createSpecialFrame(JFrame specialFrame, VendingMachine currentVM) {
         this.specialFrame = specialFrame;
         setupSpecialFrame(currentVM);
-        this.specialFrame.setSize(380,500);
+        this.specialFrame.setSize(380,1000);
         this.specialFrame.setVisible(true);
         this.specialFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
