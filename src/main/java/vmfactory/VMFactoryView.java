@@ -12,18 +12,18 @@ public class VMFactoryView {
     private JLabel appHeader, vmCHeader, vmTHeader, vmError, vFeaturesHeader, vMaintenanceHeader,
             vFeaturesSelected, buyItemLabel, vFeaturesMoneyLabel, vFeaturesError, vFeaturesChange,
             restockItemNameLbl, restockItemNumLbl, restockErrorLbl, setPriceLbl, setPriceItemNameLbl, setPriceErrorLbl,
-            collectPaySpecLbl, collectPayErrorLbl, replenishMoneyFbackLbl, replenishMoneySpecLbl;
+            collectPayCurBalLbl, collectPaySpecLbl, collectPayErrorLbl, replenishMoneyFbackLbl, replenishMoneySpecLbl;
     private JButton vmCreationBtn, vmTestBtn, vmExitBtn, regVMCreateBtn, spcVMCreateBtn,
             vFeaturesBtn, selectItemBut, vFeaturesCheckOut, vFeaturesCancel, specialBtn, removeBut,
             finishBtn = new JButton("Finish"), specialCancelBtn = new JButton("Cancel"),
             vMaintenanceBtn, restockBtn, setPriceBtn, collectPayBtn, replenishMoneyBtn, printTransacSummaryBtn,
             finishRestockBtn = new JButton("Restock"), cancelRestockBtn, finishSetPriceBtn = new JButton("Set Price"),
-            collectPayAllBtn, collectPaySpecBtn = new JButton("Collect specified amount"), finishCollectPayBtn, replenishMoneyAllBtn,
+            collectPayAllBtn = new JButton("Collect all money"), collectPaySpecBtn = new JButton("Collect specified amount"), finishCollectPayBtn, replenishMoneyAllBtn,
             finishReplenishMoneyBtn, finishPrintTransacSummaryBtn;
     private ArrayList<JButton> listSelectItem = new ArrayList<JButton>(), listComponents = new ArrayList<JButton>(), listRemove = new ArrayList<JButton>();
     private JTextField vFeaturesMoneyField, restockItemName, restockItemNum, setPriceItemName, setPriceItem, collectPaySpecTF,
                         replenishMoneySpecTF;
-    private JTextArea restockItemsList, setPriceItemsList, collectPayCurBal, replenishMoneyCurBalTA, printTransacSummaryTA;
+    private JTextArea restockItemsList, setPriceItemsList, replenishMoneyCurBalTA, printTransacSummaryTA;
     private JPanel restockPanel1, restockPanel2, setPricePanel1, setPricePanel2;
     private boolean specialReturn = false;
 
@@ -391,9 +391,8 @@ public class VMFactoryView {
         this.collectPayErrorLbl = new JLabel("", SwingConstants.CENTER);
         this.collectPayErrorLbl.setPreferredSize(new Dimension(350, 30));
 
-        this.collectPayCurBal = new JTextArea("");
-        this.collectPayCurBal.setPreferredSize(new Dimension(220, 30));
-        this.collectPayCurBal.setEditable(false);
+        this.collectPayCurBalLbl = new JLabel("");
+        this.collectPayCurBalLbl.setPreferredSize(new Dimension(220, 90));
 
         this.collectPayAllBtn = new JButton("Collect all money");
         this.collectPayAllBtn.setPreferredSize(new Dimension(200, 50));
@@ -405,12 +404,12 @@ public class VMFactoryView {
 ;
         this.collectPaySpecBtn.setPreferredSize(new Dimension(200, 50));
 
+        this.collectPayFrame.add(collectPayCurBalLbl);
         this.collectPayFrame.add(collectPaySpecLbl);
         this.collectPayFrame.add(collectPaySpecTF);
         this.collectPayFrame.add(collectPaySpecBtn);
         this.collectPayFrame.add(collectPayAllBtn);
         this.collectPayFrame.add(collectPayErrorLbl);
-        this.collectPayFrame.add(collectPayCurBal);
     }
 
     public void setupReplenishMoneyFrame() {
@@ -519,6 +518,10 @@ public class VMFactoryView {
 
     public void setCollectPaySpecBtnListener(ActionListener actionListener) {
         this.collectPaySpecBtn.addActionListener(actionListener);
+    }
+
+    public void setCollectPayAllBtnListener(ActionListener actionListener) {
+        this.collectPayAllBtn.addActionListener(actionListener);
     }
 
     public void setVmExitBtnListener(ActionListener actionListener) {
@@ -642,6 +645,8 @@ public class VMFactoryView {
     public JLabel getVFeaturesChange() { return vFeaturesChange; }
     public JLabel getRestockErrorLbl() { return restockErrorLbl; }
     public JLabel getSetPriceErrorLbl() { return setPriceErrorLbl; }
+    public JLabel getCollectPayErrorLbl() { return collectPayErrorLbl; }
+    public JLabel getCollectPayCurBalLbl() { return collectPayCurBalLbl; }
     public JTextField getRestockItemName() {return restockItemName;}
     public JTextField getRestockItemNum() { return restockItemNum;}
     public JTextField getSetPriceItemName() { return setPriceItemName; }

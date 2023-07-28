@@ -268,7 +268,20 @@ public class VMFactoryController {
                     // TODO: create switch cases to display error messages
                     vmFactoryModel.getCurrentVM().getMaintenance().collectMoney(vmFactoryModel.getCurrentVM().getBalance(),
                             amount);
+                    vmFactoryView.getCollectPayCurBalLbl().setText("Current Balance : " +
+                            vmFactoryModel.getCurrentVM().getBalance().getCurrentBal());
                 }
+            }
+        });
+
+        this.vmFactoryView.setCollectPayAllBtnListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                vmFactoryView.getCollectPayErrorLbl().setText("Successfully collected " +
+                        vmFactoryModel.getCurrentVM().getBalance().getCurrentBal());
+                vmFactoryModel.getCurrentVM().getMaintenance().collectMoney(vmFactoryModel.getCurrentVM().getBalance());
+                vmFactoryView.getCollectPayCurBalLbl().setText("Current Balance : " +
+                        vmFactoryModel.getCurrentVM().getBalance().getCurrentBal());
             }
         });
     }
