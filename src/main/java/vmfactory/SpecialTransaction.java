@@ -119,7 +119,6 @@ public class SpecialTransaction extends Transaction {
      * (For Special Transactions) Resets all information of the current transaction (including special item components)
      */
     @Override public void reset(ArrayList<ItemSlot> listItemSlots) {
-        this.itemOrdered = null;
         this.orderTotal = 0;
         if(this.itemOrdered != null) {
             for(Item item : ((SpecialItem)this.itemOrdered).getListComponents())
