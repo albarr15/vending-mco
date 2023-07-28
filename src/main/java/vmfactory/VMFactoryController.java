@@ -78,7 +78,7 @@ public class VMFactoryController {
                 vmFactoryView.getVmTestingFrame().dispose();
                 if(!vmFactoryView.getSpecialReturn())
                         vmFactoryModel.getCurrentVM().getCurrentTransaction().reset(vmFactoryModel.getCurrentVM().getListItemSlots());
-                } else vmFactoryModel.getCurrentVM().makeTransaction();
+                else vmFactoryModel.getCurrentVM().makeTransaction();
                 
                 vmFactoryView.createVFeaturesFrame(vmFactoryView.getVFeaturesFrame(), vmFactoryModel.getCurrentVM());
                 setupSlots();
