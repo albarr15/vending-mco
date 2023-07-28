@@ -10,7 +10,7 @@ public class VMFactoryView {
     private JFrame mainFrame, vmCreationFrame, vmTestingFrame, vFeaturesFrame, checkoutFrame, specialFrame,
             vMaintenanceFrame, restockFrame, setPriceFrame, collectPayFrame, replenishMoneyFrame, printTransacSummaryFrame;
     private JLabel appHeader, vmCHeader, vmTHeader, vmError, vFeaturesHeader, vMaintenanceHeader,
-            vFeaturesSelected, buyItemLabel, vFeaturesMoneyLabel, vFeaturesError, vFeaturesChange, removeLabel,
+            vFeaturesSelected, buyItemLabel, vFeaturesMoneyLabel, vFeaturesError, vFeaturesChange,
             restockItemNameLbl, restockItemNumLbl, restockErrorLbl, setPriceLbl, setPriceItemNameLbl, setPriceErrorLbl,
             collectPaySpecLbl, collectPayFbackLbl, replenishMoneyFbackLbl, replenishMoneySpecLbl;
     private JButton vmCreationBtn, vmTestBtn, vmExitBtn, regVMCreateBtn, spcVMCreateBtn,
@@ -97,11 +97,8 @@ public class VMFactoryView {
             if(!(currentVM instanceof SpecialVM) || slot.getForSale()) {
                 this.selectItemBut = new JButton(slot.getItemName());
                 selectItemBut.setPreferredSize(new Dimension(150, 25));
-
-                this.buyItemLabel = new JLabel("Stock: " + slot.getItemStock() +
-                                               "  /  Price: " + slot.getPrice() +
-                                               "  /  Calories: " + slot.getItem().getCaloriesAmt());
-
+                this.buyItemLabel = new JLabel("Stock: " + slot.getItemStock() + "  /  Price: "
+                     + slot.getPrice() + "  /  Calories: " + slot.getItem().getCaloriesAmt());
                 this.vFeaturesFrame.add(selectItemBut);
                 this.vFeaturesFrame.add(buyItemLabel);
                 this.listSelectItem.add(selectItemBut);
@@ -173,17 +170,18 @@ public class VMFactoryView {
         }
         this.specialFrame.add(Box.createRigidArea(new Dimension(300, 10)));
         // Current special item
+        this.vFeaturesSelected = new JLabel("Current ramen components (click to remove): ");        
+        this.specialFrame.add(vFeaturesSelected);
         this.listRemove.clear();
         for(Item item : ((SpecialItem)currentVM.getCurrentTransaction().getItemOrdered()).getListComponents()) {
-            this.removeLabel = new JLabel("   " + item.getName() + "   ");
-            this.removeBut = new JButton("Remove");
-            selectItemBut.setPreferredSize(new Dimension(100, 25));
-            this.specialFrame.add(removeLabel);
+            this.removeBut = new JButton(item.getName());
+            removeBut.setPreferredSize(new Dimension(100, 25));
             this.specialFrame.add(removeBut);
             this.listRemove.add(selectItemBut);
         }
         this.specialFrame.add(Box.createRigidArea(new Dimension(300, 10)));
-        this.vFeaturesMoneyLabel = new JLabel("Current total : 0  /  Current calories : 0");
+        this.vFeaturesMoneyLabel = new JLabel("Current total : " + currentVM.getCurrentTransaction().getItemOrdered().getPrice() +
+             "  /  Current calories : " + currentVM.getCurrentTransaction().getItemOrdered().getCaloriesAmt());
         
         // Finish or cancel
         this.vFeaturesCheckOut = new JButton("Finish");
@@ -496,6 +494,10 @@ public class VMFactoryView {
     public void setComponentsBtnListener(ArrayList<ActionListener> actionListener) {
         for(int i=0; i < listComponents.size(); i++)
             listComponents.get(i).addActionListener(actionListener.get(i));
+    }
+    public void setRemoveBtnListener(ArrayList<ActionListener> actionListener) {
+        for(int i=0; i < listRemove.size(); i++)
+            listRemove.get(i).addActionListener(actionListener.get(i));
     }
 
     // maintenance testing
