@@ -157,15 +157,43 @@ public class VMFactoryController {
         this.vmFactoryView.setFinishRestockBtnListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ItemSlot itemSlot = vmFactoryModel.getCurrentVM().findItemSlot(vmFactoryView.getRestockItemName().getText());
-                int num = Integer.parseInt(vmFactoryView.getRestockItemNum().getText());
-                System.out.println(itemSlot.getItemName());
-                System.out.println(num);
-                vmFactoryModel.getCurrentVM().getMaintenance().stockItem(itemSlot, num);
-                if (vmFactoryModel.getCurrentVM() instanceof SpecialVM) {
-                    vmFactoryView.getRestockItemsList().setText(((SpecialVM)vmFactoryModel.getCurrentVM()).displayAllSlots());
+                VendingMachine currentVM = vmFactoryModel.getCurrentVM();
+                Maintenance maintenance = currentVM.getMaintenance();
+                int num = 0;
+                boolean isValid = false;
+
+                ItemSlot itemSlot = currentVM.findItemSlot(vmFactoryView.getRestockItemName().getText());
+                if (itemSlot == null) {
+                    vmFactoryView.getRestockErrorLbl().setText("Cannot find item slot for  " + vmFactoryView.getRestockItemName().getText()
+                            + ".");
                 }
-                else { vmFactoryView.getRestockItemsList().setText(vmFactoryModel.getCurrentVM().displayAllSlots()); }
+
+                try {
+                    num = Integer.parseInt(vmFactoryView.getRestockItemNum().getText());
+                    if (num < 0) {
+                        vmFactoryView.getRestockErrorLbl().setText("Invalid restock number. Please enter a positive integer.");
+                    }
+                    else { isValid = true; }
+                }
+                catch (NumberFormatException e1) {
+                    vmFactoryView.getRestockErrorLbl().setText("Invalid restock number. Please enter a positive integer.");
+                }
+
+                if (isValid) {
+                    System.out.println(itemSlot.getItemName());
+                    System.out.println(num);
+
+                    int numIgnoredRestocks = vmFactoryModel.getCurrentVM().getMaintenance().stockItem(itemSlot, num);
+                    if (numIgnoredRestocks != 0) {
+                        vmFactoryView.getRestockErrorLbl().setText("Slot full: Could not stock " + numIgnoredRestocks +
+                                " " + itemSlot.getItemName() + ".");
+                    }
+                    else {
+                        vmFactoryView.getRestockErrorLbl().setText("Successfully restocked " + num + " " + itemSlot.getItemName()
+                        + ".");
+                    }
+                    vmFactoryView.getRestockItemsList().setText(vmFactoryModel.getCurrentVM().displayAllSlots());
+                }
             }
         });
 

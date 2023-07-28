@@ -320,7 +320,8 @@ public class VMFactoryView {
                 createMainFrame(mainFrame);
             }
         });
-        this.restockErrorLbl = new JLabel("ERROR LABEL HERE");
+        this.restockErrorLbl = new JLabel("", SwingConstants.CENTER);
+        this.restockErrorLbl.setPreferredSize(new Dimension(350, 30));
 
         this.restockPanel1 = new JPanel();
         this.restockPanel1.setLayout(new FlowLayout(FlowLayout.CENTER));
@@ -350,7 +351,7 @@ public class VMFactoryView {
 
         this.setPriceItemNameLbl = new JLabel("Enter Item Name to set price:      ");
         this.setPriceLbl = new JLabel("Enter Price of item: ");
-        this.setPriceErrorLbl = new JLabel();
+        this.setPriceErrorLbl = new JLabel("", SwingConstants.CENTER);
         this.setPriceErrorLbl.setPreferredSize(new Dimension(350, 30));
 
         this.setPriceItemsList = new JTextArea(" ");

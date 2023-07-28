@@ -12,19 +12,25 @@ public class Maintenance {
      * 
      * @param itemSlot  the ItemSlot to be stocked
      * @param numItems  the number of Items to be stocked
+     * @return (numItems - i) the number of ignored stocks due to already full itemSlot
+     *          0 if successfully restocked the total amount of numItems in itemSlots
      */
-    public void stockItem(ItemSlot itemSlot, int numItems) {
+    public int stockItem(ItemSlot itemSlot, int numItems) {
         int i=0;
         for(i=0; i < numItems; i++)
             if(!itemSlot.stockItem(false)) {
-                System.out.println("Error: Could not stock " +
-                (numItems-i) + " " + itemSlot.getItemName() + ".");
-                break;
+                // Slot cannot be stocked because already full
+                return (numItems - i);
+                // System.out.println("Error: Could not stock " +
+                // (numItems-i) + " " + itemSlot.getItemName() + ".");
             } 
 
         if(i!=0)
+        {
             System.out.println("Successfully stocked " + numItems +
-                               " " + itemSlot.getItemName() + ".");
+                    " " + itemSlot.getItemName() + ".");
+        }
+        return 0;
     }
 
     /**
