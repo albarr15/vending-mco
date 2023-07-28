@@ -14,7 +14,8 @@ public class VMFactoryView {
             restockItemNameLbl, restockItemNumLbl, restockErrorLbl, setPriceLbl, setPriceItemNameLbl, setPriceErrorLbl,
             collectPaySpecLbl, collectPayFbackLbl, replenishMoneyFbackLbl, replenishMoneySpecLbl;
     private JButton vmCreationBtn, vmTestBtn, vmExitBtn, regVMCreateBtn, spcVMCreateBtn,
-            vFeaturesBtn, selectItemBut, vFeaturesCheckOut, vFeaturesCancel, specialBtn, removeBut, specialCancelBtn = new JButton("Cancel"),
+            vFeaturesBtn, selectItemBut, vFeaturesCheckOut, vFeaturesCancel, specialBtn, removeBut,
+            finishBtn = new JButton("Finish"), specialCancelBtn = new JButton("Cancel"),
             vMaintenanceBtn, restockBtn, setPriceBtn, collectPayBtn, replenishMoneyBtn, printTransacSummaryBtn,
             finishRestockBtn = new JButton("Restock"), cancelRestockBtn, finishSetPriceBtn = new JButton("Set Price"), collectPayAllBtn, collectPaySpecBtn, finishCollectPayBtn, replenishMoneyAllBtn,
             finishReplenishMoneyBtn, finishPrintTransacSummaryBtn;
@@ -184,8 +185,11 @@ public class VMFactoryView {
              "  /  Current calories : " + currentVM.getCurrentTransaction().getItemOrdered().getCaloriesAmt());
         
         // Finish or cancel
-        this.vFeaturesCheckOut = new JButton("Finish");
-        vFeaturesCheckOut.setPreferredSize(new Dimension(150, 25));
+        finishBtn.setPreferredSize(new Dimension(150, 25));
+        this.finishBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                specialReturn = true; 
+                System.out.println("Special return true"); } });
         specialCancelBtn.setPreferredSize(new Dimension(150, 25));
         
         this.vFeaturesError = new JLabel("");
@@ -195,7 +199,7 @@ public class VMFactoryView {
         
         this.specialFrame.add(vFeaturesMoneyLabel);
         this.specialFrame.add(Box.createRigidArea(new Dimension(380, 10)));
-        this.specialFrame.add(vFeaturesCheckOut);
+        this.specialFrame.add(finishBtn);
         this.specialFrame.add(specialCancelBtn);
     }
 
@@ -480,6 +484,7 @@ public class VMFactoryView {
     public void setVFeaturesBtnListener(ActionListener actionListener) {
         this.vFeaturesBtn.addActionListener(actionListener);
         this.specialCancelBtn.addActionListener(actionListener);
+        this.finishBtn.addActionListener(actionListener);
     }
     public void setSelectItemBtnListener(ArrayList<ActionListener> actionListener) {
         for(int i=0; i < listSelectItem.size(); i++)
