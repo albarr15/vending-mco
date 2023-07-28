@@ -76,20 +76,19 @@ public class VMFactoryController {
             public void actionPerformed(ActionEvent e) {
                 vmFactoryView.getMainFrame().dispose();
                 vmFactoryView.getVmTestingFrame().dispose();
-                if(vmFactoryView.getSpecialFrame() != null) {
-                    vmFactoryView.getSpecialFrame().dispose();
-                    if(vmFactoryView.getSpecialReturn()) {
-                        vmFactoryView.setSpecialReturn(false);
-                        System.out.println("speical transac done");
-                    } else {
+                if(!vmFactoryView.getSpecialReturn())
                         vmFactoryModel.getCurrentVM().getCurrentTransaction().reset(vmFactoryModel.getCurrentVM().getListItemSlots());
-                        System.out.println("resetting transaction");
-                     }
                 } else vmFactoryModel.getCurrentVM().makeTransaction();
                 
+                vmFactoryView.createVFeaturesFrame(vmFactoryView.getVFeaturesFrame(), vmFactoryModel.getCurrentVM());
                 setupSlots();
                 vmFactoryView.createVFeaturesFrame(vmFactoryView.getVFeaturesFrame(), vmFactoryModel.getCurrentVM());
                 vmFactoryView.setSelectItemBtnListener(listSelectListeners);
+                if(vmFactoryView.getSpecialReturn()) {
+                    vmFactoryView.setSpecialReturn(false);
+                    vmFactoryView.getSelected().setText("Selected Item: Ramen (Special) / Price: " +
+                        vmFactoryModel.getCurrentVM().getCurrentTransaction().getItemOrdered().getPrice());
+                }
                 vmFactoryView.setCheckOutBtnListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
