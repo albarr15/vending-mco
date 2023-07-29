@@ -72,11 +72,10 @@ public class Maintenance {
      * 
      * @param bal  the Balance of the machine
      * @param cashList  a String containing values of the money to be stocked
-     * @return  the new balance after stocking
+     * @return  the number of invalid entries found within the cashList
      */
     public int replenishMoney(Balance bal, String cashList) {
-        bal.depositCash(cashList);
-        return bal.getCurrentBal();
+        return bal.depositCash(cashList);
     }
 
     /**

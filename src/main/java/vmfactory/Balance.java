@@ -19,8 +19,9 @@ public class Balance {
     /**
      * Deposits cash from an input of string containing the different denominations with spaces in between each
      * @param cashList is the string input of denominations with each one space apart
+     * @return numInvalid is the number of invalid entries found within the cashList
      */
-    public void depositCash(String cashList) {
+    public int depositCash(String cashList) {
         // Extract cash values from string input
         ArrayList<Integer> cash = new ArrayList<Integer>();
         int numInvalid = 0;
@@ -46,7 +47,12 @@ public class Balance {
         } 
 
         if(numInvalid > 0)
+        {
             System.out.println(numInvalid + " invalid entries were found. Skipped entries.");
+            return numInvalid;
+        }
+
+        return 0;
     }
 
     /**

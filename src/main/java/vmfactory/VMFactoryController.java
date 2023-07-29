@@ -284,6 +284,26 @@ public class VMFactoryController {
                         vmFactoryModel.getCurrentVM().getBalance().getCurrentBal());
             }
         });
+
+        this.vmFactoryView.setFinishReplenishMoneyBtnListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String cashList = vmFactoryView.getReplenishMoneySpecTF().getText();
+
+                int numInvalid = vmFactoryModel.getCurrentVM().getMaintenance().replenishMoney(vmFactoryModel.getCurrentVM().getBalance(),
+                        cashList);
+
+                if (numInvalid > 0) {
+                    vmFactoryView.getReplenishMoneyErrorLbl().setText(numInvalid + " invalid entries were found. Skipped entries.");
+                }
+                else {
+                    vmFactoryView.getReplenishMoneyErrorLbl().setText("REPLENISH MONEY SUCCESSFUL");
+                }
+
+                vmFactoryView.getReplenishMoneyCurBalLbl().setText("Current Balance : " +
+                        vmFactoryModel.getCurrentVM().getBalance().getCurrentBal());
+            }
+        });
     }
 
     private void setupSlots() {
