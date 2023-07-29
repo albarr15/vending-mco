@@ -76,13 +76,14 @@ public class VMFactoryController {
             public void actionPerformed(ActionEvent e) {
                 vmFactoryView.getMainFrame().dispose();
                 vmFactoryView.getVmTestingFrame().dispose();
-                if(!vmFactoryView.getSpecialReturn())
-                        vmFactoryModel.getCurrentVM().getCurrentTransaction().reset(vmFactoryModel.getCurrentVM().getListItemSlots());
-                else vmFactoryModel.getCurrentVM().makeTransaction();
+                if(vmFactoryView.getSpecialFrame() != null) {	
+                    vmFactoryView.getSpecialFrame().dispose();	
+                    if(!vmFactoryView.getSpecialReturn())	
+                        vmFactoryModel.getCurrentVM().getCurrentTransaction().reset(vmFactoryModel.getCurrentVM().getListItemSlots());	
+                } else vmFactoryModel.getCurrentVM().makeTransaction();
                 
                 vmFactoryView.createVFeaturesFrame(vmFactoryView.getVFeaturesFrame(), vmFactoryModel.getCurrentVM());
                 setupSlots();
-                vmFactoryView.createVFeaturesFrame(vmFactoryView.getVFeaturesFrame(), vmFactoryModel.getCurrentVM());
                 vmFactoryView.setSelectItemBtnListener(listSelectListeners);
                 if(vmFactoryView.getSpecialReturn()) {
                     vmFactoryView.setSpecialReturn(false);
@@ -122,6 +123,7 @@ public class VMFactoryController {
                                 vmFactoryView.createCheckoutFrame(vmFactoryView.getCheckoutFrame());
                                 vmFactoryView.getSelected().setText("Dispensing " + transac.getItemOrdered().getName() + "...");
                                 vmFactoryView.getVFeaturesChange().setText("Change: " + transac.getReturned());
+                                vmFactoryModel.getCurrentVM().makeTransaction();
                                 break;
                             default:
                                 break;
