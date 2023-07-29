@@ -261,7 +261,7 @@ public class VMFactoryController {
                     isValid = true;
                 }
                 catch (NumberFormatException e1) {
-                    vmFactoryView.getSetPriceErrorLbl().setText("Invalid amount. Please enter an integer.");
+                    vmFactoryView.getCollectPayErrorLbl().setText("Invalid amount. Please enter an integer.");
                 }
 
                 if (isValid) {

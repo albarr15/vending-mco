@@ -16,10 +16,12 @@ public class VMFactoryView {
     private JButton vmCreationBtn, vmTestBtn, vmExitBtn, regVMCreateBtn, spcVMCreateBtn,
             vFeaturesBtn, selectItemBut, vFeaturesCheckOut, vFeaturesCancel, specialBtn, removeBut,
             finishBtn = new JButton("Finish"), specialCancelBtn = new JButton("Cancel"),
-            vMaintenanceBtn, restockBtn, setPriceBtn, collectPayBtn, replenishMoneyBtn, printTransacSummaryBtn,
-            finishRestockBtn = new JButton("Restock"), cancelRestockBtn, finishSetPriceBtn = new JButton("Set Price"),
-            collectPayAllBtn = new JButton("Collect all money"), collectPaySpecBtn = new JButton("Collect specified amount"), finishCollectPayBtn, replenishMoneyAllBtn,
-            finishReplenishMoneyBtn, finishPrintTransacSummaryBtn;
+            vMaintenanceBtn, restockBtn, setPriceBtn,  collectPayBtn, replenishMoneyBtn, printTransacSummaryBtn, backMaintenanceBtn,
+            finishRestockBtn = new JButton("Restock"), backRestockBtn,
+            finishSetPriceBtn = new JButton("Set Price"), backSetPriceBtn,
+            collectPayAllBtn = new JButton("Collect all money"), collectPaySpecBtn = new JButton("Collect specified amount"),
+            finishCollectPayBtn, backCollectPayBtn, replenishMoneyAllBtn, finishReplenishMoneyBtn, backReplenishMoneyBtn,
+            backPrintTransacSummaryBtn;
     private ArrayList<JButton> listSelectItem = new ArrayList<JButton>(), listComponents = new ArrayList<JButton>(), listRemove = new ArrayList<JButton>();
     private JTextField vFeaturesMoneyField, restockItemName, restockItemNum, setPriceItemName, setPriceItem, collectPaySpecTF,
                         replenishMoneySpecTF;
@@ -253,7 +255,7 @@ public class VMFactoryView {
         this.setPriceBtn.setPreferredSize(new Dimension(200, 50));
         this.setPriceBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                createSetPriceFrame(getSetPriceFrame());
+                createSetPriceFrame(getSetPriceFrame(), currentVM);
                 vMaintenanceFrame.dispose();
             }
         });
@@ -262,7 +264,7 @@ public class VMFactoryView {
         this.collectPayBtn.setPreferredSize(new Dimension(200, 50));
         this.collectPayBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                createCollectPayFrame(getCollectPayFrame());
+                createCollectPayFrame(getCollectPayFrame(), currentVM);
                 vMaintenanceFrame.dispose();
             }
         });
@@ -271,7 +273,7 @@ public class VMFactoryView {
         this.replenishMoneyBtn.setPreferredSize(new Dimension(200, 50));
         this.replenishMoneyBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                createReplenishMoneyFrame(getReplenishMoneyFrame());
+                createReplenishMoneyFrame(getReplenishMoneyFrame(), currentVM);
                 vMaintenanceFrame.dispose();
             }
         });
@@ -280,8 +282,18 @@ public class VMFactoryView {
         this.printTransacSummaryBtn.setPreferredSize(new Dimension(200, 50));
         this.printTransacSummaryBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                createPrintTransacSummaryFrame(getPrintTransacSummaryFrame());
+                createPrintTransacSummaryFrame(getPrintTransacSummaryFrame(), currentVM);
                 vMaintenanceFrame.dispose();
+            }
+        });
+
+        this.backMaintenanceBtn = new JButton("Back");
+        this.backMaintenanceBtn.setPreferredSize(new Dimension(200, 50));
+        this.backMaintenanceBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                vMaintenanceFrame.dispose();
+                createMainFrame(mainFrame);
             }
         });
 
@@ -290,6 +302,7 @@ public class VMFactoryView {
         this.vMaintenanceFrame.add(collectPayBtn);
         this.vMaintenanceFrame.add(replenishMoneyBtn);
         this.vMaintenanceFrame.add(printTransacSummaryBtn);
+        this.vMaintenanceFrame.add(backMaintenanceBtn);
     }
 
     public void setupRestockFrame(VendingMachine currentVM) {
@@ -313,12 +326,12 @@ public class VMFactoryView {
         this.restockItemNum.setColumns(10);
 
         this.finishRestockBtn.setPreferredSize(new Dimension(200, 50));
-        this.cancelRestockBtn = new JButton("Cancel");
-        this.cancelRestockBtn.addActionListener(new ActionListener() {
+        this.backRestockBtn = new JButton("Back");
+        this.backRestockBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 restockFrame.dispose();
-                createMainFrame(mainFrame);
+                createVMaintenanceFrame(vMaintenanceFrame, currentVM);
             }
         });
         this.restockErrorLbl = new JLabel("", SwingConstants.CENTER);
@@ -339,10 +352,10 @@ public class VMFactoryView {
         this.restockFrame.add(finishRestockBtn);
         this.restockFrame.add(restockErrorLbl);
         this.restockFrame.add(restockItemsList);
-        this.restockFrame.add(cancelRestockBtn);
+        this.restockFrame.add(backRestockBtn);
     }
 
-    public void setupSetPriceFrame() {
+    public void setupSetPriceFrame(VendingMachine currentVM) {
         // Header
         this.setPriceFrame = new JFrame("Set Price of Item");
         this.setPriceFrame.setLayout(new FlowLayout(FlowLayout.CENTER));
@@ -376,14 +389,24 @@ public class VMFactoryView {
         this.setPricePanel2.add(setPriceLbl);
         this.setPricePanel2.add(setPriceItem);
 
+        this.backSetPriceBtn = new JButton("Back");
+        this.backSetPriceBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setPriceFrame.dispose();
+                createVMaintenanceFrame(vMaintenanceFrame, currentVM);
+            }
+        });
+
         this.setPriceFrame.add(setPricePanel1);
         this.setPriceFrame.add(setPricePanel2);
         this.setPriceFrame.add(finishSetPriceBtn);
         this.setPriceFrame.add(setPriceErrorLbl);
         this.setPriceFrame.add(setPriceItemsList);
+        this.setPriceFrame.add(backSetPriceBtn);
     }
 
-    public void setupCollectPayFrame() {
+    public void setupCollectPayFrame(VendingMachine currentVM) {
         // Header
         this.collectPayFrame = new JFrame("Collect Payment");
         this.collectPayFrame.setLayout(new FlowLayout(FlowLayout.CENTER));
@@ -404,21 +427,31 @@ public class VMFactoryView {
 ;
         this.collectPaySpecBtn.setPreferredSize(new Dimension(200, 50));
 
+        this.backCollectPayBtn = new JButton("Back");
+        this.backCollectPayBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                collectPayFrame.dispose();
+                createVMaintenanceFrame(vMaintenanceFrame, currentVM);
+            }
+        });
+
         this.collectPayFrame.add(collectPayCurBalLbl);
         this.collectPayFrame.add(collectPaySpecLbl);
         this.collectPayFrame.add(collectPaySpecTF);
         this.collectPayFrame.add(collectPaySpecBtn);
         this.collectPayFrame.add(collectPayAllBtn);
         this.collectPayFrame.add(collectPayErrorLbl);
+        this.collectPayFrame.add(backCollectPayBtn);
     }
 
-    public void setupReplenishMoneyFrame() {
+    public void setupReplenishMoneyFrame(VendingMachine currentVM) {
         // Header
         this.replenishMoneyFrame = new JFrame("Replenish Money");
         this.replenishMoneyFrame.setLayout(new FlowLayout(FlowLayout.CENTER));
 
         this.replenishMoneyFbackLbl = new JLabel();
-        this.replenishMoneyFbackLbl.setPreferredSize(new Dimension(220, 30));
+        this.replenishMoneyFbackLbl.setPreferredSize(new Dimension(330, 50));
 
         this.replenishMoneyCurBalTA = new JTextArea(" ");
         this.replenishMoneyCurBalTA.setPreferredSize(new Dimension(220, 30));
@@ -428,12 +461,21 @@ public class VMFactoryView {
         this.replenishMoneyAllBtn.setPreferredSize(new Dimension(200, 50));
 
         this.replenishMoneySpecLbl = new JLabel("Enter specific amount:  ");
-        this.replenishMoneySpecLbl.setPreferredSize(new Dimension(220, 30));
+        this.replenishMoneySpecLbl.setPreferredSize(new Dimension(200, 30));
 
         this.replenishMoneySpecTF = new JTextField(30);
 
-
         this.finishReplenishMoneyBtn = new JButton("Replenish");
+        this.finishReplenishMoneyBtn.setPreferredSize(new Dimension(200, 50));
+
+        this.backReplenishMoneyBtn = new JButton("Back");
+        this.backReplenishMoneyBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                replenishMoneyFrame.dispose();
+                createVMaintenanceFrame(vMaintenanceFrame, currentVM);
+            }
+        });
 
         this.replenishMoneyFrame.add(replenishMoneyCurBalTA);
         this.replenishMoneyFrame.add(replenishMoneySpecLbl);
@@ -441,9 +483,10 @@ public class VMFactoryView {
         this.replenishMoneyFrame.add(finishReplenishMoneyBtn);
         this.replenishMoneyFrame.add(replenishMoneyAllBtn);
         this.replenishMoneyFrame.add(replenishMoneyFbackLbl);
+        this.replenishMoneyFrame.add(backReplenishMoneyBtn);
     }
 
-    public void setupPrintTransacSummaryFrame() {
+    public void setupPrintTransacSummaryFrame(VendingMachine currentVM) {
         // Header
         this.printTransacSummaryFrame = new JFrame("Print Transaction Summary");
         this.printTransacSummaryFrame.setLayout(new FlowLayout(FlowLayout.CENTER));
@@ -452,16 +495,17 @@ public class VMFactoryView {
         this.printTransacSummaryTA.setPreferredSize(new Dimension(330, 400));
         this.printTransacSummaryTA.setEditable(false);
 
-        this.finishPrintTransacSummaryBtn = new JButton("Done");
-        this.finishPrintTransacSummaryBtn.addActionListener(new ActionListener() {
+        this.backPrintTransacSummaryBtn = new JButton("Back");
+        this.backPrintTransacSummaryBtn.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
-                createVmTestingFrame(getVmTestingFrame());
                 printTransacSummaryFrame.dispose();
+                createVMaintenanceFrame(vMaintenanceFrame, currentVM);
             }
         });
 
         this.printTransacSummaryFrame.add(printTransacSummaryTA);
-        this.printTransacSummaryFrame.add(finishPrintTransacSummaryBtn);
+        this.printTransacSummaryFrame.add(backPrintTransacSummaryBtn);
     }
 
     // main menu + vm creation screens
@@ -589,32 +633,32 @@ public class VMFactoryView {
         this.restockFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    public void createSetPriceFrame(JFrame setPriceFrame) {
+    public void createSetPriceFrame(JFrame setPriceFrame, VendingMachine currentVM) {
         this.setPriceFrame = setPriceFrame;
-        setupSetPriceFrame();
+        setupSetPriceFrame(currentVM);
         this.setPriceFrame.setSize(380,500);
         this.setPriceFrame.setVisible(true);
         this.setPriceFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    public void createCollectPayFrame(JFrame collectPayFrame) {
+    public void createCollectPayFrame(JFrame collectPayFrame, VendingMachine currentVM) {
         this.collectPayFrame = collectPayFrame;
-        setupCollectPayFrame();
+        setupCollectPayFrame(currentVM);
         this.collectPayFrame.setSize(380,500);
         this.collectPayFrame.setVisible(true);
         this.collectPayFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    public void createReplenishMoneyFrame(JFrame replenishMoneyFrame) {
+    public void createReplenishMoneyFrame(JFrame replenishMoneyFrame, VendingMachine currentVM) {
         this.replenishMoneyFrame = replenishMoneyFrame;
-        setupReplenishMoneyFrame();
+        setupReplenishMoneyFrame(currentVM);
         this.replenishMoneyFrame.setSize(380,500);
         this.replenishMoneyFrame.setVisible(true);
         this.replenishMoneyFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
-    public void createPrintTransacSummaryFrame(JFrame printTransacSummaryFrame) {
+    public void createPrintTransacSummaryFrame(JFrame printTransacSummaryFrame, VendingMachine currentVM) {
         this.printTransacSummaryFrame = printTransacSummaryFrame;
-        setupPrintTransacSummaryFrame();
+        setupPrintTransacSummaryFrame(currentVM);
         this.printTransacSummaryFrame.setSize(380,500);
         this.printTransacSummaryFrame.setVisible(true);
         this.printTransacSummaryFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
