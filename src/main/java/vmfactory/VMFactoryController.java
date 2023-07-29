@@ -304,6 +304,16 @@ public class VMFactoryController {
                         vmFactoryModel.getCurrentVM().getBalance().getCurrentBal());
             }
         });
+
+        this.vmFactoryView.setReplenishMoneyDefBtn(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                vmFactoryModel.getCurrentVM().getMaintenance().replenishMoney(vmFactoryModel.getCurrentVM().getBalance());
+                vmFactoryView.getReplenishMoneyErrorLbl().setText("SUCCESSFUL : Replenished 20 pcs for each denomination" );
+                vmFactoryView.getReplenishMoneyCurBalLbl().setText("Current Balance : " +
+                        vmFactoryModel.getCurrentVM().getBalance().getCurrentBal());
+            }
+        });
     }
 
     private void setupSlots() {

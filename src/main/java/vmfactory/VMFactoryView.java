@@ -21,7 +21,8 @@ public class VMFactoryView {
             finishRestockBtn = new JButton("Restock"), backRestockBtn,
             finishSetPriceBtn = new JButton("Set Price"), backSetPriceBtn,
             collectPayAllBtn = new JButton("Collect all money"), collectPaySpecBtn = new JButton("Collect specified amount"),
-            finishCollectPayBtn, backCollectPayBtn, replenishMoneyAllBtn, finishReplenishMoneyBtn = new JButton("Replenish"), backReplenishMoneyBtn,
+            finishCollectPayBtn, backCollectPayBtn, replenishMoneyDefBtn = new JButton("Replenish with default stock"),
+            finishReplenishMoneyBtn = new JButton("Replenish"), backReplenishMoneyBtn,
             backPrintTransacSummaryBtn;
     private ArrayList<JButton> listSelectItem = new ArrayList<JButton>(), listComponents = new ArrayList<JButton>(), listRemove = new ArrayList<JButton>();
     private JTextField vFeaturesMoneyField, restockItemName, restockItemNum, setPriceItemName, setPriceItem, collectPaySpecTF,
@@ -452,13 +453,12 @@ public class VMFactoryView {
         this.replenishMoneyFrame.setLayout(new FlowLayout(FlowLayout.CENTER));
 
         this.replenishMoneyErrorLbl = new JLabel();
-        this.replenishMoneyErrorLbl.setPreferredSize(new Dimension(330, 50));
+        this.replenishMoneyErrorLbl.setPreferredSize(new Dimension(360, 50));
 
         this.replenishMoneyCurBalLbl = new JLabel("");
         this.replenishMoneyCurBalLbl.setPreferredSize(new Dimension(220, 30));
 
-        this.replenishMoneyAllBtn = new JButton("Replenish with default stock");
-        this.replenishMoneyAllBtn.setPreferredSize(new Dimension(200, 50));
+        this.replenishMoneyDefBtn.setPreferredSize(new Dimension(200, 50));
 
         this.replenishMoneySpecLbl = new JLabel("Enter specific amount:  ");
         this.replenishMoneySpecLbl.setPreferredSize(new Dimension(200, 30));
@@ -480,7 +480,7 @@ public class VMFactoryView {
         this.replenishMoneyFrame.add(replenishMoneySpecLbl);
         this.replenishMoneyFrame.add(replenishMoneySpecTF);
         this.replenishMoneyFrame.add(finishReplenishMoneyBtn);
-        this.replenishMoneyFrame.add(replenishMoneyAllBtn);
+        this.replenishMoneyFrame.add(replenishMoneyDefBtn);
         this.replenishMoneyFrame.add(replenishMoneyErrorLbl);
         this.replenishMoneyFrame.add(backReplenishMoneyBtn);
     }
@@ -569,6 +569,10 @@ public class VMFactoryView {
 
     public void setFinishReplenishMoneyBtnListener(ActionListener actionListener) {
         this.finishReplenishMoneyBtn.addActionListener(actionListener);
+    }
+
+    public void setReplenishMoneyDefBtn(ActionListener actionListener) {
+        this.replenishMoneyDefBtn.addActionListener(actionListener);
     }
 
     public void setVmExitBtnListener(ActionListener actionListener) {
