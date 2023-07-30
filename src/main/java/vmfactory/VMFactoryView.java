@@ -10,7 +10,7 @@ public class VMFactoryView {
     private JFrame mainFrame, vmCreationFrame, vmTestingFrame, vFeaturesFrame, checkoutFrame, specialFrame,
             vMaintenanceFrame, restockFrame, setPriceFrame, collectPayFrame, replenishMoneyFrame, printTransacSummaryFrame;
     private JLabel appHeader, vmCHeader, vmTHeader, vmError, vFeaturesHeader, vMaintenanceHeader,
-            vFeaturesSelected, buyItemLabel, vFeaturesMoneyLabel, vFeaturesError, vFeaturesChange,
+            vFeaturesSelected, buyItemLabel, vFeaturesMoneyLabel, vFeaturesError, vFeaturesChange, componentPrep,
             restockItemNameLbl, restockItemNumLbl, restockErrorLbl, setPriceLbl, setPriceItemNameLbl, setPriceErrorLbl,
             collectPayCurBalLbl, collectPaySpecLbl, collectPayErrorLbl,
             replenishMoneyErrorLbl, replenishMoneySpecLbl, replenishMoneyCurBalLbl;
@@ -200,19 +200,37 @@ public class VMFactoryView {
         this.vFeaturesError = new JLabel("");
         this.vFeaturesError.setPreferredSize(new Dimension(300, 15));
         this.vFeaturesError.setHorizontalAlignment(SwingConstants.CENTER);
-        this.vFeaturesChange = new JLabel("");
         
         this.specialFrame.add(vFeaturesMoneyLabel);
         this.specialFrame.add(Box.createRigidArea(new Dimension(380, 10)));
         this.specialFrame.add(finishBtn);
         this.specialFrame.add(specialCancelBtn);
+        this.specialFrame.add(vFeaturesError);
     }
 
-    public void setupCheckoutFrame() {
+    public void setupCheckoutFrame(Item itemOrdered) {
         // Header
         this.checkoutFrame = new JFrame("Checkout");
         this.checkoutFrame.setLayout(new FlowLayout(FlowLayout.CENTER));
         this.vFeaturesHeader = new JLabel("CHECKOUT");
+        this.checkoutFrame.add(vFeaturesHeader);
+        this.checkoutFrame.add(Box.createRigidArea(new Dimension(300, 10)));
+        
+        // Special Item preparation
+        if(itemOrdered instanceof SpecialItem) {
+            for(Item item : ((SpecialItem)itemOrdered).getListComponents()) {
+                this.componentPrep = new JLabel(item.getPrepMessage());
+                this.componentPrep.setPreferredSize(new Dimension(300, 15));
+                this.componentPrep.setHorizontalAlignment(SwingConstants.CENTER);
+                this.checkoutFrame.add(componentPrep);
+            }
+            this.componentPrep = new JLabel(itemOrdered.getName() + " done!");
+            this.componentPrep.setPreferredSize(new Dimension(300, 15));
+            this.componentPrep.setHorizontalAlignment(SwingConstants.CENTER);
+            this.checkoutFrame.add(componentPrep);
+            this.checkoutFrame.add(Box.createRigidArea(new Dimension(300, 10)));
+        }
+
         // Selected item display
         this.vFeaturesSelected = new JLabel("");
         this.vFeaturesSelected.setPreferredSize(new Dimension(380, 20));
@@ -228,9 +246,7 @@ public class VMFactoryView {
                 checkoutFrame.dispose();
             }
         });        
-        
-        this.checkoutFrame.add(vFeaturesHeader);
-        this.checkoutFrame.add(Box.createRigidArea(new Dimension(300, 10)));
+
         this.checkoutFrame.add(vFeaturesSelected);
         this.checkoutFrame.add(vFeaturesChange);
         this.checkoutFrame.add(Box.createRigidArea(new Dimension(300, 10)));
@@ -616,9 +632,9 @@ public class VMFactoryView {
         this.specialFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    public void createCheckoutFrame(JFrame checkoutFrame) {
+    public void createCheckoutFrame(JFrame checkoutFrame, Item itemOrdered) {
         this.checkoutFrame = checkoutFrame;
-        setupCheckoutFrame();
+        setupCheckoutFrame(itemOrdered);
         this.checkoutFrame.setSize(380,500);
         this.checkoutFrame.setVisible(true);
         this.checkoutFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
