@@ -101,7 +101,7 @@ public class SpecialTransaction extends Transaction {
                 System.out.println("Withdrawing change ...");
                 this.returned = change;
                 System.out.println("Your change is: " + change);
-            }
+            } else this.returned = "0";
             if (this.itemOrdered instanceof SpecialItem){
                 ((SpecialItem)this.itemOrdered).printPreparation();
                 System.out.print("Ramen done!\n");
@@ -121,8 +121,10 @@ public class SpecialTransaction extends Transaction {
     @Override public void reset(ArrayList<ItemSlot> listItemSlots) {
         this.orderTotal = 0;
         if(this.itemOrdered instanceof SpecialItem) {
-            for(Item item : ((SpecialItem)this.itemOrdered).getListComponents())
+            for(Item item : ((SpecialItem)this.itemOrdered).getListComponents()) {
                 findItemSlot(item, listItemSlots).stockItem(true);
+                System.out.println("Returning " + item.getName());
+             }
         }
         this.itemOrdered = null;
     }
