@@ -120,7 +120,7 @@ public class VMFactoryController {
                                 break;
                             case 0:
                                 vmFactoryView.getVFeaturesFrame().dispose();
-                                vmFactoryView.createCheckoutFrame(vmFactoryView.getCheckoutFrame());
+                                vmFactoryView.createCheckoutFrame(vmFactoryView.getCheckoutFrame(), transac.getItemOrdered());
                                 vmFactoryView.getSelected().setText("Dispensing " + transac.getItemOrdered().getName() + "...");
                                 vmFactoryView.getVFeaturesChange().setText("Change: " + transac.getReturned());
                                 vmFactoryModel.getCurrentVM().makeTransaction();
@@ -135,7 +135,10 @@ public class VMFactoryController {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         vmFactoryView.getVFeaturesFrame().dispose();
+                        if(vmFactoryModel.getCurrentVM().getCurrentTransaction().getItemOrdered() instanceof SpecialItem)
+                            vmFactoryModel.getCurrentVM().getCurrentTransaction().reset(vmFactoryModel.getCurrentVM().getListItemSlots());
                         ((SpecialTransaction)vmFactoryModel.getCurrentVM().getCurrentTransaction()).setSpecialItem(new SpecialItem("Ramen"));
+                        
                         vmFactoryView.createSpecialFrame(vmFactoryView.getSpecialFrame(), vmFactoryModel.getCurrentVM());
                         setupComponents();
                         vmFactoryView.setComponentsBtnListener(listSelectListeners);
@@ -331,8 +334,14 @@ public class VMFactoryController {
                 ActionListener al = new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        vmFactoryView.getSelected().setText("Selected item: " + currentSlot.getItemName());
-                        vmFactoryModel.getCurrentVM().getCurrentTransaction().selectItem(currentSlot);
+                        if(vmFactoryModel.getCurrentVM().getCurrentTransaction().getItemOrdered() instanceof SpecialItem)
+                            vmFactoryModel.getCurrentVM().getCurrentTransaction().reset(vmFactoryModel.getCurrentVM().getListItemSlots());	
+                        
+                        if(currentSlot.getItemStock() > 0) {
+                            vmFactoryView.getVFeaturesError().setText("");
+                            vmFactoryView.getSelected().setText("Selected item: " + currentSlot.getItemName());
+                            vmFactoryModel.getCurrentVM().getCurrentTransaction().selectItem(currentSlot);
+                        } else vmFactoryView.getVFeaturesError().setText("Error: Item out of stock");
                     }
                 };
                 this.listSelectListeners.add(al);
@@ -349,14 +358,18 @@ public class VMFactoryController {
                 ActionListener al = new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        System.out.println("Adding " + currentSlot.getItemName());
-                        ((SpecialTransaction)vmFactoryModel.getCurrentVM().getCurrentTransaction()).addItem(currentSlot);
-                        vmFactoryView.getSpecialFrame().dispose();
-                        vmFactoryView.createSpecialFrame(vmFactoryView.getSpecialFrame(), vmFactoryModel.getCurrentVM());
-                        setupComponents();
-                        vmFactoryView.setComponentsBtnListener(listSelectListeners);
-                        setupRemove();
-                        vmFactoryView.setRemoveBtnListener(listSelectListeners);
+                        if(currentSlot.getItemStock() > 0) {
+                            vmFactoryView.getVFeaturesError().setText("");
+                            System.out.println("Adding " + currentSlot.getItemName());
+                            ((SpecialTransaction)vmFactoryModel.getCurrentVM().getCurrentTransaction()).addItem(currentSlot);
+                            
+                            vmFactoryView.getSpecialFrame().dispose();
+                            vmFactoryView.createSpecialFrame(vmFactoryView.getSpecialFrame(), vmFactoryModel.getCurrentVM());
+                            setupComponents();
+                            vmFactoryView.setComponentsBtnListener(listSelectListeners);
+                            setupRemove();
+                            vmFactoryView.setRemoveBtnListener(listSelectListeners);
+                        } else vmFactoryView.getVFeaturesError().setText("Error: Item out of stock");  
                     }
                 };
                 this.listSelectListeners.add(al);
