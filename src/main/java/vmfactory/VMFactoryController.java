@@ -149,10 +149,15 @@ public class VMFactoryController {
         this.vmFactoryView.setvMaintenanceBtnListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                VendingMachine currentVM = vmFactoryModel.getCurrentVM();
+
                 vmFactoryView.getMainFrame().dispose();
                 vmFactoryView.getVmTestingFrame().dispose();
 
-                vmFactoryView.createVMaintenanceFrame(vmFactoryView.getvMaintenanceFrame(), vmFactoryModel.getCurrentVM());
+                vmFactoryView.createVMaintenanceFrame(vmFactoryView.getvMaintenanceFrame(), currentVM);
+
+                vmFactoryView.createPrintTransacSummaryFrame(vmFactoryView.getPrintTransacSummaryFrame(), currentVM);
+                vmFactoryView.getPrintTransacSummaryTA().setText(currentVM.getMaintenance().printTransacSummary(vmFactoryModel.getCurrentVM().getListItemSlots()));
             }
         });
 

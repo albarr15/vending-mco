@@ -1,5 +1,6 @@
 package vmfactory;
 import java.util.ArrayList;
+import java.util.StringJoiner;
 
 /** Contains the maintenance features of the vending machine.
  * <p>
@@ -95,12 +96,21 @@ public class Maintenance {
      * Prints the summary of transactions since the last summary printed
      * 
      * @param listItemSlots  the list of ItemSlots in the machine
+     * @return transacSummary a string containing the transaction summary
      */
-    public void printTransacSummary(ArrayList<ItemSlot> listItemSlots) {
+    public String printTransacSummary(ArrayList<ItemSlot> listItemSlots) {
+        StringJoiner transacSummary = new StringJoiner("");
+
         int totalEarnings = 0;
+        transacSummary.add("Number of items sold : ");
         System.out.println("Number of items sold: ");
         for(int i=0; i<listItemSlots.size(); i++) {
             ItemSlot itemSlot = listItemSlots.get(i);
+            transacSummary.add(itemSlot.getItemName() + ": " +
+                    itemSlot.getNoSold() + " (" +
+                    (itemSlot.getNoSold()+itemSlot.getItemStock())
+                    + " -> " + itemSlot.getItemStock() + ")" + "\n");
+
             System.out.println(itemSlot.getItemName() + ": " +
                                itemSlot.getNoSold() + " (" +
                                (itemSlot.getNoSold()+itemSlot.getItemStock())
@@ -108,7 +118,11 @@ public class Maintenance {
             // <item name>: <num sold> (<previous stock> -> <current stock>)
             totalEarnings += itemSlot.getPrice() * itemSlot.getNoSold();
         }
+
+        transacSummary.add("Total earnings since last summary: " + totalEarnings + "\n");
         System.out.println("Total earnings since last summary: " + totalEarnings);
+
+        return transacSummary.toString();
     }
 
     /**

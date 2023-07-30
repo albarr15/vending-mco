@@ -708,6 +708,7 @@ public class VMFactoryView {
     public JTextField getReplenishMoneySpecTF() { return replenishMoneySpecTF; }
     public JTextArea getSetPriceItemsList() {return setPriceItemsList;}
     public JTextArea getRestockItemsList() {return restockItemsList;}
+    public JTextArea getPrintTransacSummaryTA() { return printTransacSummaryTA; }
 
     public JFrame getSpecialFrame() {
         return specialFrame;
