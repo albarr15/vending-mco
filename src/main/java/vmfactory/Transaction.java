@@ -122,7 +122,7 @@ public class Transaction {
                 System.out.println("Withdrawing change ...");
                 this.returned = change;
                 System.out.println("Your change is: " + change);
-            }
+            } else this.returned = "0";
             findItemSlot(this.itemOrdered, listItemSlots).dispenseItem();
             System.out.println();
             return 0;
