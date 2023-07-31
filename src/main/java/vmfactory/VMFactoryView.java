@@ -439,7 +439,6 @@ public class VMFactoryView {
         this.collectPayCurBalLbl.setText("Current balance : " + String.valueOf(currentVM.getBalance().getCurrentBal()));
         this.collectPayCurBalLbl.setPreferredSize(new Dimension(220, 90));
 
-        this.collectPayAllBtn = new JButton("Collect all money");
         this.collectPayAllBtn.setPreferredSize(new Dimension(200, 50));
 
         this.collectPaySpecLbl = new JLabel("Enter specific amount:  ");
@@ -476,6 +475,7 @@ public class VMFactoryView {
         this.replenishMoneyErrorLbl.setPreferredSize(new Dimension(360, 50));
 
         this.replenishMoneyCurBalLbl = new JLabel("");
+        this.replenishMoneyCurBalLbl.setText("Current Balance: " + String.valueOf(currentVM.getBalance().getCurrentBal()));
         this.replenishMoneyCurBalLbl.setPreferredSize(new Dimension(220, 30));
 
         this.replenishMoneyDefBtn.setPreferredSize(new Dimension(200, 50));
