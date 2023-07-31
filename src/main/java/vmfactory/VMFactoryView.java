@@ -301,6 +301,7 @@ public class VMFactoryView {
         this.printTransacSummaryBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 createPrintTransacSummaryFrame(getPrintTransacSummaryFrame(), currentVM);
+                getPrintTransacSummaryTA().setText(currentVM.getMaintenance().printTransacSummary(currentVM.getListItemSlots()));
                 vMaintenanceFrame.dispose();
             }
         });
@@ -683,7 +684,7 @@ public class VMFactoryView {
         this.printTransacSummaryFrame = printTransacSummaryFrame;
         setupPrintTransacSummaryFrame(currentVM);
         this.printTransacSummaryFrame.setSize(380,500);
-        this.printTransacSummaryFrame.setVisible(true);
+        getPrintTransacSummaryFrame().setVisible(true);
         this.printTransacSummaryFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
