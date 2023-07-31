@@ -131,21 +131,22 @@ public class VMFactoryController {
                     }
                 });
 
-                vmFactoryView.setSpecialBtnListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        vmFactoryView.getVFeaturesFrame().dispose();
-                        if(vmFactoryModel.getCurrentVM().getCurrentTransaction().getItemOrdered() instanceof SpecialItem)
-                            vmFactoryModel.getCurrentVM().getCurrentTransaction().reset(vmFactoryModel.getCurrentVM().getListItemSlots());
-                        ((SpecialTransaction)vmFactoryModel.getCurrentVM().getCurrentTransaction()).setSpecialItem(new SpecialItem("Ramen"));
-                        
-                        vmFactoryView.createSpecialFrame(vmFactoryView.getSpecialFrame(), vmFactoryModel.getCurrentVM());
-                        setupComponents();
-                        vmFactoryView.setComponentsBtnListener(listSelectListeners);
-                        setupRemove();
-                        vmFactoryView.setRemoveBtnListener(listSelectListeners);
-                    }
-                }); 
+                if(vmFactoryModel.getCurrentVM() instanceof SpecialVM)
+                    vmFactoryView.setSpecialBtnListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            vmFactoryView.getVFeaturesFrame().dispose();
+                            if(vmFactoryModel.getCurrentVM().getCurrentTransaction().getItemOrdered() instanceof SpecialItem)
+                                vmFactoryModel.getCurrentVM().getCurrentTransaction().reset(vmFactoryModel.getCurrentVM().getListItemSlots());
+                            ((SpecialTransaction)vmFactoryModel.getCurrentVM().getCurrentTransaction()).setSpecialItem(new SpecialItem("Ramen"));
+                            
+                            vmFactoryView.createSpecialFrame(vmFactoryView.getSpecialFrame(), vmFactoryModel.getCurrentVM());
+                            setupComponents();
+                            vmFactoryView.setComponentsBtnListener(listSelectListeners);
+                            setupRemove();
+                            vmFactoryView.setRemoveBtnListener(listSelectListeners);
+                        }
+                    }); 
             }
         });
 
