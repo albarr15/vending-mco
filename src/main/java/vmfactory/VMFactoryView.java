@@ -390,6 +390,7 @@ public class VMFactoryView {
 
         this.setPriceItemsList = new JTextArea(" ");
         this.setPriceItemsList.setPreferredSize(new Dimension(330, 230));
+        this.setPriceItemsList.setText(currentVM.displayAllSlots());
         this.setPriceItemsList.setEditable(false);
 
         this.setPriceItemName = new JTextField();
@@ -435,6 +436,7 @@ public class VMFactoryView {
         this.collectPayErrorLbl.setPreferredSize(new Dimension(350, 30));
 
         this.collectPayCurBalLbl = new JLabel("");
+        this.collectPayCurBalLbl.setText("Current balance : " + String.valueOf(currentVM.getBalance().getCurrentBal()));
         this.collectPayCurBalLbl.setPreferredSize(new Dimension(220, 90));
 
         this.collectPayAllBtn = new JButton("Collect all money");
