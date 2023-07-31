@@ -159,10 +159,6 @@ public class VMFactoryController {
                 vmFactoryView.getVmTestingFrame().dispose();
 
                 vmFactoryView.createVMaintenanceFrame(vmFactoryView.getvMaintenanceFrame(), currentVM);
-
-                // vmFactoryView.createPrintTransacSummaryFrame(vmFactoryView.getPrintTransacSummaryFrame(), currentVM);
-                // vmFactoryView.getPrintTransacSummaryFrame().setVisible(false);
-                // vmFactoryView.getPrintTransacSummaryTA().setText(currentVM.getMaintenance().printTransacSummary(vmFactoryModel.getCurrentVM().getListItemSlots()));
             }
         });
 

@@ -337,6 +337,7 @@ public class VMFactoryView {
 
         this.restockItemsList = new JTextArea(" ");
         this.restockItemsList.setPreferredSize(new Dimension(360, 250));
+        this.restockItemsList.setText(currentVM.displayAllSlots());
         this.restockItemsList.setEditable(false);
 
         this.restockItemName = new JTextField();
