@@ -1,6 +1,12 @@
 package vmfactory;
 import java.util.StringJoiner;
 
+/**
+ * Represents a Special vending machine.
+ * <p>
+ *     Inherits properties and methods of regularVM (VendingMachine class)
+ * Features include making a special transaction, and displaying all for sale slots.
+ */
 public class SpecialVM extends VendingMachine {
     public SpecialVM() {
         super();
