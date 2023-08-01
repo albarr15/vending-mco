@@ -1,4 +1,6 @@
-package vmfactory;
+package backups;
+
+import vmfactory.*;
 
 import java.util.Scanner;
 
@@ -37,6 +39,7 @@ public class VMFactory {
         return  input1;
     }
 
+    /*
     public static void main(String[] args) {
         VMFactory vmFactory = new VMFactory();
 
@@ -227,8 +230,6 @@ public class VMFactory {
                                                     }
 
                                                     switch (inputt) {
-                                                        // TODO : Add exceptions wherever necessary
-                                                        // TODO : Debug
                                                         case 1:
                                                             // Add an item
                                                             currentVM.displayAllSlots();
@@ -423,4 +424,5 @@ public class VMFactory {
             }
         } while (!isExit);
     }
+     */
 }

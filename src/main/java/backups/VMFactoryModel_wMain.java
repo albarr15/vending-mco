@@ -1,6 +1,8 @@
-package vmfactory;
+package backups;
 
 // VMFactoryModel class is initially a clone of VMFactory.java to minimize changing of original code
+import vmfactory.*;
+
 import java.util.Scanner;
 
 public class VMFactoryModel_wMain {
@@ -107,6 +109,7 @@ public class VMFactoryModel_wMain {
         return  input1;
     }
 
+    /*
     public static void main(String[] args) {
         VMFactory vmFactory = new VMFactory();
 
@@ -297,8 +300,6 @@ public class VMFactoryModel_wMain {
                                                     }
 
                                                     switch (inputt) {
-                                                        // TODO : Add exceptions wherever necessary
-                                                        // TODO : Debug
                                                         case 1:
                                                             // Add an item
                                                             currentVM.displayAllSlots();
@@ -493,4 +494,5 @@ public class VMFactoryModel_wMain {
             }
         } while (!isExit);
     }
+     */
 }
