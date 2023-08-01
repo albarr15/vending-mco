@@ -6,6 +6,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+/**
+ * Represents the View component in the MVC architecture for the VMFactory program.
+ * It handles the user interface of the program.
+ * <p>
+ * Contains dedicated frames for each major feature such as: Main Menu frame, Vending Machine Creation Frame, VM Testing Frame,
+ * Vending Features Frame (covers the checkout and special item frames), and Vending Maintenance Frame (covers the restock, set price,
+ * collect payment, replenish money, and print transaction summary frames).
+ */
 public class VMFactoryView {
     private JFrame mainFrame, vmCreationFrame, vmTestingFrame, vFeaturesFrame, checkoutFrame, specialFrame,
             vMaintenanceFrame, restockFrame, setPriceFrame, collectPayFrame, replenishMoneyFrame, printTransacSummaryFrame;
@@ -86,6 +94,11 @@ public class VMFactoryView {
         this.vmTestingFrame.add(vMaintenanceBtn);
     }
 
+    /**
+     * Sets up the vending features frame wherein the user is shown the list of items available
+     * with their properties as well as prompt the user for the cash to be entered and check out
+     * @param currentVM is the most recently created vending machine
+     */
     public void setupVFeaturesFrame(VendingMachine currentVM) {
         // Header
         this.vFeaturesFrame = new JFrame("Vending Features Testing");
@@ -152,6 +165,11 @@ public class VMFactoryView {
         this.vFeaturesFrame.add(vFeaturesChange);
     }
 
+    /**
+     * Sets up the Special Item frame wherein the user is shown the different options for
+     * customizing the special Item as well as show the corresponding total price and calories
+     * @param currentVM is the most recently created vending machine
+     */
     public void setupSpecialFrame(VendingMachine currentVM) {
         // Header
         this.specialFrame = new JFrame("Special Item Builder");
@@ -210,6 +228,11 @@ public class VMFactoryView {
         this.specialFrame.add(vFeaturesError);
     }
 
+    /**
+     * Sets up the checkout frame which shows the change and preparation message if checking out is successful,
+     * and feedback if unsuccessful
+     * @param itemOrdered is the item selected by the user to be checked out
+     */
     public void setupCheckoutFrame(Item itemOrdered) {
         // Header
         this.checkoutFrame = new JFrame("Checkout");
@@ -255,6 +278,11 @@ public class VMFactoryView {
         this.checkoutFrame.add(vFeaturesCancel);
     }
 
+    /**
+     * Sets up the vending machine maintenance frame with buttons for each feature (restocking, setting price,
+     * collecting money, replenishing money, and printing summary of transactions)
+     * @param currentVM is the most recently created vending machine
+     */
     public void setupVMaintenanceFrame(VendingMachine currentVM) {
         // Header
         this.vMaintenanceFrame = new JFrame("Test Maintenance Features");
@@ -326,6 +354,11 @@ public class VMFactoryView {
         this.vMaintenanceFrame.add(backMaintenanceBtn);
     }
 
+    /**
+     * Sets up the Restock frame wherein the user is shown the current list of all slots
+     * and prompted for the item name and the number of items to stock
+     * @param currentVM is the most recently created vending machine
+     */
     public void setupRestockFrame(VendingMachine currentVM) {
         // Header
         this.restockFrame = new JFrame("Restock Item");
@@ -377,6 +410,11 @@ public class VMFactoryView {
         this.restockFrame.add(backRestockBtn);
     }
 
+    /**
+     * Sets up the Set Price frame wherein the user is shown the current list of all slots
+     * and prompted for the item name and the price to be assigned
+     * @param currentVM is the most recently created vending machine
+     */
     public void setupSetPriceFrame(VendingMachine currentVM) {
         // Header
         this.setPriceFrame = new JFrame("Set Price of Item");
@@ -429,6 +467,11 @@ public class VMFactoryView {
         this.setPriceFrame.add(backSetPriceBtn);
     }
 
+    /**
+     * Sets up the Collect pay frame wherein the user is shown the current balance
+     * and prompted for either a specific amount to collect or collect all money in balance
+     * @param currentVM is the most recently created vending machine
+     */
     public void setupCollectPayFrame(VendingMachine currentVM) {
         // Header
         this.collectPayFrame = new JFrame("Collect Payment");
@@ -468,6 +511,11 @@ public class VMFactoryView {
         this.collectPayFrame.add(backCollectPayBtn);
     }
 
+    /**
+     * Sets up the Replenish money frame wherein the user is shown the current balance
+     * and prompted for either a specific amount to replenish or replenish balance using default cash stock
+     * @param currentVM is the most recently created vending machine
+     */
     public void setupReplenishMoneyFrame(VendingMachine currentVM) {
         // Header
         this.replenishMoneyFrame = new JFrame("Replenish Money");
@@ -507,6 +555,10 @@ public class VMFactoryView {
         this.replenishMoneyFrame.add(backReplenishMoneyBtn);
     }
 
+    /**
+     * Sets up the Print Transaction Summary frame wherein the user is all previous transactions
+     * @param currentVM is the most recently created vending machine
+     */
     public void setupPrintTransacSummaryFrame(VendingMachine currentVM) {
         // Header
         this.printTransacSummaryFrame = new JFrame("Print Transaction Summary");
@@ -609,6 +661,11 @@ public class VMFactoryView {
         this.vmExitBtn.addActionListener(actionListener);
     }
 
+    /**
+     * Creates a main frame with a size of 380 by 500 pixels, sets visibility to true,
+     * and assigns a default close operation
+     * @param mainFrame is the previously initialized mainFrame of the program
+     */
     public void createMainFrame(JFrame mainFrame) {
         this.mainFrame = mainFrame;
         this.mainFrame.setSize(380, 500);
@@ -616,6 +673,11 @@ public class VMFactoryView {
         this.mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
+    /**
+     * Creates a vending machine creation frame with a size of 380 by 500 pixels, sets visibility to true,
+     * and assigns a default close operation
+     * @param vmCreationFrame is the previously initialized vmCreationFrame of the program
+     */
     public void createVmCreationFrame(JFrame vmCreationFrame) {
         this.vmCreationFrame = vmCreationFrame;
         this.vmCreationFrame.setSize(380, 500);
@@ -623,6 +685,11 @@ public class VMFactoryView {
         this.vmCreationFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
+    /**
+     * Creates a vending machine testing frame with a size of 380 by 500 pixels, sets visibility to true,
+     * and assigns a default close operation
+     * @param vmTestingFrame is the previously initialized vmTestingFrame of the program
+     */
     public void createVmTestingFrame(JFrame vmTestingFrame) {
         this.vmTestingFrame = vmTestingFrame;
         this.vmTestingFrame.setSize(380, 500);
@@ -630,6 +697,13 @@ public class VMFactoryView {
         this.vmTestingFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
+    /**
+     * Creates a vending machine features frame with a size of 380 by 500 pixels, sets visibility to true,
+     * and assigns a default close operation
+     * vFeaturesFrame is also setup here.
+     * @param vFeaturesFrame is the previously initialized vFeaturesFrame of the program
+     * @param currentVM is the most recently created vending machine
+     */
     public void createVFeaturesFrame(JFrame vFeaturesFrame, VendingMachine currentVM) {
         this.vFeaturesFrame = vFeaturesFrame;
         setupVFeaturesFrame(currentVM);
@@ -638,6 +712,13 @@ public class VMFactoryView {
         this.vFeaturesFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
+    /**
+     * Creates a special item frame with a size of 380 by 500 pixels, sets visibility to true,
+     * and assigns a default close operation
+     * specialFrame is also setup here
+     * @param specialFrame is the previously initialized specialFrame of the program
+     * @param currentVM is the most recently created vending machine
+     */
     public void createSpecialFrame(JFrame specialFrame, VendingMachine currentVM) {
         this.specialFrame = specialFrame;
         setupSpecialFrame(currentVM);
@@ -646,6 +727,13 @@ public class VMFactoryView {
         this.specialFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
+    /**
+     * Creates a checkout frame with a size of 380 by 500 pixels, sets visibility to true,
+     * and assigns a default close operation
+     * checkout is also setup here
+     * @param checkoutFrame is the previously initialized checkoutFrame of the program
+     * @param itemOrdered is the item selected by the user to be checked out
+     */
     public void createCheckoutFrame(JFrame checkoutFrame, Item itemOrdered) {
         this.checkoutFrame = checkoutFrame;
         setupCheckoutFrame(itemOrdered);
@@ -654,6 +742,13 @@ public class VMFactoryView {
         this.checkoutFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
+    /**
+     * Creates a vending maintenance frame with a size of 380 by 500 pixels, sets visibility to true,
+     * and assigns a default close operation
+     * vMaintenceFrame is also setup here
+     * @param vMaintenanceFrame is the previously initialized vMaintenanceFrame of the program
+     * @param currentVM is the most recently created vending machine
+     */
     public void createVMaintenanceFrame(JFrame vMaintenanceFrame, VendingMachine currentVM) {
         this.vMaintenanceFrame = vMaintenanceFrame;
         setupVMaintenanceFrame(currentVM);
@@ -662,6 +757,13 @@ public class VMFactoryView {
         this.vMaintenanceFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
+    /**
+     * Creates a restock frame with a size of 380 by 500 pixels, sets visibility to true,
+     * and assigns a default close operation
+     * restockFrame is also setup here
+     * @param restockFrame is the previously initialized restockFrame of the program
+     * @param currentVM is the most recently created vending machine
+     */
     public void createRestockFrame(JFrame restockFrame, VendingMachine currentVM) {
         this.restockFrame = restockFrame;
         setupRestockFrame(currentVM);
@@ -670,6 +772,13 @@ public class VMFactoryView {
         this.restockFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
+    /**
+     * Creates a set price frame with a size of 380 by 500 pixels, sets visibility to true,
+     * and assigns a default close operation
+     * setPriceFrame is also setup here
+     * @param setPriceFrame is the previously initialized setPriceFrame of the program
+     * @param currentVM is the most recently created vending machine
+     */
     public void createSetPriceFrame(JFrame setPriceFrame, VendingMachine currentVM) {
         this.setPriceFrame = setPriceFrame;
         setupSetPriceFrame(currentVM);
@@ -678,6 +787,13 @@ public class VMFactoryView {
         this.setPriceFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
+    /**
+     * Creates a collect payment frame with a size of 380 by 500 pixels, sets visibility to true,
+     * and assigns a default close operation
+     * collectPaymentFrame is also setup here
+     * @param collectPayFrame is the previously initialized collectPayFrame of the program
+     * @param currentVM is the most recently created vending machine
+     */
     public void createCollectPayFrame(JFrame collectPayFrame, VendingMachine currentVM) {
         this.collectPayFrame = collectPayFrame;
         setupCollectPayFrame(currentVM);
@@ -686,6 +802,13 @@ public class VMFactoryView {
         this.collectPayFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
+    /**
+     * Creates a replenish money frame with a size of 380 by 500 pixels, sets visibility to true,
+     * and assigns a default close operation
+     * replenishMoneyFrame is also setup here
+     * @param replenishMoneyFrame is the previously initialized replenishMoneFrame of the program
+     * @param currentVM is the most recently created vending machine
+     */
     public void createReplenishMoneyFrame(JFrame replenishMoneyFrame, VendingMachine currentVM) {
         this.replenishMoneyFrame = replenishMoneyFrame;
         setupReplenishMoneyFrame(currentVM);
@@ -694,6 +817,13 @@ public class VMFactoryView {
         this.replenishMoneyFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
+    /**
+     * Creates a print transaction summary frame with a size of 380 by 500 pixels, sets visibility to true,
+     * and assigns a default close operation
+     * printTransacSummary is also setup here
+     * @param printTransacSummaryFrame is the previously initialized printTransacSummaryFrame of the program
+     * @param currentVM is the most recently created vending machine
+     */
     public void createPrintTransacSummaryFrame(JFrame printTransacSummaryFrame, VendingMachine currentVM) {
         this.printTransacSummaryFrame = printTransacSummaryFrame;
         setupPrintTransacSummaryFrame(currentVM);
