@@ -342,7 +342,7 @@ public class VMFactoryView {
             @Override
             public void actionPerformed(ActionEvent e) {
                 vMaintenanceFrame.dispose();
-                createMainFrame(mainFrame);
+                createVmTestingFrame(vmTestingFrame);
             }
         });
 
