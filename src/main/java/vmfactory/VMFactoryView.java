@@ -17,7 +17,7 @@ public class VMFactoryView {
     private JButton vmCreationBtn, vmTestBtn, vmExitBtn, regVMCreateBtn, spcVMCreateBtn,
             vFeaturesBtn, selectItemBut, vFeaturesCheckOut, vFeaturesCancel, specialBtn, removeBut,
             finishBtn = new JButton("Finish"), specialCancelBtn = new JButton("Cancel"),
-            vMaintenanceBtn, restockBtn, setPriceBtn,  collectPayBtn, replenishMoneyBtn, printTransacSummaryBtn, backMaintenanceBtn,
+            vMaintenanceBtn, restockBtn, setPriceBtn, collectPayBtn, replenishMoneyBtn, printTransacSummaryBtn, backMaintenanceBtn,
             finishRestockBtn = new JButton("Restock"), backRestockBtn,
             finishSetPriceBtn = new JButton("Set Price"), backSetPriceBtn,
             collectPayAllBtn = new JButton("Collect all money"), collectPaySpecBtn = new JButton("Collect specified amount"),
@@ -26,7 +26,7 @@ public class VMFactoryView {
             backPrintTransacSummaryBtn;
     private ArrayList<JButton> listSelectItem = new ArrayList<JButton>(), listComponents = new ArrayList<JButton>(), listRemove = new ArrayList<JButton>();
     private JTextField vFeaturesMoneyField, restockItemName, restockItemNum, setPriceItemName, setPriceItem, collectPaySpecTF,
-                        replenishMoneySpecTF;
+            replenishMoneySpecTF;
     private JTextArea restockItemsList, setPriceItemsList, printTransacSummaryTA;
     private JPanel restockPanel1, restockPanel2, setPricePanel1, setPricePanel2;
     private boolean specialReturn = false;
@@ -90,25 +90,25 @@ public class VMFactoryView {
         // Header
         this.vFeaturesFrame = new JFrame("Vending Features Testing");
         this.vFeaturesFrame.setLayout(new FlowLayout(FlowLayout.CENTER));
-        if(currentVM instanceof SpecialVM)
+        if (currentVM instanceof SpecialVM)
             this.vFeaturesHeader = new JLabel("SPECIAL VENDING FEATURES TESTING");
         else this.vFeaturesHeader = new JLabel("REGULAR VENDING FEATURES TESTING");
-        
+
         this.vFeaturesFrame.add(vFeaturesHeader);
         this.vFeaturesFrame.add(Box.createRigidArea(new Dimension(300, 10)));
 
         // Vending machine options
         this.listSelectItem.clear();
-        for(ItemSlot slot : currentVM.getListItemSlots()) {
-            if(!(currentVM instanceof SpecialVM) || slot.getForSale()) {
+        for (ItemSlot slot : currentVM.getListItemSlots()) {
+            if (!(currentVM instanceof SpecialVM) || slot.getForSale()) {
                 this.selectItemBut = new JButton(slot.getItemName());
                 selectItemBut.setPreferredSize(new Dimension(150, 25));
                 this.buyItemLabel = new JLabel("Stock: " + slot.getItemStock() + "  /  Price: "
-                     + slot.getPrice() + "  /  Calories: " + slot.getItem().getCaloriesAmt());
+                        + slot.getPrice() + "  /  Calories: " + slot.getItem().getCaloriesAmt());
                 this.vFeaturesFrame.add(selectItemBut);
                 this.vFeaturesFrame.add(buyItemLabel);
                 this.listSelectItem.add(selectItemBut);
-            } else if(slot.getItem() instanceof SpecialItem) {
+            } else if (slot.getItem() instanceof SpecialItem) {
                 this.specialBtn = new JButton(slot.getItemName());
                 specialBtn.setPreferredSize(new Dimension(150, 25));
                 this.buyItemLabel = new JLabel("Special Item : Build-it-yourself!");
@@ -120,11 +120,11 @@ public class VMFactoryView {
 
         // Selected item display
         this.vFeaturesSelected = new JLabel("Selected Item: ");
-        
+
         // Money input
         this.vFeaturesMoneyLabel = new JLabel("Input money in proper denominations:");
         this.vFeaturesMoneyField = new JTextField(30);
-        
+
         // Check out or cancel
         this.vFeaturesCheckOut = new JButton("Check Out");
         vFeaturesCheckOut.setPreferredSize(new Dimension(150, 25));
@@ -140,7 +140,7 @@ public class VMFactoryView {
         this.vFeaturesError.setPreferredSize(new Dimension(300, 15));
         this.vFeaturesError.setHorizontalAlignment(SwingConstants.CENTER);
         this.vFeaturesChange = new JLabel("");
-        
+
         this.vFeaturesFrame.add(vFeaturesSelected);
         this.vFeaturesFrame.add(Box.createRigidArea(new Dimension(300, 10)));
         this.vFeaturesFrame.add(vFeaturesMoneyLabel);
@@ -157,18 +157,18 @@ public class VMFactoryView {
         this.specialFrame = new JFrame("Special Item Builder");
         this.specialFrame.setLayout(new FlowLayout(FlowLayout.CENTER));
         this.vFeaturesHeader = new JLabel("SPECIAL ITEM BUILDER");
-        
+
         this.specialFrame.add(vFeaturesHeader);
         this.specialFrame.add(Box.createRigidArea(new Dimension(300, 10)));
         // Component options
         this.listComponents.clear();
-        for(ItemSlot slot : currentVM.getListItemSlots()) {
-            if(!(slot.getItem() instanceof SpecialItem)) {
+        for (ItemSlot slot : currentVM.getListItemSlots()) {
+            if (!(slot.getItem() instanceof SpecialItem)) {
                 this.selectItemBut = new JButton("Add " + slot.getItemName());
                 selectItemBut.setPreferredSize(new Dimension(150, 25));
                 this.buyItemLabel = new JLabel("Stock: " + slot.getItemStock() +
-                                                    "  /  Price: " + slot.getPrice() +
-                                                    "  /  Calories: " + slot.getItem().getCaloriesAmt());
+                        "  /  Price: " + slot.getPrice() +
+                        "  /  Calories: " + slot.getItem().getCaloriesAmt());
                 this.specialFrame.add(selectItemBut);
                 this.specialFrame.add(buyItemLabel);
                 this.listComponents.add(selectItemBut);
@@ -176,10 +176,10 @@ public class VMFactoryView {
         }
         this.specialFrame.add(Box.createRigidArea(new Dimension(300, 10)));
         // Current special item
-        this.vFeaturesSelected = new JLabel("Current ramen components (click to remove): ");        
+        this.vFeaturesSelected = new JLabel("Current ramen components (click to remove): ");
         this.specialFrame.add(vFeaturesSelected);
         this.listRemove.clear();
-        for(Item item : ((SpecialItem)currentVM.getCurrentTransaction().getItemOrdered()).getListComponents()) {
+        for (Item item : ((SpecialItem) currentVM.getCurrentTransaction().getItemOrdered()).getListComponents()) {
             this.removeBut = new JButton(item.getName());
             removeBut.setPreferredSize(new Dimension(100, 25));
             this.specialFrame.add(removeBut);
@@ -187,20 +187,22 @@ public class VMFactoryView {
         }
         this.specialFrame.add(Box.createRigidArea(new Dimension(300, 10)));
         this.vFeaturesMoneyLabel = new JLabel("Current total : " + currentVM.getCurrentTransaction().getItemOrdered().getPrice() +
-             "  /  Current calories : " + currentVM.getCurrentTransaction().getItemOrdered().getCaloriesAmt());
-        
+                "  /  Current calories : " + currentVM.getCurrentTransaction().getItemOrdered().getCaloriesAmt());
+
         // Finish or cancel
         finishBtn.setPreferredSize(new Dimension(150, 25));
         this.finishBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                specialReturn = true; 
-                System.out.println("Special return true"); } });
+                specialReturn = true;
+                System.out.println("Special return true");
+            }
+        });
         specialCancelBtn.setPreferredSize(new Dimension(150, 25));
-        
+
         this.vFeaturesError = new JLabel("");
         this.vFeaturesError.setPreferredSize(new Dimension(300, 15));
         this.vFeaturesError.setHorizontalAlignment(SwingConstants.CENTER);
-        
+
         this.specialFrame.add(vFeaturesMoneyLabel);
         this.specialFrame.add(Box.createRigidArea(new Dimension(380, 10)));
         this.specialFrame.add(finishBtn);
@@ -215,10 +217,10 @@ public class VMFactoryView {
         this.vFeaturesHeader = new JLabel("CHECKOUT");
         this.checkoutFrame.add(vFeaturesHeader);
         this.checkoutFrame.add(Box.createRigidArea(new Dimension(300, 10)));
-        
+
         // Special Item preparation
-        if(itemOrdered instanceof SpecialItem) {
-            for(Item item : ((SpecialItem)itemOrdered).getListComponents()) {
+        if (itemOrdered instanceof SpecialItem) {
+            for (Item item : ((SpecialItem) itemOrdered).getListComponents()) {
                 this.componentPrep = new JLabel(item.getPrepMessage());
                 this.componentPrep.setPreferredSize(new Dimension(300, 15));
                 this.componentPrep.setHorizontalAlignment(SwingConstants.CENTER);
@@ -236,7 +238,7 @@ public class VMFactoryView {
         this.vFeaturesSelected.setPreferredSize(new Dimension(380, 20));
         this.vFeaturesSelected.setHorizontalAlignment(SwingConstants.CENTER);
         this.vFeaturesChange = new JLabel("");
-        
+
         // Exit
         this.vFeaturesCancel = new JButton("Done");
         vFeaturesCancel.setPreferredSize(new Dimension(150, 25));
@@ -245,7 +247,7 @@ public class VMFactoryView {
                 createVmTestingFrame(getVmTestingFrame());
                 checkoutFrame.dispose();
             }
-        });        
+        });
 
         this.checkoutFrame.add(vFeaturesSelected);
         this.checkoutFrame.add(vFeaturesChange);
@@ -445,7 +447,7 @@ public class VMFactoryView {
         this.collectPaySpecLbl.setPreferredSize(new Dimension(220, 30));
 
         this.collectPaySpecTF = new JTextField(10);
-;
+        ;
         this.collectPaySpecBtn.setPreferredSize(new Dimension(200, 50));
 
         this.backCollectPayBtn = new JButton("Back");
@@ -531,12 +533,15 @@ public class VMFactoryView {
     public void setVmCreationBtnListener(ActionListener vmCreationBtnListener) {
         this.vmCreationBtn.addActionListener(vmCreationBtnListener);
     }
+
     public void setregVmCreateBtnListener(ActionListener actionListener) {
         this.regVMCreateBtn.addActionListener(actionListener);
     }
+
     public void setspcVmCreateBtnListener(ActionListener actionListener) {
         this.spcVMCreateBtn.addActionListener(actionListener);
     }
+
     public void setVmTestBtnListener(ActionListener actionListener) {
         this.vmTestBtn.addActionListener(actionListener);
     }
@@ -547,22 +552,27 @@ public class VMFactoryView {
         this.specialCancelBtn.addActionListener(actionListener);
         this.finishBtn.addActionListener(actionListener);
     }
+
     public void setSelectItemBtnListener(ArrayList<ActionListener> actionListener) {
-        for(int i=0; i < listSelectItem.size(); i++)
+        for (int i = 0; i < listSelectItem.size(); i++)
             listSelectItem.get(i).addActionListener(actionListener.get(i));
     }
+
     public void setCheckOutBtnListener(ActionListener actionListener) {
         this.vFeaturesCheckOut.addActionListener(actionListener);
     }
+
     public void setSpecialBtnListener(ActionListener actionListener) {
         this.specialBtn.addActionListener(actionListener);
     }
+
     public void setComponentsBtnListener(ArrayList<ActionListener> actionListener) {
-        for(int i=0; i < listComponents.size(); i++)
+        for (int i = 0; i < listComponents.size(); i++)
             listComponents.get(i).addActionListener(actionListener.get(i));
     }
+
     public void setRemoveBtnListener(ArrayList<ActionListener> actionListener) {
-        for(int i=0; i < listRemove.size(); i++)
+        for (int i = 0; i < listRemove.size(); i++)
             listRemove.get(i).addActionListener(actionListener.get(i));
     }
 
@@ -601,21 +611,21 @@ public class VMFactoryView {
 
     public void createMainFrame(JFrame mainFrame) {
         this.mainFrame = mainFrame;
-        this.mainFrame.setSize(380,500);
+        this.mainFrame.setSize(380, 500);
         this.mainFrame.setVisible(true);
         this.mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     public void createVmCreationFrame(JFrame vmCreationFrame) {
         this.vmCreationFrame = vmCreationFrame;
-        this.vmCreationFrame.setSize(380,500);
+        this.vmCreationFrame.setSize(380, 500);
         this.vmCreationFrame.setVisible(true);
         this.vmCreationFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     public void createVmTestingFrame(JFrame vmTestingFrame) {
         this.vmTestingFrame = vmTestingFrame;
-        this.vmTestingFrame.setSize(380,500);
+        this.vmTestingFrame.setSize(380, 500);
         this.vmTestingFrame.setVisible(true);
         this.vmTestingFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
@@ -623,7 +633,7 @@ public class VMFactoryView {
     public void createVFeaturesFrame(JFrame vFeaturesFrame, VendingMachine currentVM) {
         this.vFeaturesFrame = vFeaturesFrame;
         setupVFeaturesFrame(currentVM);
-        this.vFeaturesFrame.setSize(380,500);
+        this.vFeaturesFrame.setSize(380, 500);
         this.vFeaturesFrame.setVisible(true);
         this.vFeaturesFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
@@ -631,7 +641,7 @@ public class VMFactoryView {
     public void createSpecialFrame(JFrame specialFrame, VendingMachine currentVM) {
         this.specialFrame = specialFrame;
         setupSpecialFrame(currentVM);
-        this.specialFrame.setSize(380,1000);
+        this.specialFrame.setSize(380, 1000);
         this.specialFrame.setVisible(true);
         this.specialFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
@@ -639,7 +649,7 @@ public class VMFactoryView {
     public void createCheckoutFrame(JFrame checkoutFrame, Item itemOrdered) {
         this.checkoutFrame = checkoutFrame;
         setupCheckoutFrame(itemOrdered);
-        this.checkoutFrame.setSize(380,500);
+        this.checkoutFrame.setSize(380, 500);
         this.checkoutFrame.setVisible(true);
         this.checkoutFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
@@ -647,7 +657,7 @@ public class VMFactoryView {
     public void createVMaintenanceFrame(JFrame vMaintenanceFrame, VendingMachine currentVM) {
         this.vMaintenanceFrame = vMaintenanceFrame;
         setupVMaintenanceFrame(currentVM);
-        this.vMaintenanceFrame.setSize(380,500);
+        this.vMaintenanceFrame.setSize(380, 500);
         this.vMaintenanceFrame.setVisible(true);
         this.vMaintenanceFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
@@ -655,7 +665,7 @@ public class VMFactoryView {
     public void createRestockFrame(JFrame restockFrame, VendingMachine currentVM) {
         this.restockFrame = restockFrame;
         setupRestockFrame(currentVM);
-        this.restockFrame.setSize(380,500);
+        this.restockFrame.setSize(380, 500);
         this.restockFrame.setVisible(true);
         this.restockFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
@@ -663,7 +673,7 @@ public class VMFactoryView {
     public void createSetPriceFrame(JFrame setPriceFrame, VendingMachine currentVM) {
         this.setPriceFrame = setPriceFrame;
         setupSetPriceFrame(currentVM);
-        this.setPriceFrame.setSize(380,500);
+        this.setPriceFrame.setSize(380, 500);
         this.setPriceFrame.setVisible(true);
         this.setPriceFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
@@ -671,7 +681,7 @@ public class VMFactoryView {
     public void createCollectPayFrame(JFrame collectPayFrame, VendingMachine currentVM) {
         this.collectPayFrame = collectPayFrame;
         setupCollectPayFrame(currentVM);
-        this.collectPayFrame.setSize(380,500);
+        this.collectPayFrame.setSize(380, 500);
         this.collectPayFrame.setVisible(true);
         this.collectPayFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
@@ -679,14 +689,15 @@ public class VMFactoryView {
     public void createReplenishMoneyFrame(JFrame replenishMoneyFrame, VendingMachine currentVM) {
         this.replenishMoneyFrame = replenishMoneyFrame;
         setupReplenishMoneyFrame(currentVM);
-        this.replenishMoneyFrame.setSize(380,500);
+        this.replenishMoneyFrame.setSize(380, 500);
         this.replenishMoneyFrame.setVisible(true);
         this.replenishMoneyFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
+
     public void createPrintTransacSummaryFrame(JFrame printTransacSummaryFrame, VendingMachine currentVM) {
         this.printTransacSummaryFrame = printTransacSummaryFrame;
         setupPrintTransacSummaryFrame(currentVM);
-        this.printTransacSummaryFrame.setSize(380,500);
+        this.printTransacSummaryFrame.setSize(380, 500);
         getPrintTransacSummaryFrame().setVisible(true);
         this.printTransacSummaryFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
@@ -710,30 +721,87 @@ public class VMFactoryView {
     public JFrame getVFeaturesFrame() {
         return vFeaturesFrame;
     }
-    public JLabel getSelected() { return vFeaturesSelected; }
-    public JTextField getMoneyField() { return vFeaturesMoneyField; }
-    public JLabel getVFeaturesError() { return vFeaturesError; }
-    public JLabel getVFeaturesChange() { return vFeaturesChange; }
-    public JLabel getRestockErrorLbl() { return restockErrorLbl; }
-    public JLabel getSetPriceErrorLbl() { return setPriceErrorLbl; }
-    public JLabel getCollectPayErrorLbl() { return collectPayErrorLbl; }
-    public JLabel getCollectPayCurBalLbl() { return collectPayCurBalLbl; }
-    public JLabel getReplenishMoneyErrorLbl() { return replenishMoneyErrorLbl; }
-    public JLabel getReplenishMoneyCurBalLbl() { return replenishMoneyCurBalLbl; }
-    public JTextField getRestockItemName() {return restockItemName;}
-    public JTextField getRestockItemNum() { return restockItemNum;}
-    public JTextField getSetPriceItemName() { return setPriceItemName; }
-    public JTextField getSetPriceItem() {return setPriceItem;}
-    public JTextField getCollectPaySpecTF() {return collectPaySpecTF;}
-    public JTextField getReplenishMoneySpecTF() { return replenishMoneySpecTF; }
-    public JTextArea getSetPriceItemsList() {return setPriceItemsList;}
-    public JTextArea getRestockItemsList() {return restockItemsList;}
-    public JTextArea getPrintTransacSummaryTA() { return printTransacSummaryTA; }
+
+    public JLabel getSelected() {
+        return vFeaturesSelected;
+    }
+
+    public JTextField getMoneyField() {
+        return vFeaturesMoneyField;
+    }
+
+    public JLabel getVFeaturesError() {
+        return vFeaturesError;
+    }
+
+    public JLabel getVFeaturesChange() {
+        return vFeaturesChange;
+    }
+
+    public JLabel getRestockErrorLbl() {
+        return restockErrorLbl;
+    }
+
+    public JLabel getSetPriceErrorLbl() {
+        return setPriceErrorLbl;
+    }
+
+    public JLabel getCollectPayErrorLbl() {
+        return collectPayErrorLbl;
+    }
+
+    public JLabel getCollectPayCurBalLbl() {
+        return collectPayCurBalLbl;
+    }
+
+    public JLabel getReplenishMoneyErrorLbl() {
+        return replenishMoneyErrorLbl;
+    }
+
+    public JLabel getReplenishMoneyCurBalLbl() {
+        return replenishMoneyCurBalLbl;
+    }
+
+    public JTextField getRestockItemName() {
+        return restockItemName;
+    }
+
+    public JTextField getRestockItemNum() {
+        return restockItemNum;
+    }
+
+    public JTextField getSetPriceItemName() {
+        return setPriceItemName;
+    }
+
+    public JTextField getSetPriceItem() {
+        return setPriceItem;
+    }
+
+    public JTextField getCollectPaySpecTF() {
+        return collectPaySpecTF;
+    }
+
+    public JTextField getReplenishMoneySpecTF() {
+        return replenishMoneySpecTF;
+    }
+
+    public JTextArea getSetPriceItemsList() {
+        return setPriceItemsList;
+    }
+
+    public JTextArea getRestockItemsList() {
+        return restockItemsList;
+    }
+
+    public JTextArea getPrintTransacSummaryTA() {
+        return printTransacSummaryTA;
+    }
 
     public JFrame getSpecialFrame() {
         return specialFrame;
     }
-    
+
     public JFrame getCheckoutFrame() {
         return checkoutFrame;
     }
@@ -742,7 +810,9 @@ public class VMFactoryView {
         return vMaintenanceFrame;
     }
 
-    public JFrame getRestockFrame() { return restockFrame; }
+    public JFrame getRestockFrame() {
+        return restockFrame;
+    }
 
     public JFrame getSetPriceFrame() {
         return setPriceFrame;
@@ -760,6 +830,11 @@ public class VMFactoryView {
         return printTransacSummaryFrame;
     }
 
-    public boolean getSpecialReturn() { return specialReturn; }
-    public void setSpecialReturn(boolean b) { this.specialReturn = b; }
+    public boolean getSpecialReturn() {
+        return specialReturn;
+    }
+
+    public void setSpecialReturn(boolean b) {
+        this.specialReturn = b;
+    }
 }
