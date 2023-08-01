@@ -3,6 +3,10 @@ import java.util.ArrayList;
 
 /**
  * Represents a transaction
+ * <p>
+ *     Features include: selecting an item, receiving payment, producing change,
+ *     and resetting the said transaction
+ * </p>
  */
 public class Transaction {
     protected Item itemOrdered;
@@ -17,7 +21,7 @@ public class Transaction {
     }
 
     /**
-     * Finds the itemSlot in which item1 is stored in
+     * Finds the itemSlot in which item is stored in
      * @param item  is the item to be searched
      * @param listItemSlots  is the list of existing item slots in the machine
      * @return  itemSlot if item is found in a slot
@@ -36,7 +40,7 @@ public class Transaction {
     }
 
     /**
-     * Gets item from slotOrdered and sets the order total accordingly
+     * Selects item from slotOrdered and sets the order total accordingly
      * @param slotOrdered  is the item slot chosen by the user
      * @return  true if selection is successful, false if not
      */
@@ -54,17 +58,8 @@ public class Transaction {
     }
 
     /**
-     * Returns the item ordered to its proper slot
-     * @param listItemSlots  the list of existing item slots in the machine
-     */
-    public void returnItem(ArrayList<ItemSlot> listItemSlots) {
-        findItemSlot(this.itemOrdered, listItemSlots).stockItem(true);
-    }
-
-
-
-    /**
      * Receives payment from the customer
+     * @param amount is a String cashList corresponding to the amount entered by the customer
      * @param bal  is the current balance of the machine
      */
     public void receivePayment(String amount, Balance bal){
@@ -77,10 +72,16 @@ public class Transaction {
     }
 
     /**
-     * Produces change according to the case situated by the current balance, item ordered, and order total
+     * Produces change according to the case situated by the current balance,
+     * item ordered, change, and order total
      *
      * @param bal is the current balance of the machine
-     * @return true if transaction is successful, false if not
+     * @param listItemSlots is the existing list of item slots in the machine
+     * @return 1 if no item is selected
+     *         2 if there is not enough item stock
+     *         3 if there is not enough cash entered
+     *         4 if there is not enough change in machine
+     *         0 if transaction is successful
      */
     public int produceChange(Balance bal, ArrayList<ItemSlot> listItemSlots) {
 
@@ -131,6 +132,7 @@ public class Transaction {
 
     /**
      * Resets all information of the current transaction
+     * @param listItemSlots is the list of existing ItemSlots in the machine
      */
     public void reset(ArrayList<ItemSlot> listItemSlots) {
         this.itemOrdered = null;
