@@ -2,6 +2,10 @@ package vmfactory;
 
 import java.util.ArrayList;
 
+/** Represents a special transaction to include special items inside a special vending machine
+ * <p>
+ * Features include adding and removing an item to the special item, previewing the special item
+ */
 public class SpecialTransaction extends Transaction {
 
     public SpecialTransaction() {
@@ -44,10 +48,17 @@ public class SpecialTransaction extends Transaction {
     }
 
     /**
-     * (For Special Transactions) Produces change according to the case situated by the current balance, item ordered, and order total
+     * (For Special Transactions) Produces change according to the case situated by
+     * the current balance, item ordered, and order total
      *
      * @param bal is the current balance of the machine
-     * @return true if transaction is successful, false if not
+     * @return 1 if there is no item selected
+     *         2 if there is not enough item stock
+     *         3 if there is not enough cash entered
+     *         4 if there is not enough change in the machine
+     *         5 if current singular component of the special item
+     *         is not allowed to be sold separately
+     *         0 if transaction is successful
      */
     @Override public int produceChange(Balance bal, ArrayList<ItemSlot> listItemSlots) {
 
@@ -117,6 +128,7 @@ public class SpecialTransaction extends Transaction {
 
     /**
      * (For Special Transactions) Resets all information of the current transaction (including special item components)
+     * @param listItemSlots is the existing list of item slots in the machine
      */
     @Override public void reset(ArrayList<ItemSlot> listItemSlots) {
         this.orderTotal = 0;
