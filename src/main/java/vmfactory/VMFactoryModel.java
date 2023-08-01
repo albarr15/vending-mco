@@ -1,6 +1,13 @@
 package vmfactory;
 
-import java.util.Scanner;
+/**
+ * Represents the Vending Machine Factory where regular and special vending machines can be created as well as.
+ * set up with default items.
+ * <p>
+ * Includes the current vending machine (the most recently created)
+ * Features include creating a regular vending machine, creating a special regular vending machine,
+ * and setting up a vending machine.
+ */
 
 public class VMFactoryModel {
 
@@ -14,6 +21,10 @@ public class VMFactoryModel {
         this.currentVM = new SpecialVM();
     }
 
+    /**
+     * Sets up a vending machine with default items and itemslots with their
+     * corresponding name, caloriesAmt, price, and prepMessage
+     */
     public void setupVM() {
         Item chashuPork = new Item("Chashu Pork", 99, 95,
                 "Topping with Chashu Pork ...");
