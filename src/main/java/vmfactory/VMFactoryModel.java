@@ -72,7 +72,7 @@ public class VMFactoryModel {
 
             ItemSlot itemSlot9 = new ItemSlot(ramenNoodles, true);
             ItemSlot itemSlot10 = new ItemSlot(ramenBroth, false);
-            ItemSlot itemSlot11 = new ItemSlot(ramen, true);
+            ItemSlot itemSlot11 = new ItemSlot(ramen, false);
 
             currentVM.addItemSlot(itemSlot9);
             currentVM.addItemSlot(itemSlot10);
