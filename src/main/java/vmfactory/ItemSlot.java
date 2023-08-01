@@ -1,8 +1,9 @@
 /**
  * Represents one slot which holds Items in a vending machine.
  * <p>
- * Includes the Item set, the list of Items, the price, and the number sold.
- * Features include checking availability, dispensing, and stocking items.
+ * Includes the Item, the list of Items, the price, whether the item is for sale individually or not
+ * and the number of items sold.
+ * Features include checking availability, dispensing, stocking items, and fully stocking a slot.
  */
 package vmfactory;
 import java.util.ArrayList;
@@ -53,10 +54,10 @@ public class ItemSlot {
     }
 
     /**
-     * Creates Item stock for this list of Items in this ItemSlot
+     * Adds Item stock for this list of Items in this ItemSlot
      *
      * @param isReturnedItem  tells if the item was returned from a buyer's cart rather than restocked
-     * @return  a boolean value of whether or not the stocking was successful
+     * @return  a boolean value of whether the stocking was successful
      */
     public boolean stockItem(boolean isReturnedItem) {
         if(listItem.size() < 10) {
@@ -74,7 +75,7 @@ public class ItemSlot {
     /**
      * Fully stocks an ItemSlot's list of Items
      *
-     * @return  a boolean value of whether or not there is room for restocking
+     * @return  a boolean value of whether there is room for restocking
      */
     public boolean fullStockSlot() {
         if (listItem.size() == 10)
