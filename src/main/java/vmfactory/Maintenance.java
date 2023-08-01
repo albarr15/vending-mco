@@ -4,16 +4,16 @@ import java.util.StringJoiner;
 
 /** Contains the maintenance features of the vending machine.
  * <p>
- * Features include setting Items of ItemSlots, stocking/restocking Items, setting
- * prices, collecting money from the Balance, and printing the summary of transactions.
+ * Features include stocking/restocking items, collecting money from the machine,
+ * replenishing the money, and printing the summary of transactions.
  */
 public class Maintenance {
     /**
-     * Stocks an ItemSlot of a certain amoutn of whatever Item is assigned to it
+     * Stocks an ItemSlot of a certain amount of whatever Item is assigned to it
      * 
      * @param itemSlot  the ItemSlot to be stocked
      * @param numItems  the number of Items to be stocked
-     * @return (numItems - i) the number of ignored stocks due to already full itemSlot
+     * @return the number of ignored stocks due to already full itemSlot
      *          0 if successfully restocked the total amount of numItems in itemSlots
      */
     public int stockItem(ItemSlot itemSlot, int numItems) {
@@ -32,15 +32,6 @@ public class Maintenance {
                     " " + itemSlot.getItemName() + ".");
         }
         return 0;
-    }
-
-    /**
-     * Fully stocks an ItemSlot of whatever Item is assigned to it
-     * @param itemSlot  the ItemSlot to be stocked
-     */
-    public void stockItem(ItemSlot itemSlot) {
-        itemSlot.fullStockSlot();
-        System.out.println("Fully stocked " + itemSlot.getItemName() + ".");
     }
 
     /**
@@ -81,6 +72,7 @@ public class Maintenance {
 
     /**
      * Replenishes the stock of bills and coins in the machine with the default stock of machine
+     * (Default stock is 20 pieces of each denomination)
      *
      * @param bal  the Balance of the machine
      * @return  the new balance after stocking
@@ -93,7 +85,7 @@ public class Maintenance {
     }
 
     /**
-     * Prints the summary of transactions since the last summary printed
+     * Prints the summary of transactions
      * 
      * @param listItemSlots  the list of ItemSlots in the machine
      * @return transacSummary a string containing the transaction summary
@@ -123,19 +115,6 @@ public class Maintenance {
         System.out.println("Total earnings since last summary: " + totalEarnings);
 
         return transacSummary.toString();
-    }
-
-    /**
-     * Creates a new Item to be set as the Item of an ItemSlot
-     *
-     * @param itemSlot  the slot for the Item to be placed in
-     * @param itemName  the name of the Item
-     * @param caloriesAmt  the calorie count of the Item
-     * @param price  the price of the Item
-     */
-    public void setItem(String itemName, int caloriesAmt, int price, String prepMessage, ItemSlot itemSlot) {
-        Item item = new Item(itemName, caloriesAmt, price, prepMessage);
-        itemSlot.setItem(item);
     }
 
     /**
