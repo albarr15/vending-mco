@@ -1,10 +1,15 @@
 package vmfactory;
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+/**
+ * Represents the Controller component in the MVC architecture for the VMFactory program.
+ * It handles both the user input and the interactions between the model and view components.
+ * <p>
+ * Contains various button listeners as well as setting up of slots and components
+ */
 public class VMFactoryController {
     private VMFactoryView vmFactoryView;
     private VMFactoryModel vmFactoryModel;
@@ -15,6 +20,10 @@ public class VMFactoryController {
         this.vmFactoryModel = vmFactoryModel;
 
         this.vmFactoryView.setVmCreationBtnListener(new ActionListener() {
+            /**
+             * {@inheritDoc}
+             * Switches mainFrame to the created vmCreationFrame
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 vmFactoryView.getMainFrame().dispose();
@@ -25,6 +34,10 @@ public class VMFactoryController {
         });
 
         this.vmFactoryView.setregVmCreateBtnListener(new ActionListener() {
+            /**
+             * {@inheritDoc}
+             * Switches vmCreationFrame back to mainFrame after creating a regular vending machine
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 vmFactoryView.getMainFrame().dispose();
@@ -38,6 +51,10 @@ public class VMFactoryController {
         });
 
         this.vmFactoryView.setspcVmCreateBtnListener(new ActionListener() {
+            /**
+             * {@inheritDoc}
+             Switches vmCreationFrame back to mainFrame after creating a special vending machine.
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 vmFactoryView.getMainFrame().dispose();
@@ -51,6 +68,11 @@ public class VMFactoryController {
         });
 
         this.vmFactoryView.setVmTestBtnListener(new ActionListener() {
+            /**
+             * {@inheritDoc}
+             Checks whether there is a current vending machine and
+             switches from vmCreationFrame to vmTestingFrame.
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (!(vmFactoryModel.getCurrentVM() instanceof VendingMachine))
@@ -65,6 +87,10 @@ public class VMFactoryController {
         });
 
         this.vmFactoryView.setVmExitBtnListener(new ActionListener() {
+            /**
+             * {@inheritDoc}
+             Exits program.
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.exit(0);
@@ -72,6 +98,11 @@ public class VMFactoryController {
         });
 
         this.vmFactoryView.setVFeaturesBtnListener(new ActionListener() {
+            /**
+             * {@inheritDoc}
+             Creates a transaction and disposes existing specialFrame.
+             Switches from vmTestingFrame to vFeaturesFrame
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 vmFactoryView.getMainFrame().dispose();
@@ -91,6 +122,11 @@ public class VMFactoryController {
                             vmFactoryModel.getCurrentVM().getCurrentTransaction().getItemOrdered().getPrice());
                 }
                 vmFactoryView.setCheckOutBtnListener(new ActionListener() {
+                    /**
+                     * {@inheritDoc}
+                     Contains handling of features when ordering and checking out.
+                     Switches from vFeaturesFrame to checkoutFrame.
+                     */
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         VendingMachine currentVM = vmFactoryModel.getCurrentVM();
@@ -133,6 +169,11 @@ public class VMFactoryController {
 
                 if (vmFactoryModel.getCurrentVM() instanceof SpecialVM)
                     vmFactoryView.setSpecialBtnListener(new ActionListener() {
+                        /**
+                         * {@inheritDoc}
+                         Creates a transaction and disposes existing specialFrame.
+                         Switches from vFeaturesFrame to specialFrame.
+                         */
                         @Override
                         public void actionPerformed(ActionEvent e) {
                             vmFactoryView.getVFeaturesFrame().dispose();
@@ -151,6 +192,10 @@ public class VMFactoryController {
         });
 
         this.vmFactoryView.setvMaintenanceBtnListener(new ActionListener() {
+            /**
+             * {@inheritDoc}
+             Switches from vmTestingFrame to vMaintenanceFrame
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 VendingMachine currentVM = vmFactoryModel.getCurrentVM();
@@ -163,6 +208,10 @@ public class VMFactoryController {
         });
 
         this.vmFactoryView.setFinishRestockBtnListener(new ActionListener() {
+            /**
+             * {@inheritDoc}
+             Handles restocking and setting up GUI for errors and/or successful restocking.
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 VendingMachine currentVM = vmFactoryModel.getCurrentVM();
@@ -205,6 +254,10 @@ public class VMFactoryController {
         });
 
         this.vmFactoryView.setFinishSetPriceBtnListener(new ActionListener() {
+            /**
+             * {@inheritDoc}
+             Handles setting price and setting up GUI for errors and/or successful setting price.
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 VendingMachine currentVM = vmFactoryModel.getCurrentVM();
@@ -258,6 +311,10 @@ public class VMFactoryController {
         });
 
         this.vmFactoryView.setCollectPaySpecBtnListener(new ActionListener() {
+            /**
+             * {@inheritDoc}
+             Handles collecting specified amount of money and setting up GUI for errors / successful collection.
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 int amount = 0;
@@ -271,7 +328,6 @@ public class VMFactoryController {
                 }
 
                 if (isValid) {
-                    // TODO: create switch cases to display error messages
                     vmFactoryModel.getCurrentVM().getMaintenance().collectMoney(vmFactoryModel.getCurrentVM().getBalance(),
                             amount);
                     vmFactoryView.getCollectPayCurBalLbl().setText("Current Balance : " +
@@ -281,6 +337,10 @@ public class VMFactoryController {
         });
 
         this.vmFactoryView.setCollectPayAllBtnListener(new ActionListener() {
+            /**
+             * {@inheritDoc}
+             Handles collecting all money from balance and setting up GUI for errors / successful collection.
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 vmFactoryView.getCollectPayErrorLbl().setText("Successfully collected " +
@@ -292,6 +352,10 @@ public class VMFactoryController {
         });
 
         this.vmFactoryView.setFinishReplenishMoneyBtnListener(new ActionListener() {
+            /**
+             * {@inheritDoc}
+             Handles replenishing money given a cashList and setting up GUI for errors / successful replenishment.
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 String cashList = vmFactoryView.getReplenishMoneySpecTF().getText();
@@ -311,6 +375,10 @@ public class VMFactoryController {
         });
 
         this.vmFactoryView.setReplenishMoneyDefBtn(new ActionListener() {
+            /**
+             * {@inheritDoc}
+             Handles replenishing money with default stock and setting up GUI for errors / successful replenishment.
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 vmFactoryModel.getCurrentVM().getMaintenance().replenishMoney(vmFactoryModel.getCurrentVM().getBalance());
@@ -321,12 +389,19 @@ public class VMFactoryController {
         });
     }
 
+    /**
+     Handles setup of itemSlots and adding actionListeners in the listSelectListeners.
+     */
     private void setupSlots() {
         this.listSelectListeners.clear();
         for (int i = 0; i < vmFactoryModel.getCurrentVM().getListItemSlots().size(); i++) {
             ItemSlot currentSlot = vmFactoryModel.getCurrentVM().getListItemSlots().get(i);
             if (!(vmFactoryModel.getCurrentVM() instanceof SpecialVM) || currentSlot.getForSale()) {
                 ActionListener al = new ActionListener() {
+                    /**
+                     * {@inheritDoc}
+                     Handles item selection and setting GUI for errors / proper selection.
+                     */
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         if (vmFactoryModel.getCurrentVM().getCurrentTransaction().getItemOrdered() instanceof SpecialItem)
@@ -345,12 +420,19 @@ public class VMFactoryController {
         }
     }
 
+    /**
+     Handles setup of Special Item components (addition).
+     */
     private void setupComponents() {
         this.listSelectListeners.clear();
         for (int i = 0; i < vmFactoryModel.getCurrentVM().getListItemSlots().size(); i++) {
             ItemSlot currentSlot = vmFactoryModel.getCurrentVM().getListItemSlots().get(i);
             if (!(currentSlot.getItem() instanceof SpecialItem)) {
                 ActionListener al = new ActionListener() {
+                    /**
+                     * {@inheritDoc}
+                     Handles GUI for addition of components of Special Item.
+                     */
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         if (currentSlot.getItemStock() > 0) {
@@ -373,10 +455,17 @@ public class VMFactoryController {
         }
     }
 
+    /**
+     Handles setup of Special Item components (deletion).
+     */
     private void setupRemove() {
         this.listSelectListeners.clear();
         for (Item item : ((SpecialItem) vmFactoryModel.getCurrentVM().getCurrentTransaction().getItemOrdered()).getListComponents()) {
             ActionListener al = new ActionListener() {
+                /**
+                 * {@inheritDoc}
+                 Handles GUI for deletion of components of Special Item.
+                 */
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     System.out.println("Removing " + item.getName());
