@@ -7,8 +7,8 @@ import java.util.StringJoiner;
  * Represents a vending machine.
  * <p>
  * Includes the list of item slots, its balance, the current transaction, and its maintenance.
- * Features include adding an item slot, making a transaction, making its maintenance,
- * displaying slot availability, displaying all slots, and displaying its menus.
+ * Features include adding an item slot, making a transaction, displaying all slots,
+ * and displaying its menus.
  */
 public class VendingMachine {
     protected ArrayList<ItemSlot> listItemSlots;
@@ -31,7 +31,7 @@ public class VendingMachine {
     }
 
     /**
-     * Creates a new instance of Transaction and assigns it to this
+     * Creates a new instance of Transaction and assigns it to this vending machine
      */
     public void makeTransaction() {this.currentTransaction = new Transaction();}
 
@@ -52,10 +52,11 @@ public class VendingMachine {
     }
 
     /**
-     * Finds the itemSlot's index (from the current vending machine's list of Item Slots) in which itemName is stored in
+     * Finds the itemSlot's index (from the current vending machine's list of Item Slots)
+     * in which itemName is stored in
      * @param itemName is the name of the item to be searched
      * @return i if itemName is found in a slot
-     *         null if itemName is not found in any existing slots
+     *         -1 if itemName is not found in any existing slots
      */
     public int findItemSlotIndex(String itemName) {
         for (int i = 0; i < listItemSlots.size(); i++) {
